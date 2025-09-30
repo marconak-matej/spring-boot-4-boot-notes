@@ -65,6 +65,7 @@ class AnnotationBasedRetryServiceTest {
         when(client.getResponse(anyString())).thenThrow(new GatewayTimeoutException());
 
         assertThrows(GatewayTimeoutException.class, () -> service.processRequest("testKey"));
+        // Verify total attempts = 5 (1 initial + 4 retries)
         verify(client, times(5)).getResponse("testKey");
     }
 

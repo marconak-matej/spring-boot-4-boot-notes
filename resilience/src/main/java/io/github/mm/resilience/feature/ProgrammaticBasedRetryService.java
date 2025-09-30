@@ -25,7 +25,11 @@ public class ProgrammaticBasedRetryService {
         this.template = new RetryTemplate(retryPolicy);
     }
 
-    public RestfulApiResponse processRequest(String key) throws RetryException {
-        return template.execute(() -> this.client.getResponse(key));
+    public RestfulApiResponse processRequest(String key) {
+        try {
+            return template.execute(() -> this.client.getResponse(key));
+        } catch (RetryException e) {
+            throw new GatewayTimeoutException(e.getCause());
+        }
     }
 }

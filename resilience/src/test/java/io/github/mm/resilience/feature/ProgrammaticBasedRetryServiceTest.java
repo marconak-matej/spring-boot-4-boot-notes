@@ -14,7 +14,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.retry.RetryException;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 @SpringBootTest
@@ -33,7 +32,7 @@ class ProgrammaticBasedRetryServiceTest {
 
     @Test
     @DisplayName("Successfully processes request on first attempt")
-    void successfullyProcessesRequestOnFirstAttempt() throws RetryException {
+    void successfullyProcessesRequestOnFirstAttempt() {
         var expectedResponse = new RestfulApiResponse("response body");
         when(client.getResponse(anyString())).thenReturn(expectedResponse);
 
@@ -45,7 +44,7 @@ class ProgrammaticBasedRetryServiceTest {
 
     @Test
     @DisplayName("Retries on timeout and succeeds within max attempts")
-    void retriesOnTimeoutAndSucceedsWithinMaxAttempts() throws RetryException {
+    void retriesOnTimeoutAndSucceedsWithinMaxAttempts() {
         var expectedResponse = new RestfulApiResponse("response after retry");
         when(client.getResponse(anyString()))
                 .thenThrow(new GatewayTimeoutException())
@@ -63,13 +62,14 @@ class ProgrammaticBasedRetryServiceTest {
     void throwsExceptionAfterExceedingMaxRetryAttempts() {
         when(client.getResponse(anyString())).thenThrow(new GatewayTimeoutException());
 
-        assertThrows(RetryException.class, () -> service.processRequest("testKey"));
+        assertThrows(GatewayTimeoutException.class, () -> service.processRequest("testKey"));
+        // Verify total attempts = 5 (1 initial + 4 retries)
         verify(client, times(5)).getResponse("testKey");
     }
 
     @Test
     @DisplayName("Handles null key parameter")
-    void handlesNullKeyParameter() throws RetryException {
+    void handlesNullKeyParameter() {
         var expectedResponse = new RestfulApiResponse("response for null key");
         when(client.getResponse(null)).thenReturn(expectedResponse);
 
@@ -81,7 +81,7 @@ class ProgrammaticBasedRetryServiceTest {
 
     @Test
     @DisplayName("Verifies exponential backoff behavior")
-    void verifiesExponentialBackoffBehavior() throws RetryException {
+    void verifiesExponentialBackoffBehavior() {
         var expectedResponse = new RestfulApiResponse("final response");
         var startTime = System.currentTimeMillis();
         var executionTimes = new AtomicInteger(0);
