@@ -8,24 +8,23 @@ import static org.mockito.Mockito.*;
 import io.github.mm.resilience.client.GatewayTimeoutException;
 import io.github.mm.resilience.client.RestfulApiClient;
 import io.github.mm.resilience.client.domain.RestfulApiResponse;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.retry.RetryException;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 @SpringBootTest
-class AnnotationBasedRetryServiceTest {
+class ProgrammaticBasedRetryServiceTest {
 
     @MockitoBean
     private RestfulApiClient client;
 
     @Autowired
-    private AnnotationBasedRetryService service;
+    private ProgrammaticBasedRetryService service;
 
     @BeforeEach
     void setUp() {
@@ -34,7 +33,7 @@ class AnnotationBasedRetryServiceTest {
 
     @Test
     @DisplayName("Successfully processes request on first attempt")
-    void successfullyProcessesRequestOnFirstAttempt() {
+    void successfullyProcessesRequestOnFirstAttempt() throws RetryException {
         var expectedResponse = new RestfulApiResponse("response body");
         when(client.getResponse(anyString())).thenReturn(expectedResponse);
 
@@ -46,7 +45,7 @@ class AnnotationBasedRetryServiceTest {
 
     @Test
     @DisplayName("Retries on timeout and succeeds within max attempts")
-    void retriesOnTimeoutAndSucceedsWithinMaxAttempts() {
+    void retriesOnTimeoutAndSucceedsWithinMaxAttempts() throws RetryException {
         var expectedResponse = new RestfulApiResponse("response after retry");
         when(client.getResponse(anyString()))
                 .thenThrow(new GatewayTimeoutException())
@@ -64,13 +63,13 @@ class AnnotationBasedRetryServiceTest {
     void throwsExceptionAfterExceedingMaxRetryAttempts() {
         when(client.getResponse(anyString())).thenThrow(new GatewayTimeoutException());
 
-        assertThrows(GatewayTimeoutException.class, () -> service.processRequest("testKey"));
+        assertThrows(RetryException.class, () -> service.processRequest("testKey"));
         verify(client, times(5)).getResponse("testKey");
     }
 
     @Test
     @DisplayName("Handles null key parameter")
-    void handlesNullKeyParameter() {
+    void handlesNullKeyParameter() throws RetryException {
         var expectedResponse = new RestfulApiResponse("response for null key");
         when(client.getResponse(null)).thenReturn(expectedResponse);
 
@@ -81,36 +80,25 @@ class AnnotationBasedRetryServiceTest {
     }
 
     @Test
-    @DisplayName("Respects concurrency limit")
-    void respectsConcurrencyLimit() throws InterruptedException {
-        var numberOfThreads = 20; // More than the concurrency limit of 15
-        var latch = new CountDownLatch(numberOfThreads);
-        var concurrentExecutions = new AtomicInteger(0);
-        var maxConcurrentExecutions = new AtomicInteger(0);
+    @DisplayName("Verifies exponential backoff behavior")
+    void verifiesExponentialBackoffBehavior() throws RetryException {
+        var expectedResponse = new RestfulApiResponse("final response");
+        var startTime = System.currentTimeMillis();
+        var executionTimes = new AtomicInteger(0);
 
         when(client.getResponse(anyString())).thenAnswer(invocation -> {
-            int current = concurrentExecutions.incrementAndGet();
-            maxConcurrentExecutions.set(Math.max(maxConcurrentExecutions.get(), current));
-            Thread.sleep(100); // Simulate some work
-            concurrentExecutions.decrementAndGet();
-            return new RestfulApiResponse("concurrent response");
+            executionTimes.incrementAndGet();
+            if (executionTimes.get() < 3) {
+                throw new GatewayTimeoutException();
+            }
+            return expectedResponse;
         });
 
-        try (var executor = Executors.newFixedThreadPool(numberOfThreads)) {
-            for (int i = 0; i < numberOfThreads; i++) {
-                executor.submit(() -> {
-                    try {
-                        service.processRequest("test");
-                    } finally {
-                        latch.countDown();
-                    }
-                });
-            }
+        var actualResponse = service.processRequest("testKey");
+        var totalTime = System.currentTimeMillis() - startTime;
 
-            latch.await();
-            executor.shutdown();
-        }
-
-        assertThat(maxConcurrentExecutions.get()).isLessThanOrEqualTo(15);
+        assertThat(actualResponse).isEqualTo(expectedResponse);
+        verify(client, times(3)).getResponse("testKey");
+        assertThat(totalTime).isGreaterThanOrEqualTo(400);
     }
 }
