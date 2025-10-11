@@ -17,6 +17,7 @@ This project serves as a practical guide to Spring Boot 4.0, containing multiple
 ```
 boot-notes/
 ├── resilience/           # Resilience patterns and retry mechanisms
+├── versioning/          # API versioning with Spring Framework 7
 └── [future-modules]     # Placeholder for upcoming modules
 ```
 
@@ -58,7 +59,45 @@ The resilience module demonstrates Spring Boot 4.0's enhanced resilience pattern
 ./mvnw spring-boot:run -pl resilience
 ```
 
-### 2. [Future Modules]
+### 2. Versioning Module
+
+The versioning module showcases Spring Framework 7's first-class API versioning support through a real-world e-commerce Product catalog API.
+
+#### Features
+- **Header-Based Versioning**
+  ```java
+  @GetMapping(path = "/{id}", version = "1.0")
+  @GetMapping(path = "/{id}", version = "2.0")
+  ```
+  - Native version attribute in request mappings
+  - Header-based version resolution (X-API-Version)
+  - Semantic version parsing and comparison
+
+- **Breaking Changes Handling**
+  - V1: Classic format (`price_usd` as decimal, `is_available` as boolean)
+  - V2: Enhanced format (`price` in cents, separate `currency`, `status` enum)
+  - Type-safe models prevent field leakage between versions
+
+- **E-Commerce Product API**
+  - Demonstrates real-world API evolution scenario
+  - Financial data type migration (Double → Integer cents)
+  - Field renaming and restructuring (breaking changes)
+
+#### Running the Versioning Module
+```bash
+./mvnw spring-boot:run -pl versioning
+```
+
+#### Testing the API
+```bash
+# Product V1.0 - Classic format with decimal price
+curl -H "API-Version: 1.0" http://localhost:8080/api/products/456
+
+# Product V2.0 - Enhanced format with price in cents
+curl -H "API-Version: 2.0" http://localhost:8080/api/products/456
+```
+
+### 3. [Future Modules]
 
 _More modules will be added to demonstrate other Spring Boot 4.0 features._
 

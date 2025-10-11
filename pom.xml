@@ -18,6 +18,7 @@
 
     <modules>
         <module>resilience</module>
+        <module>versioning</module>
     </modules>
 
     <properties>
