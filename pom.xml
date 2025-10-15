@@ -19,6 +19,7 @@
     <modules>
         <module>resilience</module>
         <module>versioning</module>
+        <module>http-exchange</module>
     </modules>
 
     <properties>

@@ -18,6 +18,7 @@ This project serves as a practical guide to Spring Boot 4.0, containing multiple
 boot-notes/
 ├── resilience/           # Resilience patterns and retry mechanisms
 ├── versioning/          # API versioning with Spring Framework 7
+├── http-exchange/         # Declarative HTTP client with Spring Boot 4
 └── [future-modules]     # Placeholder for upcoming modules
 ```
 
@@ -97,7 +98,38 @@ curl -H "API-Version: 1.0" http://localhost:8080/api/products/456
 curl -H "API-Version: 2.0" http://localhost:8080/api/products/456
 ```
 
-### 3. [Future Modules]
+### 3. HTTP Exchange Module
+
+The http-exchange module demonstrates Spring Boot 4.0's declarative HTTP client capabilities using `@HttpExchange` and `@ImportHttpServices`.
+
+#### Features
+- Declarative HTTP client interfaces
+- Type-safe request/response handling with Java records
+- Easy configuration via `@ImportHttpServices`
+- Built on Spring's modern RestClient
+- Comprehensive integration tests
+
+#### Running the HTTP Exchange Module
+```bash
+./mvnw spring-boot:run -pl http-exchange
+```
+
+#### Testing the Demo Endpoints
+```bash
+# Get all products
+curl http://localhost:8080/api/demo/products
+
+# Get a specific product by ID
+curl http://localhost:8080/api/demo/products/1
+```
+
+#### Configuration
+Add to `http-exchange/src/main/resources/application.properties`:
+```properties
+spring.http.services.product.base-url=https://api.restful-api.dev
+```
+
+### 4. [Future Modules]
 
 _More modules will be added to demonstrate other Spring Boot 4.0 features._
 
