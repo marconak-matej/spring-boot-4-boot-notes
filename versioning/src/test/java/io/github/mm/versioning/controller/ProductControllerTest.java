@@ -92,7 +92,7 @@ class ProductControllerTest {
 
         @Override
         public void customize(WebTestClient.Builder builder) {
-            builder.apiVersionInserter(ApiVersionInserter.useHeader("X-API-Version"));
+            builder.apiVersionInserter(ApiVersionInserter.useHeader("API-Version"));
         }
     }
 }
