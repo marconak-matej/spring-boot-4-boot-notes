@@ -96,7 +96,8 @@ class RestTestClientIntegrationTest extends AbstractIntegrationTest {
                 .isCreated();
 
         // When
-        @SuppressWarnings("NullableProblems") var response = client.get()
+        @SuppressWarnings("NullableProblems")
+        var response = client.get()
                 .uri("/api/demos")
                 .exchange()
                 .expectStatus()

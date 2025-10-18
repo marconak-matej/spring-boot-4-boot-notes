@@ -73,7 +73,8 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
         }
 
         // When
-        @SuppressWarnings("NullableProblems") var response = testRestTemplate.exchange(
+        @SuppressWarnings("NullableProblems")
+        var response = testRestTemplate.exchange(
                 baseUrl(), HttpMethod.GET, null, new ParameterizedTypeReference<List<Demo>>() {});
 
         // Then
