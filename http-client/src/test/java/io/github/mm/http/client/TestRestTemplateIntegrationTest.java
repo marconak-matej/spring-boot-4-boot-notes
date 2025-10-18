@@ -1,6 +1,7 @@
 package io.github.mm.http.client;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import io.github.mm.http.client.demo.Demo;
 import java.util.List;
@@ -45,13 +46,14 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
         var createResponse = testRestTemplate.postForEntity(baseUrl(), demo, Demo.class);
         var created = createResponse.getBody();
         fixture().trackCreated(created);
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When - Update the demo
         var updatedDemo = fixture().withCustomName(created, "Updated Name");
         var requestEntity = new HttpEntity<>(updatedDemo);
-        var response =
-                testRestTemplate.exchange(baseUrl() + "/" + demoId, HttpMethod.PUT, requestEntity, Demo.class);
+        var response = testRestTemplate.exchange(baseUrl() + "/" + demoId, HttpMethod.PUT, requestEntity, Demo.class);
 
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -85,6 +87,8 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
         var createResponse = testRestTemplate.postForEntity(baseUrl(), demo, Demo.class);
         var created = createResponse.getBody();
         fixture().trackCreated(created);
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When
@@ -103,6 +107,8 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
         var demo = fixture().demoForDeletion();
         var createResponse = testRestTemplate.postForEntity(baseUrl(), demo, Demo.class);
         var created = createResponse.getBody();
+
+        assertNotNull(created);
         var demoId = created.id();
         // Note: Not tracking this one since we're deleting it in the test
 

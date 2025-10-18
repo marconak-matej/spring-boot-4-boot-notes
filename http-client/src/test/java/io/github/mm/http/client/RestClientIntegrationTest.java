@@ -1,6 +1,7 @@
 package io.github.mm.http.client;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import io.github.mm.http.client.demo.Demo;
 import java.util.List;
@@ -30,7 +31,7 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
                 .uri(baseUrl())
                 .body(demo)
                 .retrieve()
-                .onStatus(HttpStatusCode::isError, (request, response) -> {
+                .onStatus(HttpStatusCode::isError, (_, _) -> {
                     throw new RuntimeException("Failed to create demo");
                 })
                 .body(Demo.class);
@@ -46,6 +47,8 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
         // Given - Create a demo first
         var demo = fixture().demoWithName("Original");
         var created = restClient.post().uri(baseUrl()).body(demo).retrieve().body(Demo.class);
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When - Update the demo
@@ -91,6 +94,8 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
         // Given - Create a demo
         var demo = fixture().demoWithName("Specific RestClient Demo");
         var created = restClient.post().uri(baseUrl()).body(demo).retrieve().body(Demo.class);
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When
@@ -108,6 +113,8 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
         // Given - Create a demo
         var demo = fixture().demoForDeletion();
         var created = restClient.post().uri(baseUrl()).body(demo).retrieve().body(Demo.class);
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When
@@ -118,7 +125,7 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
                 .get()
                 .uri(baseUrl() + "/" + demoId)
                 .retrieve()
-                .onStatus(status -> status.value() == 404, (request, response) -> {
+                .onStatus(status -> status.value() == 404, (_, _) -> {
                     // Expected 404
                 })
                 .toBodilessEntity();
@@ -131,9 +138,9 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
                 .get()
                 .uri(baseUrl() + "/999999")
                 .retrieve()
-                .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
-                    assertThat(response.getStatusCode().value()).isEqualTo(404);
-                })
+                .onStatus(HttpStatusCode::is4xxClientError, (_, response) -> assertThat(
+                                response.getStatusCode().value())
+                        .isEqualTo(404))
                 .toBodilessEntity();
     }
 

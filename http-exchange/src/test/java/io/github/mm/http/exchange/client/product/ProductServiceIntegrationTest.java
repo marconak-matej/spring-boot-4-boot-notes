@@ -36,8 +36,7 @@ class ProductServiceIntegrationTest {
     @Test
     void getAllProducts_shouldReturnListOfProducts() {
         // Given
-        var jsonResponse =
-                """
+        var jsonResponse = """
                 [
                   {
                     "id": "1",
@@ -81,8 +80,7 @@ class ProductServiceIntegrationTest {
     void getProductById_shouldReturnSingleProduct() {
         // Given
         var productId = "3";
-        var jsonResponse =
-                """
+        var jsonResponse = """
                 {
                   "id": "3",
                   "name": "Samsung Galaxy Z Fold",

@@ -1,6 +1,7 @@
 package io.github.mm.http.client;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import io.github.mm.http.client.demo.Demo;
 import java.util.List;
@@ -51,6 +52,8 @@ class WebClientIntegrationTest extends AbstractIntegrationTest {
                 .retrieve()
                 .bodyToMono(Demo.class)
                 .block();
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When - Update the demo
@@ -110,6 +113,8 @@ class WebClientIntegrationTest extends AbstractIntegrationTest {
                 .retrieve()
                 .bodyToMono(Demo.class)
                 .block();
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When
@@ -137,6 +142,8 @@ class WebClientIntegrationTest extends AbstractIntegrationTest {
                 .retrieve()
                 .bodyToMono(Demo.class)
                 .block();
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When
@@ -152,7 +159,7 @@ class WebClientIntegrationTest extends AbstractIntegrationTest {
                 .get()
                 .uri(baseUrl() + "/{id}", demoId)
                 .retrieve()
-                .onStatus(status -> status.value() == 404, response -> Mono.empty())
+                .onStatus(status -> status.value() == 404, _ -> Mono.empty())
                 .toBodilessEntity()
                 .block();
     }
@@ -185,8 +192,7 @@ class WebClientIntegrationTest extends AbstractIntegrationTest {
                 webClient.post().uri(baseUrl()).bodyValue(demo2).retrieve().bodyToMono(Demo.class);
 
         // Combine both operations
-        var createdDemos =
-                Mono.zip(created1, created2, (d1, d2) -> List.of(d1, d2)).block();
+        var createdDemos = Mono.zip(created1, created2, List::of).block();
 
         // Then
         assertThat(createdDemos).hasSize(2);

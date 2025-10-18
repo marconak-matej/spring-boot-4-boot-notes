@@ -1,6 +1,7 @@
 package io.github.mm.http.client;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import io.github.mm.http.client.demo.Demo;
 import io.github.mm.http.client.demo.DemoApi;
@@ -59,6 +60,8 @@ class RestTestClientIntegrationTest extends AbstractIntegrationTest {
                 .isCreated()
                 .returnResult(Demo.class);
         var created = createResponse.getResponseBody();
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When - Update the demo
@@ -119,6 +122,8 @@ class RestTestClientIntegrationTest extends AbstractIntegrationTest {
                 .isCreated()
                 .returnResult(Demo.class);
         var created = createResponse.getResponseBody();
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When
@@ -149,6 +154,8 @@ class RestTestClientIntegrationTest extends AbstractIntegrationTest {
                 .isCreated()
                 .returnResult(Demo.class);
         var created = createResponse.getResponseBody();
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When

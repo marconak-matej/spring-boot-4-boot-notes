@@ -31,6 +31,7 @@
 
         <!-- plugins -->
         <spotless-maven-plugin.version>3.0.0</spotless-maven-plugin.version>
+        <palantir.version>2.80.0</palantir.version>
     </properties>
 
     <build>
@@ -41,7 +42,9 @@
                 <version>${spotless-maven-plugin.version}</version>
                 <configuration>
                     <java>
-                        <palantirJavaFormat/>
+                        <palantirJavaFormat>
+                            <version>${palantir.version}</version>
+                        </palantirJavaFormat>
                         <removeUnusedImports/>
                     </java>
                 </configuration>

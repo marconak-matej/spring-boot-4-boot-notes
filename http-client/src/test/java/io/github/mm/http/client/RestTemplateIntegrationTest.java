@@ -1,6 +1,7 @@
 package io.github.mm.http.client;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import io.github.mm.http.client.demo.Demo;
 import java.util.List;
@@ -59,6 +60,8 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
         // Given - Create a demo first
         var demo = fixture().demoWithName("Original RestTemplate");
         var createResponse = restTemplate.postForEntity(baseUrl(), demo, Demo.class);
+
+        assertNotNull(createResponse.getBody());
         var demoId = createResponse.getBody().id();
 
         // When - Update the demo
@@ -77,6 +80,8 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
         // Given - Create a demo first
         var demo = fixture().demoWithName("Original");
         var created = restTemplate.postForObject(baseUrl(), demo, Demo.class);
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When - Update using put method
@@ -85,6 +90,7 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
 
         // Then - Verify the update
         var retrieved = restTemplate.getForObject(baseUrl() + "/" + demoId, Demo.class);
+        assertNotNull(retrieved);
         assertThat(retrieved.name()).isEqualTo("Updated using put");
     }
 
@@ -100,7 +106,7 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
-        assertThat(((List) response.getBody()).size()).isGreaterThanOrEqualTo(2);
+        assertThat(((List<?>) response.getBody()).size()).isGreaterThanOrEqualTo(2);
     }
 
     @Test
@@ -108,6 +114,8 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
         // Given - Create a demo
         var demo = fixture().demoWithName("Specific RestTemplate Demo");
         var created = restTemplate.postForObject(baseUrl(), demo, Demo.class);
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When
@@ -125,6 +133,8 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
         // Given - Create a demo
         var demo = fixture().demoWithName("GetForObject Demo");
         var created = restTemplate.postForObject(baseUrl(), demo, Demo.class);
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When
@@ -141,6 +151,8 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
         // Given - Create a demo
         var demo = fixture().demoForDeletion();
         var created = restTemplate.postForObject(baseUrl(), demo, Demo.class);
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When
@@ -159,6 +171,8 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
         // Given - Create a demo
         var demo = fixture().demoWithName("Delete with Exchange");
         var created = restTemplate.postForObject(baseUrl(), demo, Demo.class);
+
+        assertNotNull(created);
         var demoId = created.id();
 
         // When

@@ -46,6 +46,7 @@ The resilience module demonstrates Spring Boot 4.0's enhanced resilience pattern
   ```java
   @Retryable(includes = GatewayTimeoutException.class, maxAttempts = 4, multiplier = 2)
   @ConcurrencyLimit(15)
+  class Config{}
   ```
   - Automatic retry on specific exceptions
   - Configurable retry attempts and backoff
@@ -70,6 +71,7 @@ The versioning module showcases Spring Framework 7's first-class API versioning 
   ```java
   @GetMapping(path = "/{id}", version = "1.0")
   @GetMapping(path = "/{id}", version = "2.0")
+  public String a(){}
   ```
   - Native version attribute in request mappings
   - Header-based version resolution (X-API-Version)

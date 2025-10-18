@@ -53,25 +53,11 @@ public class DemoFixture {
         }
     }
 
-    public List<Long> getCreatedDemoIds() {
-        return new ArrayList<>(createdDemoIds);
-    }
-
-    public void cleanup() {
-        createdDemoIds.clear();
-    }
-
     // Helper methods
 
     // Builder class for more complex scenarios
     public static class DemoBuilder {
-        private Long id;
         private String name = "Default Demo";
-
-        public DemoBuilder id(Long id) {
-            this.id = id;
-            return this;
-        }
 
         public DemoBuilder name(String name) {
             this.name = name;
@@ -79,7 +65,7 @@ public class DemoFixture {
         }
 
         public Demo build() {
-            return new Demo(id, name);
+            return new Demo(null, name);
         }
     }
 
