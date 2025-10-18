@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import io.github.mm.http.client.demo.Demo;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -19,6 +20,7 @@ import org.springframework.http.HttpStatus;
 @AutoConfigureMockMvc
 class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private TestRestTemplate testRestTemplate;
 
@@ -71,7 +73,7 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
         }
 
         // When
-        var response = testRestTemplate.exchange(
+        @SuppressWarnings("NullableProblems") var response = testRestTemplate.exchange(
                 baseUrl(), HttpMethod.GET, null, new ParameterizedTypeReference<List<Demo>>() {});
 
         // Then
@@ -143,5 +145,128 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
         assertThat(response.getBody().name()).isEqualTo("Builder Demo");
 
         fixture().trackCreated(response.getBody());
+    }
+
+    // Validation Tests
+
+    @Test
+    void shouldRejectBlankName() {
+        // Given - Demo with blank name
+        var demo = new Demo(null, "");
+
+        // When
+        var response = testRestTemplate.postForEntity(baseUrl(), demo, Map.class);
+
+        // Then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        //noinspection unchecked
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().toString()).contains("Name must not be blank");
+    }
+
+    @Test
+    void shouldRejectNullName() {
+        // Given - Demo with null name
+        var demo = new Demo(null, null);
+
+        // When
+        var response = testRestTemplate.postForEntity(baseUrl(), demo, Map.class);
+
+        // Then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        //noinspection unchecked
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().toString()).contains("Name must not be blank");
+    }
+
+    @Test
+    void shouldRejectWhitespaceOnlyName() {
+        // Given - Demo with whitespace-only name
+        var demo = new Demo(null, "   ");
+
+        // When
+        var response = testRestTemplate.postForEntity(baseUrl(), demo, Map.class);
+
+        // Then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        //noinspection unchecked
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().toString()).contains("Name must not be blank");
+    }
+
+    @Test
+    void shouldRejectNameExceeding50Characters() {
+        // Given - Demo with name longer than 50 characters
+        var longName = "a".repeat(51);
+        var demo = new Demo(null, longName);
+
+        // When
+        var response = testRestTemplate.postForEntity(baseUrl(), demo, Map.class);
+
+        // Then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        //noinspection unchecked
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().toString()).contains("Name must not exceed 50 characters");
+    }
+
+    @Test
+    void shouldAcceptNameWith50Characters() {
+        // Given - Demo with exactly 50 characters
+        var maxLengthName = "a".repeat(50);
+        var demo = new Demo(null, maxLengthName);
+
+        // When
+        var response = testRestTemplate.postForEntity(baseUrl(), demo, Demo.class);
+
+        // Then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().name()).isEqualTo(maxLengthName);
+
+        fixture().trackCreated(response.getBody());
+    }
+
+    @Test
+    void shouldRejectBlankNameOnUpdate() {
+        // Given - Create a valid demo first
+        var validDemo = new Demo(null, "Original Name");
+        var createResponse = testRestTemplate.postForEntity(baseUrl(), validDemo, Demo.class);
+        assertThat(createResponse.getBody()).isNotNull();
+        var demoId = createResponse.getBody().id();
+        fixture().trackCreated(createResponse.getBody());
+
+        // When - Try to update with blank name
+        var invalidUpdate = new Demo(demoId, "");
+        var requestEntity = new HttpEntity<>(invalidUpdate);
+        var response = testRestTemplate.exchange(baseUrl() + "/" + demoId, HttpMethod.PUT, requestEntity, Map.class);
+
+        // Then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        //noinspection unchecked
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().toString()).contains("Name must not be blank");
+    }
+
+    @Test
+    void shouldRejectNameExceeding50CharactersOnUpdate() {
+        // Given - Create a valid demo first
+        var validDemo = new Demo(null, "Original Name");
+        var createResponse = testRestTemplate.postForEntity(baseUrl(), validDemo, Demo.class);
+        assertThat(createResponse.getBody()).isNotNull();
+        var demoId = createResponse.getBody().id();
+        fixture().trackCreated(createResponse.getBody());
+
+        // When - Try to update with name > 50 characters
+        var longName = "a".repeat(51);
+        var invalidUpdate = new Demo(demoId, longName);
+        var requestEntity = new HttpEntity<>(invalidUpdate);
+        var response = testRestTemplate.exchange(baseUrl() + "/" + demoId, HttpMethod.PUT, requestEntity, Map.class);
+
+        // Then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        //noinspection unchecked
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().toString()).contains("Name must not exceed 50 characters");
     }
 }

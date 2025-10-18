@@ -1,5 +1,6 @@
 package io.github.mm.http.client.demo;
 
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +17,12 @@ public class DemoApi {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Demo createDemo(@RequestBody Demo demo) {
+    public Demo createDemo(@Valid @RequestBody Demo demo) {
         return service.createDemo(demo);
     }
 
     @PutMapping("/{id}")
-    public Demo updateDemo(@PathVariable String id, @RequestBody Demo demo) {
+    public Demo updateDemo(@PathVariable String id, @Valid @RequestBody Demo demo) {
         return service.updateDemo(id, demo);
     }
 

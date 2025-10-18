@@ -7,7 +7,6 @@ import io.github.mm.http.client.demo.Demo;
 import io.github.mm.http.client.demo.DemoApi;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -97,7 +96,7 @@ class RestTestClientIntegrationTest extends AbstractIntegrationTest {
                 .isCreated();
 
         // When
-        var response = client.get()
+        @SuppressWarnings("NullableProblems") var response = client.get()
                 .uri("/api/demos")
                 .exchange()
                 .expectStatus()
