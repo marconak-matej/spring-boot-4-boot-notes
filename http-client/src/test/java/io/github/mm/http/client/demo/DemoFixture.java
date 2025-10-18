@@ -53,6 +53,14 @@ public class DemoFixture {
         }
     }
 
+    public List<String> getCreatedDemoIds() {
+        return new ArrayList<>(createdDemoIds);
+    }
+
+    public void clearTrackedIds() {
+        createdDemoIds.clear();
+    }
+
     // Helper methods
 
     // Builder class for more complex scenarios

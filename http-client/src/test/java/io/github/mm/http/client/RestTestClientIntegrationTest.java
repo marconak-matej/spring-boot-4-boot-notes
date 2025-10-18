@@ -140,35 +140,4 @@ class RestTestClientIntegrationTest extends AbstractIntegrationTest {
         assertThat(retrieved.id()).isEqualTo(demoId);
         assertThat(retrieved.name()).isEqualTo("Specific RestTestClient Demo");
     }
-
-    @Test
-    @Disabled
-    void shouldDeleteDemo() {
-        // Given - Create a demo
-        var demo = fixture().demoForDeletion();
-        var createResponse = client.post()
-                .uri("/api/demos")
-                .body(demo)
-                .exchange()
-                .expectStatus()
-                .isCreated()
-                .returnResult(Demo.class);
-        var created = createResponse.getResponseBody();
-
-        assertNotNull(created);
-        var demoId = created.id();
-
-        // When
-        client.delete().uri("/api/demos/{id}", demoId).exchange().expectStatus().isNoContent();
-
-        // Then - Verify it's deleted (should return 404)
-        client.get().uri("/api/demos/{id}", demoId).exchange().expectStatus().isNotFound();
-    }
-
-    @Test
-    @Disabled
-    void shouldHandleNotFound() {
-        // When/Then
-        client.get().uri("/api/demos/999999").exchange().expectStatus().isNotFound();
-    }
 }
