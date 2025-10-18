@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import io.github.mm.http.client.demo.Demo;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.restclient.RestTemplateBuilder;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +18,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DisplayName("RestTemplate Integration Tests")
 class RestTemplateIntegrationTest extends AbstractIntegrationTest {
 
     private RestTemplate restTemplate;
@@ -27,6 +29,7 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should create a new demo using postForEntity")
     void shouldCreateDemo() {
         // Given
         var demo = fixture().demoWithName("RestTemplate Demo");
@@ -42,6 +45,7 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should create a new demo using postForObject")
     void shouldCreateDemoUsingPostForObject() {
         // Given
         var demo = fixture().demoWithName("PostForObject Demo");
@@ -56,6 +60,7 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should update an existing demo using exchange")
     void shouldUpdateDemo() {
         // Given - Create a demo first
         var demo = fixture().demoWithName("Original RestTemplate");
@@ -76,6 +81,7 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should update an existing demo using put method")
     void shouldUpdateDemoUsingPut() {
         // Given - Create a demo first
         var demo = fixture().demoWithName("Original");
@@ -95,6 +101,7 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should retrieve all demos using exchange")
     void shouldGetAllDemos() {
         // Given - Create some demos
         restTemplate.postForObject(baseUrl(), fixture().demoWithName("Demo 1"), Demo.class);
@@ -110,6 +117,7 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should retrieve a specific demo by ID using getForEntity")
     void shouldGetDemoById() {
         // Given - Create a demo
         var demo = fixture().demoWithName("Specific RestTemplate Demo");
@@ -129,6 +137,7 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should retrieve a specific demo by ID using getForObject")
     void shouldGetDemoByIdUsingGetForObject() {
         // Given - Create a demo
         var demo = fixture().demoWithName("GetForObject Demo");
@@ -147,6 +156,7 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should delete a demo using delete method")
     void shouldDeleteDemo() {
         // Given - Create a demo
         var demo = fixture().demoForDeletion();
@@ -167,6 +177,7 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should delete a demo using exchange")
     void shouldDeleteDemoUsingExchange() {
         // Given - Create a demo
         var demo = fixture().demoWithName("Delete with Exchange");
@@ -183,6 +194,7 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should handle 404 Not Found errors with getForObject")
     void shouldHandleNotFound() {
         // When/Then
         try {
@@ -193,6 +205,7 @@ class RestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should handle 404 Not Found errors with exchange")
     void shouldHandleNotFoundWithExchange() {
         // When
         try {

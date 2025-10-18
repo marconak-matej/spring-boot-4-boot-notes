@@ -7,6 +7,7 @@ import io.github.mm.http.client.demo.Demo;
 import io.github.mm.http.client.demo.DemoApi;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +15,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DisplayName("RestTestClient Integration Tests")
 class RestTestClientIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired
@@ -27,6 +29,7 @@ class RestTestClientIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should create a new demo using RestTestClient")
     void shouldCreateDemo() {
         // Given
         var demo = fixture().demoWithName("RestTestClient Demo");
@@ -48,6 +51,7 @@ class RestTestClientIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should update an existing demo using RestTestClient")
     void shouldUpdateDemo() {
         // Given - Create a demo first
         var demo = fixture().demoWithName("Original");
@@ -80,6 +84,7 @@ class RestTestClientIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should retrieve all demos using RestTestClient")
     void shouldGetAllDemos() {
         // Given - Create some demos
         client.post()
@@ -111,6 +116,7 @@ class RestTestClientIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should retrieve a specific demo by ID using RestTestClient")
     void shouldGetDemoById() {
         // Given - Create a demo
         var demo = fixture().demoWithName("Specific RestTestClient Demo");

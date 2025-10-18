@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import io.github.mm.http.client.demo.Demo;
 import java.util.List;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,12 +16,14 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.web.client.RestClient;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DisplayName("RestClient Integration Tests")
 class RestClientIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired
     private RestClient restClient;
 
     @Test
+    @DisplayName("Should create a new demo using RestClient")
     void shouldCreateDemo() {
         // Given
         var demo = fixture().demoWithName("RestClient Demo");
@@ -43,6 +46,7 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should update an existing demo using RestClient")
     void shouldUpdateDemo() {
         // Given - Create a demo first
         var demo = fixture().demoWithName("Original");
@@ -66,6 +70,7 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should retrieve all demos using RestClient")
     void shouldGetAllDemos() {
         // Given - Create some demos
         restClient
@@ -90,6 +95,7 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should retrieve a specific demo by ID using RestClient")
     void shouldGetDemoById() {
         // Given - Create a demo
         var demo = fixture().demoWithName("Specific RestClient Demo");
@@ -109,6 +115,7 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should delete a demo using RestClient")
     void shouldDeleteDemo() {
         // Given - Create a demo
         var demo = fixture().demoForDeletion();
@@ -132,6 +139,7 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should handle 404 Not Found errors gracefully")
     void shouldHandleNotFound() {
         // When/Then
         restClient

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import io.github.mm.http.client.demo.Demo;
 import java.util.List;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,12 +17,14 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DisplayName("WebClient Integration Tests")
 class WebClientIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired
     private WebClient webClient;
 
     @Test
+    @DisplayName("Should create a new demo using WebClient")
     void shouldCreateDemo() {
         // Given
         var demo = fixture().demoWithName("WebClient Demo");
@@ -42,6 +45,7 @@ class WebClientIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should update an existing demo using WebClient")
     void shouldUpdateDemo() {
         // Given - Create a demo first
         var demo = fixture().demoWithName("Original WebClient");
@@ -72,6 +76,7 @@ class WebClientIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should retrieve all demos using WebClient")
     void shouldGetAllDemos() {
         // Given - Create some demos
         webClient
@@ -103,6 +108,7 @@ class WebClientIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should retrieve a specific demo by ID using WebClient")
     void shouldGetDemoById() {
         // Given - Create a demo
         var demo = fixture().demoWithName("Specific WebClient Demo");
@@ -132,6 +138,7 @@ class WebClientIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should delete a demo using WebClient")
     void shouldDeleteDemo() {
         // Given - Create a demo
         var demo = fixture().demoForDeletion();
@@ -165,6 +172,7 @@ class WebClientIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should handle 404 Not Found errors gracefully")
     void shouldHandleNotFound() {
         // When/Then
         webClient
@@ -180,6 +188,7 @@ class WebClientIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should demonstrate reactive approach with Mono.zip for parallel operations")
     void shouldUseReactiveApproach() {
         // Given
         var demo1 = fixture().demoWithName("Reactive Demo 1");

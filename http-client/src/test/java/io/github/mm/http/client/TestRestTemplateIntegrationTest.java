@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import io.github.mm.http.client.demo.Demo;
 import java.util.List;
 import java.util.Map;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+@DisplayName("TestRestTemplate Integration Tests")
 class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -25,6 +27,7 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
     private TestRestTemplate testRestTemplate;
 
     @Test
+    @DisplayName("Should create a new demo using TestRestTemplate")
     void shouldCreateDemo() {
         // Given
         var demo = fixture().defaultDemo();
@@ -42,6 +45,7 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should update an existing demo using TestRestTemplate")
     void shouldUpdateDemo() {
         // Given - Create a demo first
         var demo = fixture().demoForUpdate();
@@ -64,6 +68,7 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should retrieve all demos using TestRestTemplate")
     void shouldGetAllDemos() {
         // Given - Create some demos
         var demos = fixture().multipleDemos(2);
@@ -84,6 +89,7 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should retrieve a specific demo by ID using TestRestTemplate")
     void shouldGetDemoById() {
         // Given - Create a demo
         var demo = fixture().demoWithSpecificName();
@@ -105,6 +111,7 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should delete a demo using TestRestTemplate")
     void shouldDeleteDemo() {
         // Given - Create a demo
         var demo = fixture().demoForDeletion();
@@ -124,6 +131,7 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should return 404 when demo is not found")
     void shouldReturn404WhenDemoNotFound() {
         // When
         var response = testRestTemplate.getForEntity(baseUrl() + "/999999", Demo.class);
@@ -133,6 +141,7 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should create a demo using builder pattern")
     void shouldCreateDemoUsingBuilder() {
         // Given
         var demo = fixture().builder().name("Builder Demo").build();
@@ -151,6 +160,7 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
     // Validation Tests
 
     @Test
+    @DisplayName("Should reject demo with blank name")
     void shouldRejectBlankName() {
         // Given - Demo with blank name
         var demo = new Demo(null, "");
@@ -166,6 +176,7 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should reject demo with null name")
     void shouldRejectNullName() {
         // Given - Demo with null name
         var demo = new Demo(null, null);
@@ -181,6 +192,7 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should reject demo with whitespace-only name")
     void shouldRejectWhitespaceOnlyName() {
         // Given - Demo with whitespace-only name
         var demo = new Demo(null, "   ");
@@ -196,6 +208,7 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should reject demo with name exceeding 50 characters")
     void shouldRejectNameExceeding50Characters() {
         // Given - Demo with name longer than 50 characters
         var longName = "a".repeat(51);
@@ -212,6 +225,7 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should accept demo with name of exactly 50 characters")
     void shouldAcceptNameWith50Characters() {
         // Given - Demo with exactly 50 characters
         var maxLengthName = "a".repeat(50);
@@ -229,6 +243,7 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should reject blank name on update")
     void shouldRejectBlankNameOnUpdate() {
         // Given - Create a valid demo first
         var validDemo = new Demo(null, "Original Name");
@@ -250,6 +265,7 @@ class TestRestTemplateIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should reject name exceeding 50 characters on update")
     void shouldRejectNameExceeding50CharactersOnUpdate() {
         // Given - Create a valid demo first
         var validDemo = new Demo(null, "Original Name");
