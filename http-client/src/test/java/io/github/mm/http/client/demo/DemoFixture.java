@@ -5,7 +5,7 @@ import java.util.List;
 
 public class DemoFixture {
 
-    private final List<Long> createdDemoIds = new ArrayList<>();
+    private final List<String> createdDemoIds = new ArrayList<>();
 
     // Factory methods for common test scenarios
 
@@ -17,7 +17,7 @@ public class DemoFixture {
         return new Demo(null, name);
     }
 
-    public Demo demoWithId(Long id, String name) {
+    public Demo demoWithId(String id, String name) {
         return new Demo(id, name);
     }
 

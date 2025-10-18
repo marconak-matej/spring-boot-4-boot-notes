@@ -21,7 +21,7 @@ public class DemoApi {
     }
 
     @PutMapping("/{id}")
-    public Demo updateDemo(@PathVariable Long id, @RequestBody Demo demo) {
+    public Demo updateDemo(@PathVariable String id, @RequestBody Demo demo) {
         return service.updateDemo(id, demo);
     }
 
@@ -31,13 +31,13 @@ public class DemoApi {
     }
 
     @GetMapping("/{id}")
-    public Demo getDemo(@PathVariable Long id) {
+    public Demo getDemo(@PathVariable String id) {
         return service.getDemoById(id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteDemo(@PathVariable Long id) {
+    public void deleteDemo(@PathVariable String id) {
         service.deleteDemo(id);
     }
 }
