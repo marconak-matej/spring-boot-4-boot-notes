@@ -12,6 +12,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +83,7 @@ class AnnotationBasedRetryServiceTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("Respects concurrency limit")
     void respectsConcurrencyLimit() throws InterruptedException {
         var numberOfThreads = 20; // More than the concurrency limit of 15

@@ -18,7 +18,8 @@ This project serves as a practical guide to Spring Boot 4.0, containing multiple
 boot-notes/
 ├── resilience/           # Resilience patterns and retry mechanisms
 ├── versioning/          # API versioning with Spring Framework 7
-├── http-exchange/         # Declarative HTTP client with Spring Boot 4
+├── http-exchange/        # Declarative HTTP client with Spring Boot 4
+├── http-client/          # HTTP client examples (RestClient, WebClient, RestTemplate)
 └── [future-modules]     # Placeholder for upcoming modules
 ```
 
@@ -129,7 +130,57 @@ Add to `http-exchange/src/main/resources/application.properties`:
 spring.http.services.product.base-url=https://api.restful-api.dev
 ```
 
-### 4. [Future Modules]
+### 4. HTTP Client Module
+
+The http-client module demonstrates different ways to make HTTP requests in Spring Boot without using `@HttpExchange`. It includes a DemoApi REST endpoint and comprehensive integration tests showing various HTTP client approaches.
+
+#### Features
+- **DemoApi REST Endpoints**
+  - POST `/api/demos` - Create a new demo
+  - PUT `/api/demos/{id}` - Update an existing demo
+  - GET `/api/demos` - Get all demos
+  - GET `/api/demos/{id}` - Get a specific demo by ID
+  - DELETE `/api/demos/{id}` - Delete a demo
+
+- **HTTP Client Integration Tests**
+  - **RestClient** - Modern, fluent API (Spring 6.1+)
+  - **WebClient** - Reactive, non-blocking client (Spring WebFlux)
+  - **RestTemplate** - Classic Spring HTTP client (maintenance mode)
+  - **TestRestTemplate** - Specialized for integration testing
+
+#### Running the HTTP Client Module
+```bash
+./mvnw spring-boot:run -pl http-client
+```
+
+#### Testing the DemoApi
+```bash
+# Create a demo
+curl -X POST http://localhost:8083/api/demos -H "Content-Type: application/json" -d '{"name":"Test Demo"}'
+
+# Get all demos
+curl http://localhost:8083/api/demos
+
+# Get a specific demo
+curl http://localhost:8083/api/demos/1
+
+# Update a demo
+curl -X PUT http://localhost:8083/api/demos/1 -H "Content-Type: application/json" -d '{"name":"Updated Demo"}'
+
+# Delete a demo
+curl -X DELETE http://localhost:8083/api/demos/1
+```
+
+#### Running Integration Tests
+```bash
+# Run all tests
+./mvnw test -pl http-client
+
+# Run specific test class
+./mvnw test -pl http-client -Dtest=RestClientIntegrationTest
+```
+
+### 5. [Future Modules]
 
 _More modules will be added to demonstrate other Spring Boot 4.0 features._
 
