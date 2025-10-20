@@ -20,6 +20,7 @@ boot-notes/
 ├── versioning/          # API versioning with Spring Framework 7
 ├── http-exchange/        # Declarative HTTP client with Spring Boot 4
 ├── http-client/          # HTTP client examples (RestClient, WebClient, RestTemplate)
+├── grpc/                 # gRPC service with Spring Boot 4 and Protocol Buffers
 └── [future-modules]     # Placeholder for upcoming modules
 ```
 
@@ -182,7 +183,32 @@ curl -X DELETE http://localhost:8083/api/demos/1
 ./mvnw test -pl http-client -Dtest=RestClientIntegrationTest
 ```
 
-### 5. [Future Modules]
+### 5. gRPC Module
+
+The gRPC module showcases how to create and consume gRPC services in Spring Boot 4.0 using Protocol Buffers.
+
+#### Features
+- **Protocol Buffers Integration**
+  - Define services and messages using `.proto` files
+  - Automatic generation of Java classes from `.proto` definitions
+  - Seamless integration with Spring Boot's build process
+
+- **gRPC Service Example**
+  - A simple gRPC service implementation
+  - Bidirectional streaming and unary call examples
+  - Error handling and metadata usage in gRPC
+
+- **gRPC Client Example**
+  - Consuming the gRPC service from a Spring Boot application
+  - Asynchronous and blocking stub usage
+  - Interceptors for logging and authentication
+
+#### Running the gRPC Module
+```bash
+./mvnw spring-boot:run -pl grpc
+```
+
+### 6. [Future Modules]
 
 _More modules will be added to demonstrate other Spring Boot 4.0 features._
 

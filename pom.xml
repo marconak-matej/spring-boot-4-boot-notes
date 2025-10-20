@@ -21,6 +21,7 @@
         <module>versioning</module>
         <module>http-exchange</module>
         <module>http-client</module>
+        <module>grpc</module>
     </modules>
 
     <properties>

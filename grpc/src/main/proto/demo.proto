@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.github.mm.grpc.proto";
+option java_outer_classname = "DemoProto";
+
+package demo;
+
+// The Demo service definition
+service DemoService {
+  // Creates a new demo
+  rpc CreateDemo(CreateDemoRequest) returns (DemoResponse) {}
+
+  // Updates an existing demo
+  rpc UpdateDemo(UpdateDemoRequest) returns (DemoResponse) {}
+
+  // Gets a demo by ID
+  rpc GetDemo(GetDemoRequest) returns (DemoResponse) {}
+
+  // Lists all demos
+  rpc ListDemos(ListDemosRequest) returns (ListDemosResponse) {}
+
+  // Deletes a demo
+  rpc DeleteDemo(DeleteDemoRequest) returns (DeleteDemoResponse) {}
+}
+
+// Demo message
+message Demo {
+  string id = 1;
+  string name = 2;
+}
+
+// Create demo request
+message CreateDemoRequest {
+  string name = 1;
+}
+
+// Update demo request
+message UpdateDemoRequest {
+  string id = 1;
+  string name = 2;
+}
+
+// Get demo request
+message GetDemoRequest {
+  string id = 1;
+}
+
+// List demos request
+message ListDemosRequest {
+  // Empty for now, can add pagination later
+}
+
+// Delete demo request
+message DeleteDemoRequest {
+  string id = 1;
+}
+
+// Demo response
+message DemoResponse {
+  Demo demo = 1;
+}
+
+// List demos response
+message ListDemosResponse {
+  repeated Demo demos = 1;
+}
+
+// Delete demo response
+message DeleteDemoResponse {
+  bool success = 1;
+}
+
