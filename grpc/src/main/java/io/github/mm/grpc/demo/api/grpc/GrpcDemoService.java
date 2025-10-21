@@ -20,9 +20,8 @@ public class GrpcDemoService extends DemoServiceGrpc.DemoServiceImplBase {
         validateName(request.getName());
 
         var demo = service.createDemo(request.getName());
-        var response = DemoResponse.newBuilder()
-                .setDemo(Demo.newBuilder().setId(demo.id()).setName(demo.name()).build())
-                .build();
+        var response =
+                DemoResponse.newBuilder().setDemo(DemoMapper.toProto(demo)).build();
 
         responseObserver.onNext(response);
         responseObserver.onCompleted();
@@ -34,9 +33,8 @@ public class GrpcDemoService extends DemoServiceGrpc.DemoServiceImplBase {
         validateName(request.getName());
 
         var demo = service.updateDemo(request.getId(), request.getName());
-        var response = DemoResponse.newBuilder()
-                .setDemo(Demo.newBuilder().setId(demo.id()).setName(demo.name()).build())
-                .build();
+        var response =
+                DemoResponse.newBuilder().setDemo(DemoMapper.toProto(demo)).build();
 
         responseObserver.onNext(response);
         responseObserver.onCompleted();
@@ -47,9 +45,8 @@ public class GrpcDemoService extends DemoServiceGrpc.DemoServiceImplBase {
         validateId(request.getId());
 
         var demo = service.getDemoById(request.getId());
-        var response = DemoResponse.newBuilder()
-                .setDemo(Demo.newBuilder().setId(demo.id()).setName(demo.name()).build())
-                .build();
+        var response =
+                DemoResponse.newBuilder().setDemo(DemoMapper.toProto(demo)).build();
 
         responseObserver.onNext(response);
         responseObserver.onCompleted();
@@ -60,8 +57,7 @@ public class GrpcDemoService extends DemoServiceGrpc.DemoServiceImplBase {
         var demos = service.getAllDemos();
         var responseBuilder = ListDemosResponse.newBuilder();
 
-        demos.forEach(demo -> responseBuilder.addDemos(
-                Demo.newBuilder().setId(demo.id()).setName(demo.name()).build()));
+        demos.forEach(demo -> responseBuilder.addDemos(DemoMapper.toProto(demo)));
 
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
@@ -90,6 +86,12 @@ public class GrpcDemoService extends DemoServiceGrpc.DemoServiceImplBase {
     private void validateId(String id) {
         if (!StringUtils.hasText(id)) {
             throw new IllegalArgumentException("ID must not be blank");
+        }
+    }
+
+    private static class DemoMapper {
+        static Demo toProto(io.github.mm.grpc.demo.Demo domain) {
+            return Demo.newBuilder().setId(domain.id()).setName(domain.name()).build();
         }
     }
 }

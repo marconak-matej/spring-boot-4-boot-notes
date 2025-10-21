@@ -13,6 +13,7 @@ public class DemoService {
     private final Map<String, Demo> store = new ConcurrentHashMap<>();
 
     public Demo createDemo(String name) {
+        validateName(name);
         var id = UUID.randomUUID().toString();
         var demo = new Demo(id, name);
         store.put(id, demo);
@@ -20,24 +21,22 @@ public class DemoService {
     }
 
     public Demo updateDemo(String id, String name) {
-        if (!store.containsKey(id)) {
-            throw new NotFoundException("Demo with id " + id + " not found");
-        }
-        var demo = new Demo(id, name);
-        store.put(id, demo);
-        return demo;
-    }
-
-    public Demo getDemoById(String id) {
-        var demo = store.get(id);
+        validateName(name);
+        var demo = store.computeIfPresent(id, (_, _) -> new Demo(id, name));
         if (demo == null) {
             throw new NotFoundException("Demo with id " + id + " not found");
         }
         return demo;
     }
 
+    public Demo getDemoById(String id) {
+        return store.computeIfAbsent(id, _ -> {
+            throw new NotFoundException("Demo with id " + id + " not found");
+        });
+    }
+
     public List<Demo> getAllDemos() {
-        return store.values().stream().toList();
+        return List.copyOf(store.values()); // Return immutable copy
     }
 
     public void deleteDemo(String id) {
@@ -45,5 +44,14 @@ public class DemoService {
             throw new NotFoundException("Demo with id " + id + " not found");
         }
         store.remove(id);
+    }
+
+    private void validateName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name must not be blank");
+        }
+        if (name.length() > 50) {
+            throw new IllegalArgumentException("Name must not exceed 50 characters");
+        }
     }
 }
