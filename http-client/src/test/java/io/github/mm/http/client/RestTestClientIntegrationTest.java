@@ -3,8 +3,8 @@ package io.github.mm.http.client;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import io.github.mm.http.client.demo.Demo;
-import io.github.mm.http.client.demo.api.rest.DemoApi;
+import io.github.mm.http.client.demo.rest.Demo;
+import io.github.mm.http.client.demo.rest.DemoApi;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

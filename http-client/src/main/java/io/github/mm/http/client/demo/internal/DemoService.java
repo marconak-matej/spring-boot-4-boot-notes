@@ -1,6 +1,7 @@
-package io.github.mm.http.client.demo;
+package io.github.mm.http.client.demo.internal;
 
-import io.github.mm.http.client.shared.exception.NotFoundException;
+import io.github.mm.http.client.demo.rest.Demo;
+import io.github.mm.http.client.infrastructure.exception.NotFoundException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;

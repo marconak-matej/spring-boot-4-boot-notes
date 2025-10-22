@@ -1,4 +1,4 @@
-package io.github.mm.http.client.shared.exception;
+package io.github.mm.http.client.infrastructure.exception;
 
 import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;

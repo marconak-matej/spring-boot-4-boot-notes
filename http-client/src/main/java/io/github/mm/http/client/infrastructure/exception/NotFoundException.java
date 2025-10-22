@@ -1,4 +1,4 @@
-package io.github.mm.http.client.shared.exception;
+package io.github.mm.http.client.infrastructure.exception;
 
 public class NotFoundException extends RuntimeException {
 

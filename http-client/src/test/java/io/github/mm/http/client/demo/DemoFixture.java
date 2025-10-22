@@ -1,5 +1,6 @@
 package io.github.mm.http.client.demo;
 
+import io.github.mm.http.client.demo.rest.Demo;
 import java.util.ArrayList;
 import java.util.List;
 

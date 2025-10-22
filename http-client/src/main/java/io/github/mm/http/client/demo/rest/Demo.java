@@ -1,4 +1,4 @@
-package io.github.mm.http.client.demo;
+package io.github.mm.http.client.demo.rest;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
