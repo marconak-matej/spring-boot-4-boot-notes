@@ -1,6 +1,7 @@
-package io.github.mm.grpc.demo.api.grpc;
+package io.github.mm.grpc.demo.grpc;
 
-import io.github.mm.grpc.demo.DemoService;
+import io.github.mm.grpc.demo.internal.Demo;
+import io.github.mm.grpc.demo.internal.DemoService;
 import io.github.mm.grpc.proto.*;
 import io.grpc.stub.StreamObserver;
 import org.springframework.grpc.server.service.GrpcService;
@@ -90,8 +91,11 @@ public class GrpcDemoService extends DemoServiceGrpc.DemoServiceImplBase {
     }
 
     private static class DemoMapper {
-        static Demo toProto(io.github.mm.grpc.demo.Demo domain) {
-            return Demo.newBuilder().setId(domain.id()).setName(domain.name()).build();
+        static io.github.mm.grpc.proto.Demo toProto(Demo domain) {
+            return io.github.mm.grpc.proto.Demo.newBuilder()
+                    .setId(domain.id())
+                    .setName(domain.name())
+                    .build();
         }
     }
 }

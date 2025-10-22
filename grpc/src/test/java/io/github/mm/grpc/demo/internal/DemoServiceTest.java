@@ -1,9 +1,9 @@
-package io.github.mm.grpc.demo;
+package io.github.mm.grpc.demo.internal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import io.github.mm.grpc.shared.exception.NotFoundException;
+import io.github.mm.grpc.infrastructure.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -55,17 +55,6 @@ class DemoServiceTest {
     }
 
     @Test
-    void shouldGetAllDemos() {
-        service.createDemo("Demo 1");
-        service.createDemo("Demo 2");
-        service.createDemo("Demo 3");
-
-        var demos = service.getAllDemos();
-
-        assertThat(demos).hasSize(3);
-    }
-
-    @Test
     void shouldDeleteDemo() {
         var created = service.createDemo("Test Demo");
 
@@ -77,5 +66,29 @@ class DemoServiceTest {
     @Test
     void shouldThrowExceptionWhenDeletingNonExistentDemo() {
         assertThrows(NotFoundException.class, () -> service.deleteDemo("non-existent-id"));
+    }
+
+    @Test
+    void shouldGetAllDemos() {
+        service.createDemo("Demo 1");
+        service.createDemo("Demo 2");
+        service.createDemo("Demo 3");
+
+        var demos = service.getAllDemos();
+
+        assertThat(demos).hasSize(3);
+    }
+
+    @Test
+    void shouldValidateBlankName() {
+        assertThrows(IllegalArgumentException.class, () -> service.createDemo(""));
+        assertThrows(IllegalArgumentException.class, () -> service.createDemo("   "));
+        assertThrows(IllegalArgumentException.class, () -> service.createDemo(null));
+    }
+
+    @Test
+    void shouldValidateNameLength() {
+        var longName = "a".repeat(51);
+        assertThrows(IllegalArgumentException.class, () -> service.createDemo(longName));
     }
 }

@@ -1,6 +1,6 @@
-package io.github.mm.grpc.demo;
+package io.github.mm.grpc.demo.internal;
 
-import io.github.mm.grpc.shared.exception.NotFoundException;
+import io.github.mm.grpc.infrastructure.exception.NotFoundException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;

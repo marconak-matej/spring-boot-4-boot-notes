@@ -1,4 +1,4 @@
-package io.github.mm.grpc.shared.exception;
+package io.github.mm.grpc.infrastructure.exception;
 
 import io.grpc.Status;
 import io.grpc.StatusException;

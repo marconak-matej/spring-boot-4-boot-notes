@@ -1,4 +1,4 @@
-package io.github.mm.grpc.demo.api.grpc;
+package io.github.mm.grpc.demo.grpc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
