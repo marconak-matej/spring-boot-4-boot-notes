@@ -14,27 +14,6 @@ The HTTP Exchange feature allows you to define HTTP client interfaces in a decla
 - **Integration with RestClient**: Built on Spring's modern `RestClient` infrastructure
 - **Easy Testing**: Mock HTTP interactions using `MockRestServiceServer`
 
-## Project Structure
-
-```
-http-exchange/
-├── src/main/java/
-│   └── io/github/mm/http/exchange/
-│       ├── HttpExchangeApplication.java          # Main application
-│       ├── client/product/
-│       │   ├── Product.java                      # Product record (domain model)
-│       │   └── ProductService.java               # HTTP Exchange interface
-│       ├── config/
-│       │   └── HttpServiceConfig.java            # HTTP services configuration
-│       └── demo/
-│           ├── ProductDemoApi.java               # REST controller for demo
-│           └── ProductDemoService.java           # Service layer
-└── src/test/java/
-    └── io/github/mm/http/exchange/
-        └── client/product/
-            └── ProductServiceIntegrationTest.java # Integration tests
-```
-
 ## Core Components
 
 ### 1. ProductService Interface

@@ -78,27 +78,6 @@ public ProductV2 getProductV2(@PathVariable String id) {
 - **V2**: Uses `Integer` for price (cents) and `String` for status enum
 - Different domain models ensure compile-time safety
 
-## Project Structure
-
-The module follows a domain-driven package organization:
-
-```
-io.github.mm.versioning/
-├── config/
-│   └── ApiVersionConfig.java       # API versioning configuration
-├── product/
-│   ├── ProductApi.java             # REST API endpoints
-│   └── domain/
-│       ├── Product.java            # V1.0 domain model
-│       └── ProductV2.java          # V2.0 domain model
-└── VersioningApplication.java      # Spring Boot application
-```
-
-**Package Design:**
-- `product` - Product-related API and business logic
-- `product.domain` - Domain models for different API versions
-- `config` - Application configuration
-
 ## Configuration
 
 The API versioning is configured in `ApiVersionConfig`:
