@@ -95,7 +95,8 @@ class WebClientIntegrationTest extends AbstractIntegrationTest {
                 .block();
 
         // When
-        @SuppressWarnings("NullableProblems") var demos = webClient
+        @SuppressWarnings("NullableProblems")
+        var demos = webClient
                 .get()
                 .uri(baseUrl())
                 .retrieve()

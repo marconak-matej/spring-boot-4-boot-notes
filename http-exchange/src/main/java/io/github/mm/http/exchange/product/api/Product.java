@@ -1,4 +1,4 @@
-package io.github.mm.http.exchange.product.client;
+package io.github.mm.http.exchange.product.api;
 
 import java.util.Map;
 

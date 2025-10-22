@@ -1,4 +1,4 @@
-package io.github.mm.http.exchange.product.client;
+package io.github.mm.http.exchange.product.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;

@@ -1,7 +1,7 @@
-package io.github.mm.http.exchange.demo.api.rest;
+package io.github.mm.http.exchange.demo.rest;
 
-import io.github.mm.http.exchange.demo.ProductDemoService;
-import io.github.mm.http.exchange.product.client.Product;
+import io.github.mm.http.exchange.demo.internal.ProductDemoService;
+import io.github.mm.http.exchange.product.api.Product;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

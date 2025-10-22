@@ -87,7 +87,8 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
                 .toBodilessEntity();
 
         // When
-        @SuppressWarnings("NullableProblems") var demos = restClient.get().uri(baseUrl()).retrieve().body(new ParameterizedTypeReference<List<Demo>>() {});
+        @SuppressWarnings("NullableProblems")
+        var demos = restClient.get().uri(baseUrl()).retrieve().body(new ParameterizedTypeReference<List<Demo>>() {});
 
         // Then
         assertThat(demos).isNotNull();
