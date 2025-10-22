@@ -1,3 +1,3 @@
-package io.github.mm.grpc.demo.internal;
+package io.github.mm.grpc.demo;
 
 public record Demo(String id, String name) {}

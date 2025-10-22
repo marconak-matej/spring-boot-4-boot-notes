@@ -1,7 +1,7 @@
 package io.github.mm.grpc.demo.grpc;
 
-import io.github.mm.grpc.demo.internal.Demo;
-import io.github.mm.grpc.demo.internal.DemoService;
+import io.github.mm.grpc.demo.Demo;
+import io.github.mm.grpc.demo.DemoService;
 import io.github.mm.grpc.proto.*;
 import io.grpc.stub.StreamObserver;
 import org.springframework.grpc.server.service.GrpcService;

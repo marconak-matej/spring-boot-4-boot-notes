@@ -1,4 +1,4 @@
-package io.github.mm.http.exchange.demo.internal;
+package io.github.mm.http.exchange.demo.rest;
 
 import io.github.mm.http.exchange.product.api.Product;
 import io.github.mm.http.exchange.product.api.ProductService;

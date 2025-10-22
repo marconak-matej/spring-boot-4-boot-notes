@@ -1,6 +1,6 @@
 package io.github.mm.http.client.demo.rest;
 
-import io.github.mm.http.client.demo.internal.DemoService;
+import io.github.mm.http.client.demo.DemoService;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.HttpStatus;

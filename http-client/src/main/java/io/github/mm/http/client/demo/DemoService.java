@@ -1,4 +1,4 @@
-package io.github.mm.http.client.demo.internal;
+package io.github.mm.http.client.demo;
 
 import io.github.mm.http.client.demo.rest.Demo;
 import io.github.mm.http.client.infrastructure.exception.NotFoundException;

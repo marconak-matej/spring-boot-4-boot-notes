@@ -1,4 +1,4 @@
-package io.github.mm.grpc.demo.internal;
+package io.github.mm.grpc.demo;
 
 import io.github.mm.grpc.infrastructure.exception.NotFoundException;
 import java.util.List;

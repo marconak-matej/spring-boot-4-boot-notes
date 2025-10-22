@@ -1,8 +1,8 @@
-package io.github.mm.http.exchange.demo;
+package io.github.mm.http.exchange.demo.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.github.mm.http.exchange.demo.rest.ProductDemoApi;
+import io.github.mm.http.exchange.demo.rest.rest.ProductDemoApi;
 import io.github.mm.http.exchange.product.api.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
