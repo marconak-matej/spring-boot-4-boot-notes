@@ -1,7 +1,7 @@
 package io.github.mm.http.exchange.demo;
 
-import io.github.mm.http.exchange.client.product.Product;
-import io.github.mm.http.exchange.client.product.ProductService;
+import io.github.mm.http.exchange.product.client.Product;
+import io.github.mm.http.exchange.product.client.ProductService;
 import java.util.List;
 import org.springframework.stereotype.Service;
 

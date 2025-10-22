@@ -1,4 +1,4 @@
-package io.github.mm.http.exchange.client.product;
+package io.github.mm.http.exchange.product.client;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
@@ -67,7 +67,7 @@ class ProductServiceIntegrationTest {
 
         // Then
         assertThat(products).hasSize(2);
-        assertThat(products.get(0).id()).isEqualTo("1");
+        assertThat(products.getFirst().id()).isEqualTo("1");
         assertThat(products.get(0).name()).isEqualTo("Google Pixel 6 Pro");
         assertThat(products.get(0).data()).containsEntry("color", "Cloudy White");
         assertThat(products.get(1).id()).isEqualTo("2");
