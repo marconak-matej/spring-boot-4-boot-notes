@@ -91,7 +91,7 @@ class AnnotationBasedRetryServiceTest {
         var concurrentExecutions = new AtomicInteger(0);
         var maxConcurrentExecutions = new AtomicInteger(0);
 
-        when(client.getResponse(anyString())).thenAnswer(_ -> {
+        when(client.getResponse(anyString())).thenAnswer(a -> {
             int current = concurrentExecutions.incrementAndGet();
             maxConcurrentExecutions.set(Math.max(maxConcurrentExecutions.get(), current));
             Thread.sleep(100); // Simulate some work

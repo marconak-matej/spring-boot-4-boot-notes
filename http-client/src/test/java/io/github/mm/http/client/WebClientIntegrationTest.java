@@ -167,7 +167,7 @@ class WebClientIntegrationTest extends AbstractIntegrationTest {
                 .get()
                 .uri(baseUrl() + "/{id}", demoId)
                 .retrieve()
-                .onStatus(status -> status.value() == 404, _ -> Mono.empty())
+                .onStatus(status -> status.value() == 404, a -> Mono.empty())
                 .toBodilessEntity()
                 .block();
     }

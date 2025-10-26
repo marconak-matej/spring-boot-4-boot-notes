@@ -34,7 +34,7 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
                 .uri(baseUrl())
                 .body(demo)
                 .retrieve()
-                .onStatus(HttpStatusCode::isError, (_, _) -> {
+                .onStatus(HttpStatusCode::isError, (a, b) -> {
                     throw new RuntimeException("Failed to create demo");
                 })
                 .body(Demo.class);
@@ -133,7 +133,7 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
                 .get()
                 .uri(baseUrl() + "/" + demoId)
                 .retrieve()
-                .onStatus(status -> status.value() == 404, (_, _) -> {
+                .onStatus(status -> status.value() == 404, (a, b) -> {
                     // Expected 404
                 })
                 .toBodilessEntity();
@@ -147,7 +147,7 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
                 .get()
                 .uri(baseUrl() + "/999999")
                 .retrieve()
-                .onStatus(HttpStatusCode::is4xxClientError, (_, response) -> assertThat(
+                .onStatus(HttpStatusCode::is4xxClientError, (a, response) -> assertThat(
                                 response.getStatusCode().value())
                         .isEqualTo(404))
                 .toBodilessEntity();

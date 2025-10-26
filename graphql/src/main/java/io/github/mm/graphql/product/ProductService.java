@@ -18,7 +18,7 @@ public class ProductService {
     private final Map<String, Product> store = new ConcurrentHashMap<>();
 
     public Product getProductById(String id) {
-        return store.computeIfAbsent(id, _ -> {
+        return store.computeIfAbsent(id, v -> {
             throw new NotFoundException("Product not found with id: " + id);
         });
     }
@@ -44,7 +44,7 @@ public class ProductService {
     }
 
     public Product updateProduct(String id, UpdateProduct input) {
-        return store.compute(id, (_, existingProduct) -> {
+        return store.compute(id, (k, existingProduct) -> {
             if (existingProduct == null) {
                 throw new NotFoundException("Product not found with id: " + id);
             }
@@ -66,7 +66,7 @@ public class ProductService {
 
     public boolean deleteProduct(String id) {
         return Optional.ofNullable(store.remove(id))
-                .map(_ -> true)
+                .map(v -> true)
                 .orElseThrow(() -> new NotFoundException("Product not found with id: " + id));
     }
 

@@ -104,9 +104,9 @@ spring.http.services.product.base-url=https://api.restful-api.dev
 ## Running the Application
 
 ### Prerequisites
-- Java 25
+- Java 21
 - Maven 3.6+
-- Spring Boot 4.0.0-M3
+- Spring Boot 4.0.0-RC1
 
 ### Start the Application
 

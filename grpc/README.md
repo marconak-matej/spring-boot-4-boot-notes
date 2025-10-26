@@ -13,11 +13,11 @@ This project implements a complete CRUD (Create, Read, Update, Delete) service f
 
 ## Tech Stack
 
-- **Spring Boot 4.0.0-M3**
+- **Spring Boot 4.0.0-RC1**
 - **Spring gRPC 0.11.0**
 - **Protocol Buffers (proto3)**
 - **Maven** with `protobuf-maven-plugin` by io.github.ascopes
-- **Java 25**
+- **Java 21**
 
 ## gRPC Service Definition
 
@@ -35,7 +35,7 @@ The `DemoService` provides the following RPCs:
 
 ### Prerequisites
 
-- Java 25 or later
+- Java 21 or later
 - Maven 3.9+
 
 ### Building the Project

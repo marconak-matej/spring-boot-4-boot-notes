@@ -254,9 +254,9 @@ The project includes:
 
 ## Technologies Used
 
-- Spring Boot 4.0.0-M3
+- Spring Boot 4.0.0-RC1
 - Spring for GraphQL
 - ConcurrentHashMap for in-memory storage
-- Java 25
+- Java 21
 
 

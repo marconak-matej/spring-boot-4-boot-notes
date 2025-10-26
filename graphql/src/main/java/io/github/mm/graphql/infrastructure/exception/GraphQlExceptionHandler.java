@@ -13,7 +13,7 @@ public class GraphQlExceptionHandler extends DataFetcherExceptionResolverAdapter
 
     @Override
     protected GraphQLError resolveToSingleError(@NonNull Throwable ex, @NonNull DataFetchingEnvironment env) {
-        if (ex instanceof NotFoundException _) {
+        if (ex instanceof NotFoundException) {
             return GraphqlErrorBuilder.newError()
                     .errorType(ErrorType.NOT_FOUND)
                     .message(ex.getMessage())
@@ -22,7 +22,7 @@ public class GraphQlExceptionHandler extends DataFetcherExceptionResolverAdapter
                     .build();
         }
 
-        if (ex instanceof IllegalArgumentException _) {
+        if (ex instanceof IllegalArgumentException) {
             return GraphqlErrorBuilder.newError()
                     .errorType(ErrorType.BAD_REQUEST)
                     .message(ex.getMessage())
