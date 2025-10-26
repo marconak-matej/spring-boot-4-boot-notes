@@ -3,7 +3,7 @@ package io.github.mm.graphql.infrastructure.exception;
 import graphql.GraphQLError;
 import graphql.GraphqlErrorBuilder;
 import graphql.schema.DataFetchingEnvironment;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.graphql.execution.DataFetcherExceptionResolverAdapter;
 import org.springframework.graphql.execution.ErrorType;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class GraphQlExceptionHandler extends DataFetcherExceptionResolverAdapter {
 
     @Override
-    protected GraphQLError resolveToSingleError(@NotNull Throwable ex, @NotNull DataFetchingEnvironment env) {
+    protected GraphQLError resolveToSingleError(@NonNull Throwable ex, @NonNull DataFetchingEnvironment env) {
         if (ex instanceof NotFoundException _) {
             return GraphqlErrorBuilder.newError()
                     .errorType(ErrorType.NOT_FOUND)

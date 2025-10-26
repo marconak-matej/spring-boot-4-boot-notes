@@ -8,15 +8,15 @@ import io.github.mm.versioning.product.domain.Product;
 import io.github.mm.versioning.product.domain.ProductV2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.web.server.test.client.reactive.WebTestClientBuilderCustomizer;
+import org.springframework.boot.webtestclient.AutoConfigureWebTestClient;
+import org.springframework.boot.webtestclient.WebTestClientBuilderCustomizer;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.client.ApiVersionInserter;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureWebTestClient
 class ProductControllerTest {
 
     @Autowired
@@ -33,6 +33,7 @@ class ProductControllerTest {
                 .isOk()
                 .expectBody(Product.class)
                 .value(product -> {
+                    assertThat(product).isNotNull();
                     assertThat(product.id()).isEqualTo("456");
                     assertThat(product.title()).isEqualTo("Coffee Maker");
                     assertThat(product.priceUsd()).isEqualTo(49.99);
@@ -51,6 +52,7 @@ class ProductControllerTest {
                 .isOk()
                 .expectBody(ProductV2.class)
                 .value(product -> {
+                    assertThat(product).isNotNull();
                     assertThat(product.id()).isEqualTo("456");
                     assertThat(product.title()).isEqualTo("Coffee Maker");
                     assertThat(product.price()).isEqualTo(4999);
