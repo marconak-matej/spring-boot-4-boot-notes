@@ -22,6 +22,7 @@
         <module>http-exchange</module>
         <module>http-client</module>
         <module>grpc</module>
+        <module>graphql</module>
     </modules>
 
     <properties>

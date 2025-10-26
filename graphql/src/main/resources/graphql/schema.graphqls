@@ -1,0 +1,164 @@
+type Query {
+    """
+    Retrieve a single product by its unique identifier
+    """
+    product(
+        "Unique identifier of the product to retrieve"
+        id: ID!
+    ): Product!
+
+    """
+    Retrieve a paginated list of products
+    """
+    products(
+        "Page number (0-based, defaults to 0)"
+        page: Int = 0
+
+        "Number of items per page (defaults to 10)"
+        size: Int = 10
+    ): ProductPage!
+}
+
+type Mutation {
+    """
+    Create a new product in the catalog
+    """
+    createProduct(
+        "Product creation data"
+        input: CreateProductInput!
+    ): CreateProductPayload!
+
+    """
+    Update an existing product's information
+    """
+    updateProduct(
+        "Unique identifier of the product to update"
+        id: ID!
+
+        "Product update data"
+        input: UpdateProductInput!
+    ): UpdateProductPayload!
+
+    """
+    Delete a product from the catalog
+    """
+    deleteProduct(
+        "Unique identifier of the product to delete"
+        id: ID!
+    ): DeleteProductPayload!
+}
+
+"""
+Represents a product in the catalog with its associated metadata
+"""
+type Product {
+    "Unique identifier for the product"
+    id: ID!
+
+    "Display name of the product"
+    name: String!
+
+    "Additional product metadata and specifications"
+    data: ProductData
+}
+
+"""
+Additional metadata and specifications for a product
+"""
+type ProductData {
+    "Product color variant"
+    color: String
+
+    "Storage capacity or size specification"
+    capacity: String
+
+    "Product generation or version"
+    generation: String
+}
+
+"""
+Paginated result container for product queries
+"""
+type ProductPage {
+    "List of products on the current page"
+    content: [Product!]!
+
+    "Total number of products across all pages"
+    totalElements: Int!
+
+    "Total number of pages available"
+    totalPages: Int!
+
+    "Current page number (0-based)"
+    pageNumber: Int!
+
+    "Number of items per page"
+    pageSize: Int!
+
+    "Indicates if there is a next page available"
+    hasNext: Boolean!
+
+    "Indicates if there is a previous page available"
+    hasPrevious: Boolean!
+}
+
+"""
+Input data required to create a new product
+"""
+input CreateProductInput {
+    "Display name of the product (required, must not be blank)"
+    name: String!
+
+    "Additional product metadata and specifications (optional)"
+    data: ProductDataInput
+}
+
+"""
+Input data for updating an existing product
+All fields are optional - only provided fields will be updated
+"""
+input UpdateProductInput {
+    "Display name of the product"
+    name: String
+
+    "Additional product metadata and specifications"
+    data: ProductDataInput
+}
+
+"""
+Input type for product metadata and specifications
+"""
+input ProductDataInput {
+    "Product color variant"
+    color: String
+
+    "Storage capacity or size specification"
+    capacity: String
+
+    "Product generation or version"
+    generation: String
+}
+
+"""
+Response payload for product creation mutation
+"""
+type CreateProductPayload {
+    "The newly created product"
+    product: Product!
+}
+
+"""
+Response payload for product update mutation
+"""
+type UpdateProductPayload {
+    "The updated product with all current values"
+    product: Product!
+}
+
+"""
+Response payload for product deletion mutation
+"""
+type DeleteProductPayload {
+    "Indicates whether the deletion was successful"
+    success: Boolean!
+}

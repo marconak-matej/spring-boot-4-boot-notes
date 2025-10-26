@@ -21,6 +21,7 @@ boot-notes/
 ├── http-exchange/        # Declarative HTTP client with Spring Boot 4
 ├── http-client/          # HTTP client examples (RestClient, WebClient, RestTemplate)
 ├── grpc/                 # gRPC service with Spring Boot 4 and Protocol Buffers
+├── graphql/              # GraphQL API with CRUD operations and pagination
 └── [future-modules]     # Placeholder for upcoming modules
 ```
 
@@ -208,7 +209,32 @@ The gRPC module showcases how to create and consume gRPC services in Spring Boot
 ./mvnw spring-boot:run -pl grpc
 ```
 
-### 6. [Future Modules]
+### 6. GraphQL Module
+
+The graphql module demonstrates building a GraphQL API with Spring Boot 4.0, featuring full CRUD operations, pagination support, and in-memory storage.
+
+#### Features
+- **GraphQL API with Spring for GraphQL**
+  - Full CRUD operations for Product entities
+  - GraphiQL interface for interactive testing
+  - In-memory ConcurrentHashMap storage (no database required)
+
+- **Pagination Support**
+  - Page-based queries with customizable page size
+  - Complete pagination metadata (totalElements, totalPages, hasNext, hasPrevious)
+  - Efficient in-memory pagination
+
+- **Product Entity**
+  - ID, name, and flexible data structure
+  - Nested data object for product specifications (color, capacity, generation)
+  - UUID-based unique identifiers
+
+#### Running the GraphQL Module
+```bash
+./mvnw spring-boot:run -pl graphql
+```
+
+### 7. [Future Modules]
 
 _More modules will be added to demonstrate other Spring Boot 4.0 features._
 
