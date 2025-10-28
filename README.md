@@ -8,9 +8,9 @@ This project serves as a practical guide to Spring Boot 4.0, containing multiple
 
 ## Prerequisites
 
-- Java 25 or higher
+- Java 21 or higher
 - Maven 3.8+
-- Spring Boot 4.0.0-M3
+- Spring Boot 4.0.0-RC1
 
 ## Project Structure
 
@@ -22,6 +22,7 @@ boot-notes/
 ├── http-client/          # HTTP client examples (RestClient, WebClient, RestTemplate)
 ├── grpc/                 # gRPC service with Spring Boot 4 and Protocol Buffers
 ├── graphql/              # GraphQL API with CRUD operations and pagination
+├── jms/                  # JMS messaging with JmsClient and embedded Artemis
 └── [future-modules]     # Placeholder for upcoming modules
 ```
 
@@ -234,7 +235,49 @@ The graphql module demonstrates building a GraphQL API with Spring Boot 4.0, fea
 ./mvnw spring-boot:run -pl graphql
 ```
 
-### 7. [Future Modules]
+### 7. JMS Module
+
+The jms module demonstrates Spring Framework 7.0's new **JmsClient** API for simplified JMS messaging operations with embedded Apache ActiveMQ Artemis.
+
+#### Features
+- **JmsClient - Modern Fluent API**
+  ```
+  jmsClient.destination("demo-queue").send(message);
+  ```
+  - New fluent API following the design of JdbcClient and RestClient
+  - Simplified message sending and receiving
+  - Throws `MessagingException` for consistency with Spring's messaging abstraction
+
+- **Embedded Artemis Broker**
+  - Zero-configuration embedded JMS broker
+  - Non-persistent mode for development
+  - Automatic queue creation
+
+- **Producer/Consumer Pattern**
+  - REST API endpoint to trigger message sending
+  - `@JmsListener` for message consumption
+  - Demonstrates asynchronous message processing
+
+#### Running the JMS Module
+```bash
+./mvnw spring-boot:run -pl jms
+```
+
+#### Sending Messages via REST API
+```bash
+# Send a message to the JMS queue
+curl -X POST http://localhost:8080/api/messages \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Hello from JmsClient!"}'
+```
+
+#### JmsClient vs JmsTemplate
+- **Fluent API**: Chainable method calls for better readability
+- **Modern Design**: Consistent with Spring 6.1+ client APIs
+- **Simplified Operations**: Common operations are more straightforward
+- **MessagingException**: Better exception handling alignment
+
+### 8. [Future Modules]
 
 _More modules will be added to demonstrate other Spring Boot 4.0 features._
 
@@ -252,5 +295,5 @@ _More modules will be added to demonstrate other Spring Boot 4.0 features._
 
 ## Version Information
 
-- Spring Boot: 4.0.0-M3
-- Java: 25
+- Spring Boot: 4.0.0-RC1
+- Java: 21
