@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: kafka
+  kafka:
+    listener:
+      concurrency: 6
+    consumer:
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: ${spring.application.name}
+      client-id: ${spring.application.name}
+      isolation-level: read_committed
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    properties:
+      spring.json.trusted.packages: io.github.mm.kafka.demo
+
+demo:
+  kafka:
+    topic: demo-topic

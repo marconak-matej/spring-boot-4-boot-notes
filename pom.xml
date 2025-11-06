@@ -24,6 +24,7 @@
         <module>grpc</module>
         <module>graphql</module>
         <module>jms</module>
+        <module>kafka</module>
     </modules>
 
     <properties>

@@ -23,6 +23,7 @@ boot-notes/
 ├── grpc/                 # gRPC service with Spring Boot 4 and Protocol Buffers
 ├── graphql/              # GraphQL API with CRUD operations and pagination
 ├── jms/                  # JMS messaging with JmsClient and embedded Artemis
+├── kafka/                # Kafka integration with Share Groups and Testcontainers
 └── [future-modules]     # Placeholder for upcoming modules
 ```
 
@@ -277,7 +278,67 @@ curl -X POST http://localhost:8080/api/messages \
 - **Simplified Operations**: Common operations are more straightforward
 - **MessagingException**: Better exception handling alignment
 
-### 8. [Future Modules]
+### 8. Kafka Module
+
+The kafka module demonstrates Apache Kafka integration with Spring Boot 4.0, showcasing **Kafka Share Groups** (new feature), modern messaging patterns, and Testcontainers for local development.
+
+#### Features
+- **Kafka Share Groups - New in Spring Boot 4.0**
+  ```java
+  @KafkaListener(
+      topics = "${demo.kafka.topic}",
+      containerFactory = "shareKafkaListenerContainerFactory",
+      concurrency = "${spring.kafka.listener.concurrency}")
+  public void listen(ConsumerRecord<String, DemoEvent> record) {
+      // Automatic load balancing across consumers
+  }
+  ```
+  - Automatic load balancing across consumer instances
+  - No manual offset management required
+  - Simplified consumer group coordination
+  - `ShareKafkaListenerContainerFactory` and `ShareConsumerFactory` configuration
+
+- **Producer & Consumer Pattern**
+  - `KafkaTemplate` for message publishing
+  - `@KafkaListener` with Share Groups for consumption
+  - JSON serialization/deserialization out of the box
+  - Separate DTOs for REST (`Demo`) and Kafka (`DemoEvent`)
+
+- **Testcontainers Integration**
+  - `@ServiceConnection` for automatic Kafka configuration
+  - Confluent Kafka 8.1.0+ with Share Groups enabled
+  - Zero-configuration local development
+  - `TestKafkaApplication` for running with embedded Kafka
+
+- **Auto-configured Topics**
+  - `TopicBuilder` for declarative topic creation
+  - Configurable partitions and replication factor
+  - Automatic topic provisioning on startup
+
+#### Running the Kafka Module
+```bash
+# Run with Testcontainers (recommended for local development)
+./mvnw spring-boot:run -pl kafka
+
+# Or run the test application directly
+./mvnw test -pl kafka -Dtest=TestKafkaApplication
+```
+
+#### Sending Messages via REST API
+```bash
+# Send a demo message to Kafka
+curl -X POST http://localhost:8080/api/demos \
+  -H "Content-Type: application/json" \
+  -d '{"id": "demo-123", "message": "Hello from Kafka Share Groups!"}'
+```
+
+#### Kafka Share Groups vs Traditional Consumer Groups
+- **Share Groups**: Messages distributed across all instances automatically
+- **Traditional**: Each consumer group gets all messages (fan-out)
+- **Use Case**: Share Groups ideal for work queue patterns with load balancing
+- **Spring Boot 4.0**: First-class support for Kafka Share Groups (KIP-932)
+
+### 9. [Future Modules]
 
 _More modules will be added to demonstrate other Spring Boot 4.0 features._
 
