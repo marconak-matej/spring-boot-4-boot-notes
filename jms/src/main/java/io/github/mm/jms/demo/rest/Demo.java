@@ -8,5 +8,9 @@ import jakarta.validation.constraints.Size;
 public record Demo(
         @NotBlank(message = "Message must not be blank")
         @Size(max = 50, message = "Message must not exceed 50 characters")
-        @Schema(description = "Message content", example = "Hello JMS!", required = true, maxLength = 50)
+        @Schema(
+                description = "Message content",
+                example = "Hello JMS!",
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                maxLength = 50)
         String message) {}

@@ -11,5 +11,9 @@ public record Demo(
 
         @NotBlank(message = "Name must not be blank")
         @Size(max = 50, message = "Name must not exceed 50 characters")
-        @Schema(description = "Demo name", example = "Sample Demo", required = true, maxLength = 50)
+        @Schema(
+                description = "Demo name",
+                example = "Sample Demo",
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                maxLength = 50)
         String name) {}
