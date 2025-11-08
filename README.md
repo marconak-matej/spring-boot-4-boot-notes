@@ -358,3 +358,45 @@ _More modules will be added to demonstrate other Spring Boot 4.0 features._
 
 - Spring Boot: 4.0.0-RC1
 - Java: 21
+
+## API Documentation
+
+All REST API modules include comprehensive **OpenAPI 3.0** documentation using **Springdoc OpenAPI**.
+
+### Accessing Documentation
+
+After starting any module, you can access:
+
+- **OpenAPI JSON Specification**: `http://localhost:<port>/v3/api-docs`
+- **Swagger UI**: `http://localhost:<port>/swagger-ui.html`
+- **Scalar UI**: `http://localhost:<port>/scalar`
+
+### Module Ports
+
+- **http-exchange**: `8081`
+- **versioning**: `8082`
+- **http-client**: `8083`
+- **jms**: `8084`
+- **kafka**: `8085`
+
+### Features
+
+- **Global API Metadata**: Title, version, description, contact, and license info
+- **Complete Endpoint Documentation**: All operations include summaries, descriptions, and examples
+- **Request/Response Models**: Full schema documentation with field descriptions and examples
+- **Error Responses**: All possible HTTP status codes documented
+- **Interactive Testing**: Use Swagger UI to test endpoints directly
+
+### Example: Testing via Swagger UI
+
+1. Start a module (e.g., http-client)
+   ```bash
+   ./mvnw spring-boot:run -pl http-client
+   ```
+
+2. Open Swagger UI in your browser
+   ```
+   http://localhost:8083/swagger-ui.html
+   ```
+
+3. Explore and test the API endpoints interactively
