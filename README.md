@@ -24,6 +24,7 @@ boot-notes/
 ├── graphql/              # GraphQL API with CRUD operations and pagination
 ├── jms/                  # JMS messaging with JmsClient and embedded Artemis
 ├── kafka/                # Kafka integration with Share Groups and Testcontainers
+├── test/                 # Spring Boot 4.0 & Spring Framework 7 testing enhancements
 └── [future-modules]     # Placeholder for upcoming modules
 ```
 
@@ -338,7 +339,65 @@ curl -X POST http://localhost:8080/api/demos \
 - **Use Case**: Share Groups ideal for work queue patterns with load balancing
 - **Spring Boot 4.0**: First-class support for Kafka Share Groups (KIP-932)
 
-### 9. [Future Modules]
+### 9. Testing Module
+
+The testing module demonstrates Spring Boot 4.0 and Spring Framework 7's testing improvements, showcasing modern testing practices with JUnit Jupiter (JUnit 5), RestTestClient with AssertJ, context lifecycle management, bean overriding, and @Nested test support.
+
+#### Features
+- **JUnit 4 → JUnit 5 Migration**
+  - Side-by-side comparison of JUnit 4 vs JUnit 5
+  - Migration guide with before/after examples
+  - Modern `@SpringJUnitConfig` annotations
+  - Spring 7 deprecates JUnit 4 support
+
+- **RestTestClient with AssertJ** (Spring Boot 4.0 RC2)
+  - Live server testing with `@SpringBootTest`
+  - MockMvc-backed testing
+  - Fluent AssertJ integration for readable assertions
+
+- **Context Pausing & Restarting** (Spring 7)
+  - Automatic context lifecycle management
+  - `SmartLifecycle#isPauseable()` demonstration
+  - Performance improvements for test suites
+
+- **Enhanced @Nested Test Support** (Spring 7)
+  - Consistent dependency injection across all nesting levels
+  - Method parameter injection in lifecycle methods
+  - Better test organization and structure
+
+- **Prototype Bean Mocking** (Spring 7)
+  - `@MockitoBean` now works with prototype beans
+  - `@TestBean` vs `@MockitoBean` comparison
+  - Non-singleton bean override strategies
+
+- **ApplicationEvents Testing** (Spring Framework 7)
+  - `@RecordApplicationEvents` annotation
+  - Event verification in tests
+  - Simplified application event testing
+
+- **Testcontainers 2.x Integration** (Spring Boot 4.0)
+  - `@ServiceConnection` for automatic configuration
+  - Container lifecycle management
+  - Zero-configuration integration tests
+
+#### Running the Testing Module
+```bash
+./mvnw spring-boot:run -pl test
+```
+
+#### Running Tests
+```bash
+# Run all tests
+./mvnw test -pl test
+
+# Run specific test class
+./mvnw test -pl test -Dtest=JUnit5ComposedAnnotationsTest
+
+# Run specific test method
+./mvnw test -pl test -Dtest=JUnit5ComposedAnnotationsTest#shouldCreateProduct
+```
+
+### 10. [Future Modules]
 
 _More modules will be added to demonstrate other Spring Boot 4.0 features._
 
@@ -378,6 +437,7 @@ After starting any module, you can access:
 - **http-client**: `8083`
 - **jms**: `8084`
 - **kafka**: `8085`
+- **test**: `8086`
 
 ### Features
 

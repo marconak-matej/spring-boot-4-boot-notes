@@ -25,6 +25,7 @@
         <module>graphql</module>
         <module>jms</module>
         <module>kafka</module>
+        <module>test</module>
     </modules>
 
     <properties>
