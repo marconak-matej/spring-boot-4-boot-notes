@@ -10,7 +10,6 @@ import io.github.mm.test.product.ProductService;
 import io.github.mm.test.product.model.Product;
 import io.github.mm.test.product.rest.ProductApi;
 import java.util.List;
-
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
