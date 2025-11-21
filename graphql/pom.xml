@@ -14,7 +14,7 @@
     <description>GraphQL Server with CRUD operations and pagination</description>
 
     <properties>
-        <graphqlcodegen-maven-plugin.version>1.61.5</graphqlcodegen-maven-plugin.version>
+        <graphqlcodegen-maven-plugin.version>3.5.1</graphqlcodegen-maven-plugin.version>
     </properties>
 
     <dependencies>
