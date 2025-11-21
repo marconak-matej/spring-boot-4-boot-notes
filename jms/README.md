@@ -15,7 +15,7 @@ The `JmsClient` is a new API variant introduced in Spring Framework 7.0, followi
 
 ## Technology Stack
 
-- **Spring Boot**: 4.0.0-RC1
+- **Spring Boot**: 4.0.0
 - **Spring Framework**: 7.x
 - **JMS Provider**: Apache ActiveMQ Artemis (embedded)
 - **Java**: 21

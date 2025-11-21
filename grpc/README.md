@@ -13,7 +13,7 @@ This project implements a complete CRUD (Create, Read, Update, Delete) service f
 
 ## Tech Stack
 
-- **Spring Boot 4.0.0-RC1**
+- **Spring Boot 4.0.0**
 - **Spring gRPC 0.11.0**
 - **Protocol Buffers (proto3)**
 - **Maven** with `protobuf-maven-plugin` by io.github.ascopes

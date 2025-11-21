@@ -15,7 +15,7 @@ This module demonstrates **Apache Kafka integration with Spring Boot 4.0**, show
 
 ## Technology Stack
 
-- **Spring Boot**: 4.0.0-RC1
+- **Spring Boot**: 4.0.0
 - **Spring Kafka**: 3.3+ (with Share Group support)
 - **Apache Kafka**: 8.1.0+ (via Testcontainers)
 - **Testcontainers**: For local Kafka instance

@@ -10,7 +10,7 @@ This project serves as a practical guide to Spring Boot 4.0, containing multiple
 
 - Java 21 or higher
 - Maven 3.8+
-- Spring Boot 4.0.0-RC1
+- Spring Boot 4.0.0
 
 ## Project Structure
 
@@ -415,7 +415,7 @@ _More modules will be added to demonstrate other Spring Boot 4.0 features._
 
 ## Version Information
 
-- Spring Boot: 4.0.0-RC1
+- Spring Boot: 4.0.0
 - Java: 21
 
 ## API Documentation
