@@ -17,7 +17,7 @@ public class AnnotationBasedRetryService {
     }
 
     @ConcurrencyLimit(15) // Only 15 concurrent executions allowed
-    @Retryable(includes = GatewayTimeoutException.class, maxAttempts = 4, multiplier = 2)
+    @Retryable(includes = GatewayTimeoutException.class, maxRetries = 4, multiplier = 2)
     public RestfulApiResponse processRequest(String key) {
         return this.client.getResponse(key);
     }

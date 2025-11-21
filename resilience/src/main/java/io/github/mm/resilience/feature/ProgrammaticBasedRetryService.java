@@ -19,7 +19,7 @@ public class ProgrammaticBasedRetryService {
         this.client = client;
         var retryPolicy = RetryPolicy.builder()
                 .includes(GatewayTimeoutException.class)
-                .maxAttempts(4)
+                .maxRetries(4)
                 .delay(Duration.ofMillis(200))
                 .build();
         this.template = new RetryTemplate(retryPolicy);

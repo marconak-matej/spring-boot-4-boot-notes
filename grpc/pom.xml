@@ -16,7 +16,7 @@
     <properties>
         <grpc.version>1.74.0</grpc.version>
         <protobuf-java.version>4.31.1</protobuf-java.version>
-        <spring-grpc.version>0.11.0</spring-grpc.version>
+        <spring-grpc.version>1.0.0-RC1</spring-grpc.version>
         <protobuf-maven-plugin.version>3.8.0</protobuf-maven-plugin.version>
     </properties>
 

@@ -113,7 +113,7 @@ class PostgresTestcontainersTest {
 
         // Then - Verify update
         var price = client.sql("SELECT price FROM products WHERE name = ?")
-                .param("Monitor")
+                .params("Monitor")
                 .query(Double.class)
                 .single();
 
@@ -129,7 +129,7 @@ class PostgresTestcontainersTest {
                 .update();
 
         // When - Delete product
-        client.sql("DELETE FROM products WHERE name = :name").param("Webcam").update();
+        client.sql("DELETE FROM products WHERE name = ?").params("Webcam").update();
 
         // Then - Verify deletion
         var count =
