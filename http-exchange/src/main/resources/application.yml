@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: http-exchange
+  http:
+    clients:
+      read-timeout: 2s
+      connect-timeout: 5s
+      redirects:
+    serviceclient:
+      product:
+        # suppress inspection "SpringBootApplicationProperties"
+        base-url: https://api.restful-api.dev
+
+server:
+  port: 8082

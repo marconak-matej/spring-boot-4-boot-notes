@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: grpc-demo-service
+  grpc:
+    server:
+      port: 9090
+      inprocess:
+        exclusive: true
+    test:
+      inprocess:
+        # suppress inspection "SpringBootApplicationProperties"
+        enabled: true
+
+# TODO Spring Boot 4.0 is still in milestone releases and the ecosystem (including Spring gRPC) hasn't caught up yet.
+# TODO Spring Boot 3.x is stable and fully supports Spring gRPC 0.11.0.

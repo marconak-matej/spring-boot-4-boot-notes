@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: jms
+  artemis:
+    mode: embedded
+    embedded:
+      enabled: true
+      persistent: false
+      queues: ${mm.demo.queue}
+
+mm:
+  demo:
+    queue: demo-queue
+
+logging:
+  level:
+    org.apache.activemq.audit: OFF
