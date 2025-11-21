@@ -36,14 +36,26 @@
 
         <!-- dependencies -->
         <springdoc-openapi.version>3.0.0</springdoc-openapi.version>
+        <grpc.version>1.74.0</grpc.version>
+        <protobuf-java.version>4.31.1</protobuf-java.version>
+        <spring-grpc.version>1.0.0-RC1</spring-grpc.version>
 
         <!-- plugins -->
         <spotless-maven-plugin.version>3.1.0</spotless-maven-plugin.version>
         <palantir.version>2.80.0</palantir.version>
+        <protobuf-maven-plugin.version>4.0.2</protobuf-maven-plugin.version>
+        <graphqlcodegen-maven-plugin.version>3.5.1</graphqlcodegen-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.grpc</groupId>
+                <artifactId>spring-grpc-dependencies</artifactId>
+                <version>${spring-grpc.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
@@ -58,6 +70,28 @@
     </dependencyManagement>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+                <plugin>
+                    <groupId>io.github.ascopes</groupId>
+                    <artifactId>protobuf-maven-plugin</artifactId>
+                    <version>${protobuf-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>io.github.deweyjose</groupId>
+                    <artifactId>graphqlcodegen-maven-plugin</artifactId>
+                    <version>${graphqlcodegen-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
