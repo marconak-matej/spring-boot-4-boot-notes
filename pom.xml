@@ -26,6 +26,7 @@
         <module>jms</module>
         <module>kafka</module>
         <module>test</module>
+        <module>flyway</module>
     </modules>
 
     <properties>

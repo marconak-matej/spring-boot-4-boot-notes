@@ -16,6 +16,7 @@ This project serves as a practical guide to Spring Boot 4.0, containing multiple
 
 ```
 boot-notes/
+├── flyway/               # Database migrations with Flyway
 ├── resilience/           # Resilience patterns and retry mechanisms
 ├── versioning/          # API versioning with Spring Framework 7
 ├── http-exchange/        # Declarative HTTP client with Spring Boot 4
@@ -42,7 +43,46 @@ boot-notes/
 
 ## Modules
 
-### 1. Resilience Module
+### 1. Flyway Module
+
+The flyway module demonstrates Flyway database migration management with Spring Boot 4.0, showcasing versioned migrations, callbacks, and comprehensive testing.
+
+#### Features
+- **Flyway Integration**
+  - Versioned migrations with organized structure (V1-V6)
+  - Baseline migrations for schema resets
+  - Multi-schema support (flyway, dbo)
+  - Profile-based strategy (migrate vs validate)
+  
+- **Migration Organization**
+  ```
+  v1/ → Basic product table
+  v2/ → Inventory columns
+  v3/ → Categories
+  v4/ → Status and audit columns
+  v5/ → Tags and relationships
+  v6/ → ProductStatus enum (Java layer)
+  ```
+
+- **Callbacks & Lifecycle**
+  - Java callbacks with `FlywayMigrationCallback`
+  - SQL callbacks (`beforeMigrate.sql`, `afterMigrate.sql`)
+  - Migration event logging
+
+# Run the application
+`./mvnw spring-boot:run -pl flyway`
+
+
+#### Flyway Commands
+```bash
+# Check migration status
+./mvnw flyway:info -pl flyway
+
+# Validate migrations
+./mvnw flyway:validate -pl flyway
+```
+
+### 2. Resilience Module
 
 The resilience module demonstrates Spring Boot 4.0's enhanced resilience patterns and retry mechanisms.
 
@@ -67,7 +107,7 @@ The resilience module demonstrates Spring Boot 4.0's enhanced resilience pattern
 ./mvnw spring-boot:run -pl resilience
 ```
 
-### 2. Versioning Module
+### 3. Versioning Module
 
 The versioning module showcases Spring Framework 7's first-class API versioning support through a real-world e-commerce Product catalog API.
 
@@ -106,7 +146,7 @@ curl -H "API-Version: 1.0" http://localhost:8080/api/products/456
 curl -H "API-Version: 2.0" http://localhost:8080/api/products/456
 ```
 
-### 3. HTTP Exchange Module
+### 4. HTTP Exchange Module
 
 The http-exchange module demonstrates Spring Boot 4.0's declarative HTTP client capabilities using `@HttpExchange` and `@ImportHttpServices`.
 
@@ -137,7 +177,7 @@ Add to `http-exchange/src/main/resources/application.properties`:
 spring.http.services.product.base-url=https://api.restful-api.dev
 ```
 
-### 4. HTTP Client Module
+### 5. HTTP Client Module
 
 The http-client module demonstrates different ways to make HTTP requests in Spring Boot without using `@HttpExchange`. It includes a DemoApi REST endpoint and comprehensive integration tests showing various HTTP client approaches.
 
@@ -187,7 +227,7 @@ curl -X DELETE http://localhost:8083/api/demos/1
 ./mvnw test -pl http-client -Dtest=RestClientIntegrationTest
 ```
 
-### 5. gRPC Module
+### 6. gRPC Module
 
 The gRPC module showcases how to create and consume gRPC services in Spring Boot 4.0 using Protocol Buffers.
 
@@ -212,7 +252,7 @@ The gRPC module showcases how to create and consume gRPC services in Spring Boot
 ./mvnw spring-boot:run -pl grpc
 ```
 
-### 6. GraphQL Module
+### 7. GraphQL Module
 
 The graphql module demonstrates building a GraphQL API with Spring Boot 4.0, featuring full CRUD operations, pagination support, and in-memory storage.
 
@@ -237,7 +277,7 @@ The graphql module demonstrates building a GraphQL API with Spring Boot 4.0, fea
 ./mvnw spring-boot:run -pl graphql
 ```
 
-### 7. JMS Module
+### 8. JMS Module
 
 The jms module demonstrates Spring Framework 7.0's new **JmsClient** API for simplified JMS messaging operations with embedded Apache ActiveMQ Artemis.
 
@@ -279,7 +319,7 @@ curl -X POST http://localhost:8080/api/messages \
 - **Simplified Operations**: Common operations are more straightforward
 - **MessagingException**: Better exception handling alignment
 
-### 8. Kafka Module
+### 9. Kafka Module
 
 The kafka module demonstrates Apache Kafka integration with Spring Boot 4.0, showcasing **Kafka Share Groups** (new feature), modern messaging patterns, and Testcontainers for local development.
 
@@ -339,7 +379,7 @@ curl -X POST http://localhost:8080/api/demos \
 - **Use Case**: Share Groups ideal for work queue patterns with load balancing
 - **Spring Boot 4.0**: First-class support for Kafka Share Groups (KIP-932)
 
-### 9. Testing Module
+### 10. Testing Module
 
 The testing module demonstrates Spring Boot 4.0 and Spring Framework 7's testing improvements, showcasing modern testing practices with JUnit Jupiter (JUnit 5), RestTestClient with AssertJ, context lifecycle management, bean overriding, and @Nested test support.
 
@@ -397,7 +437,7 @@ The testing module demonstrates Spring Boot 4.0 and Spring Framework 7's testing
 ./mvnw test -pl test -Dtest=JUnit5ComposedAnnotationsTest#shouldCreateProduct
 ```
 
-### 10. [Future Modules]
+### 11. [Future Modules]
 
 _More modules will be added to demonstrate other Spring Boot 4.0 features._
 
@@ -432,6 +472,7 @@ After starting any module, you can access:
 
 ### Module Ports
 
+- **flyway**: `8080`
 - **http-exchange**: `8081`
 - **versioning**: `8082`
 - **http-client**: `8083`
