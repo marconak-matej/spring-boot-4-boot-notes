@@ -17,6 +17,7 @@ This project serves as a practical guide to Spring Boot 4.0, containing multiple
 ```
 boot-notes/
 ├── flyway/               # Database migrations with Flyway
+├── jooq/                 # jOOQ type-safe SQL with Flyway and PostgreSQL
 ├── resilience/           # Resilience patterns and retry mechanisms
 ├── versioning/          # API versioning with Spring Framework 7
 ├── http-exchange/        # Declarative HTTP client with Spring Boot 4
@@ -82,7 +83,86 @@ The flyway module demonstrates Flyway database migration management with Spring 
 ./mvnw flyway:validate -pl flyway
 ```
 
-### 2. Resilience Module
+### 2. jOOQ Module
+
+The jooq module demonstrates Spring Boot 4.0 integration with jOOQ (Java Object Oriented Querying) for type-safe SQL database operations, combined with Flyway migrations and PostgreSQL.
+
+#### Features
+- **jOOQ Type-Safe SQL**
+  - Compile-time SQL validation
+  - Type-safe query construction with generated classes
+  - Fluent API for database operations
+  - Automatic code generation from schema via Testcontainers
+
+- **PostgreSQL & Flyway**
+  - PostgreSQL 16 with versioned migrations
+  - Multi-schema support (dbo, flyway)
+  - Testcontainers for code generation
+  - Audit columns and sequence-based IDs
+
+#### Running the jOOQ Module
+
+```bash
+# Generate jOOQ sources from database schema
+./mvnw generate-sources -pl jooq
+
+# Run the application
+./mvnw spring-boot:run -pl jooq
+```
+
+The application runs on port `8087`.
+
+#### jOOQ Code Generation
+
+```bash
+# Generate jOOQ classes from database schema
+./mvnw generate-sources -pl jooq
+```
+
+This starts a PostgreSQL container, runs Flyway migrations, and generates type-safe Java classes in `target/generated-sources/jooq`.
+
+#### Testing the API
+
+```bash
+# Create a product
+curl -X POST http://localhost:8087/api/products \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Laptop",
+    "description": "High-performance laptop",
+    "price": 1299.99,
+    "stockQuantity": 50,
+    "sku": "LAP-001",
+    "category": "Electronics",
+    "status": "ACTIVE"
+  }'
+
+# Get all products with pagination
+curl http://localhost:8087/api/products?page=0&size=10
+
+# Filter by status and category
+curl http://localhost:8087/api/products?status=ACTIVE&category=Electronics
+
+# Get product by ID
+curl http://localhost:8087/api/products/101
+
+# Update product
+curl -X PUT http://localhost:8087/api/products/101 \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Gaming Laptop", "price": 1599.99}'
+
+# Delete product
+curl -X DELETE http://localhost:8087/api/products/101
+```
+
+#### jOOQ Benefits
+- **Type Safety**: SQL queries validated at compile-time
+- **IDE Support**: Auto-completion and refactoring
+- **Performance**: No runtime query parsing
+- **Database First**: Schema-driven development
+- **Maintainability**: Breaking schema changes detected during compilation
+
+### 3. Resilience Module
 
 The resilience module demonstrates Spring Boot 4.0's enhanced resilience patterns and retry mechanisms.
 
@@ -473,6 +553,7 @@ After starting any module, you can access:
 ### Module Ports
 
 - **flyway**: `8080`
+- **jooq**: `8087`
 - **http-exchange**: `8081`
 - **versioning**: `8082`
 - **http-client**: `8083`

@@ -1,0 +1,11 @@
+spring:
+  flyway:
+    enabled: true
+    schemas: dbo
+    default-schema: dbo
+    locations: classpath:db/migration
+    clean-disabled: false
+    baseline-on-migrate: false
+
+  jooq:
+    sql-dialect: POSTGRES

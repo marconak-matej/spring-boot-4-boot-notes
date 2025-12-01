@@ -27,6 +27,7 @@
         <module>kafka</module>
         <module>test</module>
         <module>flyway</module>
+        <module>jooq</module>
     </modules>
 
     <properties>
