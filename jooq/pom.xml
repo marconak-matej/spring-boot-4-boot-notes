@@ -125,7 +125,7 @@
                         <groupId>org.postgresql</groupId>
                         <artifactId>postgresql</artifactId>
                         <!-- Generation fails with the newest Postgres JDBC driver #46 -->
-                        <version>42.7.4</version>
+                        <version>42.7.8</version>
                     </dependency>
                 </dependencies>
                 <executions>
