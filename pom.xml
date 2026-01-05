@@ -37,7 +37,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- dependencies -->
-        <springdoc-openapi.version>3.0.0</springdoc-openapi.version>
+        <springdoc-openapi.version>3.0.1</springdoc-openapi.version>
         <grpc.version>1.74.0</grpc.version>
         <protobuf-java.version>4.31.1</protobuf-java.version>
         <spring-grpc.version>1.0.0</spring-grpc.version>
