@@ -40,7 +40,7 @@
         <springdoc-openapi.version>3.0.1</springdoc-openapi.version>
         <grpc.version>1.74.0</grpc.version>
         <protobuf-java.version>4.31.1</protobuf-java.version>
-        <spring-grpc.version>1.0.0</spring-grpc.version>
+        <spring-grpc.version>1.0.1</spring-grpc.version>
 
         <!-- plugins -->
         <spotless-maven-plugin.version>3.1.0</spotless-maven-plugin.version>
