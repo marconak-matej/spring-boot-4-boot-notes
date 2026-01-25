@@ -1,6 +1,7 @@
 package io.github.mm.jms.demo;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import io.github.mm.jms.demo.internal.DemoConsumer;
 import io.github.mm.jms.demo.rest.Demo;

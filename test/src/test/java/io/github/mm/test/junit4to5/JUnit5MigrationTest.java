@@ -5,12 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import io.github.mm.test.product.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class) //  JUnit Jupiter extension
 @SpringBootTest
 class JUnit5MigrationTest { //  Package-private class
 
