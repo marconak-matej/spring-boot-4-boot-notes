@@ -22,7 +22,7 @@ public class DemoService {
 
     public Demo updateDemo(String id, String name) {
         validateName(name);
-        var demo = store.computeIfPresent(id, (k, v) -> new Demo(id, name));
+        var demo = store.computeIfPresent(id, (_, _) -> new Demo(id, name));
         if (demo == null) {
             throw new NotFoundException("Demo with id " + id + " not found");
         }
@@ -30,7 +30,7 @@ public class DemoService {
     }
 
     public Demo getDemoById(String id) {
-        return store.computeIfAbsent(id, v -> {
+        return store.computeIfAbsent(id, _ -> {
             throw new NotFoundException("Demo with id " + id + " not found");
         });
     }

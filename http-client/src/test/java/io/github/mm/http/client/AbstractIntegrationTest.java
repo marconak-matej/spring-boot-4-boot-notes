@@ -31,7 +31,7 @@ abstract class AbstractIntegrationTest {
         fixture.getCreatedDemoIds().forEach(id -> {
             try {
                 demoService.deleteDemo(id);
-            } catch (Exception e) {
+            } catch (Exception _) {
                 // Ignore if demo was already deleted in the test
             }
         });

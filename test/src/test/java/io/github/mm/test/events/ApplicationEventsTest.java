@@ -90,7 +90,7 @@ class ApplicationEventsTest {
                 .as("Should contain only OrderCreatedEvent instances")
                 .hasSize(2);
 
-        assertThat(orderEvents).allMatch(event -> true);
+        assertThat(orderEvents).allMatch(_ -> true);
     }
 
     @Test

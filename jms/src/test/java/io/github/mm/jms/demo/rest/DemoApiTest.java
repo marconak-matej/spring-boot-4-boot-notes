@@ -61,11 +61,11 @@ class DemoApiTest {
     @DisplayName("POST /api/messages with oversized message should return 400 BAD REQUEST")
     void testSendOversizedMessage() throws Exception {
         var longMessage = "a".repeat(51);
-        var requestBody = String.format("""
+        var requestBody = """
                 {
                     "message": "%s"
                 }
-                """, longMessage);
+                """.formatted(longMessage);
 
         mockMvc.perform(post("/api/messages")
                         .contentType(MediaType.APPLICATION_JSON)

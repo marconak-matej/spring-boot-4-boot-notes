@@ -167,7 +167,7 @@ class WebClientIntegrationTest extends AbstractIntegrationTest {
                 .get()
                 .uri(baseUrl() + "/{id}", demoId)
                 .retrieve()
-                .onStatus(status -> status.value() == 404, a -> Mono.empty())
+                .onStatus(status -> status.value() == 404, _ -> Mono.empty())
                 .toBodilessEntity()
                 .block();
     }
@@ -206,7 +206,7 @@ class WebClientIntegrationTest extends AbstractIntegrationTest {
 
         // Then
         assertThat(createdDemos).hasSize(2);
-        assertThat(createdDemos.get(0).name()).isEqualTo("Reactive Demo 1");
+        assertThat(createdDemos.getFirst().name()).isEqualTo("Reactive Demo 1");
         assertThat(createdDemos.get(1).name()).isEqualTo("Reactive Demo 2");
     }
 

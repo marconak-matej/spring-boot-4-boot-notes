@@ -88,7 +88,7 @@ class PostgresTestcontainersTest {
 
         // When - Query products
         var products = client.sql("SELECT id, name, price FROM products")
-                .query((rs, rowNum) -> new Product(rs.getLong("id"), rs.getString("name"), rs.getDouble("price")))
+                .query((rs, _) -> new Product(rs.getLong("id"), rs.getString("name"), rs.getDouble("price")))
                 .list();
 
         // Then - Verify results

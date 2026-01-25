@@ -86,7 +86,7 @@ class ProgrammaticBasedRetryServiceTest {
         var startTime = System.currentTimeMillis();
         var executionTimes = new AtomicInteger(0);
 
-        when(client.getResponse(anyString())).thenAnswer(invocation -> {
+        when(client.getResponse(anyString())).thenAnswer(_ -> {
             executionTimes.incrementAndGet();
             if (executionTimes.get() < 3) {
                 throw new GatewayTimeoutException();
