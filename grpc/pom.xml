@@ -59,7 +59,7 @@
                 <groupId>io.github.ascopes</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
                 <configuration>
-                    <protocVersion>${protobuf-java.version}</protocVersion>
+                    <protoc>${protobuf-java.version}</protoc>
                     <plugins>
                         <plugin kind="binary-maven">
                             <groupId>io.grpc</groupId>
