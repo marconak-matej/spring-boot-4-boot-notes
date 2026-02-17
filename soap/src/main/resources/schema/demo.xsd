@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://github.io/mm/soap/demo"
+           xmlns:tns="http://github.io/mm/soap/demo"
+           elementFormDefault="qualified">
+
+    <!-- Demo Entity -->
+    <xs:complexType name="Demo">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" minOccurs="0"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Create Demo Request -->
+    <xs:element name="CreateDemoRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Name for the new demo. Required, must not be blank, max 50 characters.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Update Demo Request -->
+    <xs:element name="UpdateDemoRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>ID of the demo to update. Required, must be a valid UUID.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="name" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>New name for the demo. Required, must not be blank, max 50 characters.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get Demo Request -->
+    <xs:element name="GetDemoRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>ID of the demo to retrieve. Required, must be a valid UUID.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- List Demos Request -->
+    <xs:element name="ListDemosRequest">
+        <xs:complexType>
+            <xs:sequence>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Delete Demo Request -->
+    <xs:element name="DeleteDemoRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>ID of the demo to delete. Required, must be a valid UUID.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Demo Response -->
+    <xs:element name="DemoResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="demo" type="tns:Demo">
+                    <xs:annotation>
+                        <xs:documentation>The demo entity (created, updated, or retrieved).</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- List Demos Response -->
+    <xs:element name="ListDemosResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="demo" type="tns:Demo" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>List of all demo entities in the system.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Delete Demo Response -->
+    <xs:element name="DeleteDemoResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="success" type="xs:boolean">
+                    <xs:annotation>
+                        <xs:documentation>Indicates whether the deletion was successful.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
+

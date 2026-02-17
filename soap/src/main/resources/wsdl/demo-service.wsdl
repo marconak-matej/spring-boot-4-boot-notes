@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://github.io/mm/soap/demo"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             targetNamespace="http://github.io/mm/soap/demo"
+             name="DemoService">
+
+    <types>
+        <xsd:schema targetNamespace="http://github.io/mm/soap/demo">
+            <xsd:import namespace="http://github.io/mm/soap/demo" schemaLocation="schema/demo.xsd"/>
+        </xsd:schema>
+    </types>
+
+    <!-- Messages -->
+    <message name="CreateDemoRequestMessage">
+        <part name="body" element="tns:CreateDemoRequest"/>
+    </message>
+
+    <message name="UpdateDemoRequestMessage">
+        <part name="body" element="tns:UpdateDemoRequest"/>
+    </message>
+
+    <message name="GetDemoRequestMessage">
+        <part name="body" element="tns:GetDemoRequest"/>
+    </message>
+
+    <message name="ListDemosRequestMessage">
+        <part name="body" element="tns:ListDemosRequest"/>
+    </message>
+
+    <message name="DeleteDemoRequestMessage">
+        <part name="body" element="tns:DeleteDemoRequest"/>
+    </message>
+
+    <message name="DemoResponseMessage">
+        <part name="body" element="tns:DemoResponse"/>
+    </message>
+
+    <message name="ListDemosResponseMessage">
+        <part name="body" element="tns:ListDemosResponse"/>
+    </message>
+
+    <message name="DeleteDemoResponseMessage">
+        <part name="body" element="tns:DeleteDemoResponse"/>
+    </message>
+
+    <!-- Port Type (Interface) -->
+    <portType name="DemoServicePortType">
+        <operation name="CreateDemo">
+            <input message="tns:CreateDemoRequestMessage"/>
+            <output message="tns:DemoResponseMessage"/>
+        </operation>
+        <operation name="UpdateDemo">
+            <input message="tns:UpdateDemoRequestMessage"/>
+            <output message="tns:DemoResponseMessage"/>
+        </operation>
+        <operation name="GetDemo">
+            <input message="tns:GetDemoRequestMessage"/>
+            <output message="tns:DemoResponseMessage"/>
+        </operation>
+        <operation name="ListDemos">
+            <input message="tns:ListDemosRequestMessage"/>
+            <output message="tns:ListDemosResponseMessage"/>
+        </operation>
+        <operation name="DeleteDemo">
+            <input message="tns:DeleteDemoRequestMessage"/>
+            <output message="tns:DeleteDemoResponseMessage"/>
+        </operation>
+    </portType>
+
+    <!-- Binding (Protocol) -->
+    <binding name="DemoServiceBinding" type="tns:DemoServicePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <operation name="CreateDemo">
+            <soap:operation soapAction="CreateDemo"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="UpdateDemo">
+            <soap:operation soapAction="UpdateDemo"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="GetDemo">
+            <soap:operation soapAction="GetDemo"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="ListDemos">
+            <soap:operation soapAction="ListDemos"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="DeleteDemo">
+            <soap:operation soapAction="DeleteDemo"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <!-- Service -->
+    <service name="DemoService">
+        <documentation>
+            Service for managing Demo entities via SOAP.
+            Provides full CRUD operations (Create, Read, Update, Delete).
+        </documentation>
+        <port name="DemoServicePort" binding="tns:DemoServiceBinding">
+            <soap:address location="http://localhost:8088/ws/demo-service"/>
+        </port>
+    </service>
+
+</definitions>
+

@@ -27,6 +27,7 @@ boot-notes/
 ├── jms/                  # JMS messaging with JmsClient and embedded Artemis
 ├── kafka/                # Kafka integration with Share Groups and Testcontainers
 ├── test/                 # Spring Boot 4.0 & Spring Framework 7 testing enhancements
+├── soap/                 # SOAP Web Service with Spring-WS and contract-first development
 └── [future-modules]     # Placeholder for upcoming modules
 ```
 
@@ -517,7 +518,90 @@ The testing module demonstrates Spring Boot 4.0 and Spring Framework 7's testing
 ./mvnw test -pl test -Dtest=JUnit5ComposedAnnotationsTest#shouldCreateProduct
 ```
 
-### 11. [Future Modules]
+### 11. SOAP Module
+
+The soap module demonstrates how to build a SOAP web service using Spring Boot 4.0 and Spring Web Services (Spring-WS). It showcases a complete contract-first CRUD service implementation for managing Demo entities using SOAP over HTTP.
+
+#### Features
+- **Contract-First Development**
+  - WSDL (Web Services Description Language) service definitions
+  - XML Schema (XSD) for strict type validation
+  - JAXB code generation from XSD schemas
+  - Automatic WSDL generation from schema
+
+- **SOAP Service Operations**
+  - `CreateDemo` - Create a new demo with UUID generation
+  - `UpdateDemo` - Update existing demo by ID
+  - `GetDemo` - Retrieve demo by unique ID
+  - `ListDemos` - List all demos in the system
+  - `DeleteDemo` - Delete demo by ID
+
+- **Exception Handling**
+  - Global SOAP fault mapping via `SoapFaultMappingExceptionResolver`
+  - Type-specific fault generation (Server vs Client faults)
+  - Validation error handling with meaningful messages
+
+- **Spring Framework 7 Integration**
+  - Java 21 records for immutable domain models
+  - Modern dependency injection patterns
+  - Comprehensive integration testing with `@SpringBootTest`
+
+#### Running the SOAP Module
+```bash
+./mvnw spring-boot:run -pl soap
+```
+
+The SOAP service runs on **port 8088** with WSDL available at:
+```
+http://localhost:8088/ws/demoService.wsdl
+```
+
+#### Testing the SOAP Service
+
+**Get WSDL Definition**
+```bash
+curl -s http://localhost:8088/ws/demoService.wsdl
+```
+
+**Create a Demo**
+```bash
+curl -X POST \
+  -H "Content-Type: text/xml; charset=UTF-8" \
+  -d '<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+               xmlns:tns="http://github.io/mm/soap/demo">
+  <soap:Body>
+    <tns:CreateDemoRequest>
+      <tns:name>My First SOAP Demo</tns:name>
+    </tns:CreateDemoRequest>
+  </soap:Body>
+</soap:Envelope>' \
+  http://localhost:8088/ws/demoService
+```
+
+#### Testing with SoapUI or Postman
+
+1. Open **SoapUI** or **Postman**
+2. Create a new SOAP project with WSDL URL: `http://localhost:8088/ws/demoService.wsdl`
+3. The tool automatically loads all operations and generates request templates
+4. Fill in parameters and send requests
+5. View SOAP responses and fault details
+
+#### Running Tests
+```bash
+# Run all tests
+./mvnw test -pl soap
+```
+
+#### SOAP Module Architecture
+
+- **Spring-WS Framework** - Enterprise SOAP/XML Web Services support
+- **Contract-First Approach** - XSD schema defines the contract
+- **JAXB Code Generation** - Automatic Java class generation from XSD
+- **Spring Boot Integration** - Zero-configuration SOAP servlet setup
+- **Exception Mapping** - Automatic SOAP fault generation from exceptions
+
+### 12. [Future Modules]
 
 _More modules will be added to demonstrate other Spring Boot 4.0 features._
 
@@ -560,6 +644,7 @@ After starting any module, you can access:
 - **jms**: `8084`
 - **kafka**: `8085`
 - **test**: `8086`
+- **soap**: `8088`
 
 ### Features
 

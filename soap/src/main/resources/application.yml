@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: soap-demo-service
+  webservices:
+    path: /ws
+
+server:
+  port: 8088
+
