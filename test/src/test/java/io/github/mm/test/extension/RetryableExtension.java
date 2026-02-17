@@ -1,23 +1,23 @@
 package io.github.mm.test.extension;
 
+import java.lang.reflect.Method;
 import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.extension.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.lang.reflect.Method;
 
 public class RetryableExtension implements InvocationInterceptor {
     private static final Logger log = LoggerFactory.getLogger(RetryableExtension.class);
     private static final String RETRY_COUNT_KEY = "retry_count";
 
     @Override
-    public void interceptTestMethod(@NonNull Invocation<Void> invocation,
-                                    @NonNull ReflectiveInvocationContext<Method> invocationContext,
-                                    ExtensionContext extensionContext) throws Throwable {
+    public void interceptTestMethod(
+            @NonNull Invocation<Void> invocation,
+            @NonNull ReflectiveInvocationContext<Method> invocationContext,
+            ExtensionContext extensionContext)
+            throws Throwable {
 
-        var retryable = extensionContext.getRequiredTestMethod()
-                .getAnnotation(Retryable.class);
+        var retryable = extensionContext.getRequiredTestMethod().getAnnotation(Retryable.class);
 
         if (retryable == null) {
             invocation.proceed();
@@ -37,17 +37,16 @@ public class RetryableExtension implements InvocationInterceptor {
                 } else {
                     // Retry - re-invoke test method only
                     // Note: @BeforeEach/@AfterEach won't run again
-                    extensionContext.getRequiredTestMethod()
-                            .invoke(extensionContext.getRequiredTestInstance());
+                    extensionContext.getRequiredTestMethod().invoke(extensionContext.getRequiredTestInstance());
                 }
 
                 // Test passed
                 if (attempt > 0) {
-                    log.info("✓ Test '{}' passed on attempt {}/{}",
+                    log.info(
+                            "✓ Test '{}' passed on attempt {}/{}",
                             extensionContext.getDisplayName(),
                             attempt,
-                            maxAttempts
-                    );
+                            maxAttempts);
                 }
                 return; // Exit on success
 
@@ -56,17 +55,17 @@ public class RetryableExtension implements InvocationInterceptor {
                 var actualException = unwrapException(throwable);
 
                 if (attempt < (maxAttempts - 1)) {
-                    log.warn("✗ Test '{}' failed on attempt {}/{}. Error: {} - retrying...",
+                    log.warn(
+                            "✗ Test '{}' failed on attempt {}/{}. Error: {} - retrying...",
                             extensionContext.getDisplayName(),
                             attempt,
                             maxAttempts,
-                            actualException.getMessage()
-                    );
+                            actualException.getMessage());
                 } else {
-                    log.error("✗ Test '{}' failed after {} attempts. Giving up.",
+                    log.error(
+                            "✗ Test '{}' failed after {} attempts. Giving up.",
                             extensionContext.getDisplayName(),
-                            maxAttempts
-                    );
+                            maxAttempts);
                     throw actualException;
                 }
             }
@@ -85,8 +84,6 @@ public class RetryableExtension implements InvocationInterceptor {
     }
 
     private ExtensionContext.Store getStore(ExtensionContext context) {
-        return context.getStore(
-                ExtensionContext.Namespace.create(getClass(), context.getRequiredTestMethod())
-        );
+        return context.getStore(ExtensionContext.Namespace.create(getClass(), context.getRequiredTestMethod()));
     }
 }
