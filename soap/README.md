@@ -205,7 +205,7 @@ http://localhost:8088/ws/demo-service.wsdl
 #### Get WSDL
 
 ```bash
-curl -s http://localhost:8088/ws/demo.wsdl
+curl -s http://localhost:8088/ws/demo-service.wsdl
 ```
 
 #### Create Demo
@@ -251,7 +251,7 @@ curl -X POST \
     </tns:GetDemoRequest>
   </soap:Body>
 </soap:Envelope>' \
-  http://localhost:8088/ws/demoService
+  http://localhost:8088/ws/demo-service
 ```
 
 #### List All Demos
@@ -266,7 +266,7 @@ curl -X POST \
     <tns:ListDemosRequest/>
   </soap:Body>
 </soap:Envelope>' \
-  http://localhost:8088/ws/demoService
+  http://localhost:8088/ws/demo-service
 ```
 
 #### Update Demo
@@ -284,7 +284,7 @@ curl -X POST \
     </tns:UpdateDemoRequest>
   </soap:Body>
 </soap:Envelope>' \
-  http://localhost:8088/ws/demoService
+  http://localhost:8088/ws/demo-service
 ```
 
 #### Delete Demo
@@ -301,7 +301,7 @@ curl -X POST \
     </tns:DeleteDemoRequest>
   </soap:Body>
 </soap:Envelope>' \
-  http://localhost:8088/ws/demoService
+  http://localhost:8088/ws/demo-service
 ```
 
 ## Code Generation
