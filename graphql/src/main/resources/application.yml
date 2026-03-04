@@ -6,3 +6,13 @@ spring:
     schema:
       inspection:
         enabled: true
+
+logging:
+  structured:
+    format:
+      console: logstash
+    ecs:
+      service:
+        name: graphql-service
+        version: 0.0.1
+        environment: development
