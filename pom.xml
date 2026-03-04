@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.2</version>
+        <version>4.0.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -38,7 +38,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- dependencies -->
-        <springdoc-openapi.version>3.0.1</springdoc-openapi.version>
+        <springdoc-openapi.version>3.0.2</springdoc-openapi.version>
         <grpc.version>1.78.0</grpc.version>
         <protobuf-java.version>4.31.1</protobuf-java.version>
         <spring-grpc.version>1.0.2</spring-grpc.version>
@@ -46,8 +46,8 @@
         <!-- plugins -->
         <spotless-maven-plugin.version>3.2.1</spotless-maven-plugin.version>
         <palantir.version>2.80.0</palantir.version>
-        <protobuf-maven-plugin.version>5.0.0</protobuf-maven-plugin.version>
-        <graphqlcodegen-maven-plugin.version>3.5.1</graphqlcodegen-maven-plugin.version>
+        <protobuf-maven-plugin.version>5.0.1</protobuf-maven-plugin.version>
+        <graphqlcodegen-maven-plugin.version>3.7.1</graphqlcodegen-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
