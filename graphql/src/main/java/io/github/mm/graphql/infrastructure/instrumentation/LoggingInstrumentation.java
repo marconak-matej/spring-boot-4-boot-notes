@@ -6,12 +6,11 @@ import graphql.execution.instrumentation.InstrumentationState;
 import graphql.execution.instrumentation.SimpleInstrumentationContext;
 import graphql.execution.instrumentation.SimplePerformantInstrumentation;
 import graphql.execution.instrumentation.parameters.InstrumentationExecutionParameters;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 public class LoggingInstrumentation extends SimplePerformantInstrumentation {
@@ -22,7 +21,10 @@ public class LoggingInstrumentation extends SimplePerformantInstrumentation {
     public InstrumentationContext<ExecutionResult> beginExecution(
             InstrumentationExecutionParameters params, InstrumentationState state) {
 
-        var mdc = MDC.putCloseable("traceId", UUID.randomUUID().toString()); // Add traceId to MDC for correlation, select from headers in real implementation
+        var mdc = MDC.putCloseable(
+                "traceId",
+                UUID.randomUUID()
+                        .toString()); // Add traceId to MDC for correlation, select from headers in real implementation
 
         var start = System.currentTimeMillis();
         var operationName = resolveOperationName(params);
