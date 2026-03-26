@@ -3,6 +3,7 @@ package io.github.mm.graphql.product.graphql;
 import io.github.mm.graphql.product.ProductService;
 import io.github.mm.graphql.product.graphql.model.types.*;
 import io.github.mm.graphql.product.internal.ProductMapper;
+import io.micrometer.observation.annotation.Observed;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -19,12 +20,14 @@ public class ProductApi {
         this.mapper = mapper;
     }
 
+    @Observed(name = "product.product")
     @QueryMapping
     public Product product(@Argument String id) {
         var product = service.getProductById(id);
         return mapper.toGraphQLProduct(product);
     }
 
+    @Observed(name = "product.products")
     @QueryMapping
     public ProductPage products(@Argument int page, @Argument int size) {
         var products = service.getProducts(page, size);
