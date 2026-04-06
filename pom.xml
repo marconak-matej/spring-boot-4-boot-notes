@@ -46,7 +46,7 @@
         <!-- plugins -->
         <spotless-maven-plugin.version>3.4.0</spotless-maven-plugin.version>
         <palantir.version>2.80.0</palantir.version>
-        <protobuf-maven-plugin.version>5.1.1</protobuf-maven-plugin.version>
+        <protobuf-maven-plugin.version>5.1.2</protobuf-maven-plugin.version>
         <graphqlcodegen-maven-plugin.version>3.7.1</graphqlcodegen-maven-plugin.version>
     </properties>
 
