@@ -6,6 +6,7 @@ import io.github.mm.flyway.product.domain.ProductStatus;
 import org.jspecify.annotations.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -19,4 +20,8 @@ public interface ProductRepository
     Page<@NonNull Product> findByStatus(Pageable pageable, @Param("status") ProductStatus status);
 
     Page<@NonNull Product> findByCategory(Pageable pageable, @Param("category") ProductCategory category);
+
+    Slice<@NonNull Product> findAllByOrderByIdAsc(Pageable pageable);
+
+    Slice<@NonNull Product> findByIdGreaterThanOrderByIdAsc(@Param("id") Long id, Pageable pageable);
 }

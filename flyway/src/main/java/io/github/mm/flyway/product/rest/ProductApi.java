@@ -4,6 +4,7 @@ import io.github.mm.flyway.product.ProductService;
 import io.github.mm.flyway.product.internal.ProductMapper;
 import io.github.mm.flyway.product.rest.dto.ProductRequest;
 import io.github.mm.flyway.product.rest.dto.ProductResponse;
+import io.github.mm.flyway.product.rest.dto.ScrollResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -13,11 +14,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.jspecify.annotations.NonNull;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,10 +30,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Validated
 @RequestMapping("/api/products")
 @Tag(name = "Products", description = "Product management APIs")
 public class ProductApi {
@@ -105,6 +112,39 @@ public class ProductApi {
     @Operation(summary = "Get product by ID", description = "Retrieves a specific product by its ID")
     public ProductResponse getProductById(@PathVariable Long id) {
         return mapper.toResponse(service.findById(id));
+    }
+
+    @GetMapping("/scroll")
+    @Operation(
+            summary = "Scroll products",
+            description = "Cursor-based pagination for scrolling through products",
+            parameters = {
+                @Parameter(
+                        name = "nextCursor",
+                        description = "Cursor (last item ID) to scroll from. Use 0 or null for first page",
+                        example = "100",
+                        in = ParameterIn.QUERY),
+                @Parameter(
+                        name = "size",
+                        description = "Number of items per page",
+                        example = "20",
+                        in = ParameterIn.QUERY,
+                        schema = @Schema(type = "integer", defaultValue = "20"))
+            },
+            responses = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "Successful scroll retrieval",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = ScrollResponse.class)))
+            })
+    public ScrollResponse<ProductResponse> scrollProducts(
+            @RequestParam(defaultValue = "0") String nextCursor,
+            @RequestParam(defaultValue = "20") @Parameter(hidden = true) @Max(100) @Min(1) int size) {
+        var slice = service.scroll(nextCursor, PageRequest.of(0, size));
+        return mapper.toScrollResponse(slice);
     }
 
     @PostMapping

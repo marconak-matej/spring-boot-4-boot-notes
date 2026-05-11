@@ -4,9 +4,12 @@ import io.github.mm.flyway.product.domain.Product;
 import io.github.mm.flyway.product.domain.ProductStatus;
 import io.github.mm.flyway.product.rest.dto.ProductRequest;
 import io.github.mm.flyway.product.rest.dto.ProductResponse;
+import io.github.mm.flyway.product.rest.dto.ScrollResponse;
+import io.github.mm.flyway.product.rest.dto.SliceMetadata;
 import org.jspecify.annotations.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.data.web.PagedModel;
 import org.springframework.stereotype.Component;
@@ -77,5 +80,12 @@ public class ProductMapper {
 
     private static ProductStatus mapStatus(ProductRequest request) {
         return request.status() != null ? request.status() : ProductStatus.ACTIVE;
+    }
+
+    public ScrollResponse<ProductResponse> toScrollResponse(Slice<@NonNull Product> slice) {
+        var items = slice.getContent().stream().map(this::toResponse).toList();
+        var nextCursor = slice.hasNext() ? String.valueOf(items.getLast().id()) : null;
+        var sliceMetadata = new SliceMetadata(slice.hasNext(), nextCursor, slice.getSize());
+        return new ScrollResponse<>(items, sliceMetadata);
     }
 }

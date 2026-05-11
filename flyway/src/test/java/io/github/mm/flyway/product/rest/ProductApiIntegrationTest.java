@@ -103,4 +103,14 @@ class ProductApiIntegrationTest {
     void shouldReturn404ForNonExistentProduct() throws Exception {
         mockMvc.perform(get("/api/products/{id}", 99999)).andExpect(status().isNotFound());
     }
+
+    @Test
+    @DisplayName("Should scroll products with nextCursor")
+    void shouldScrollProductsWithCursor() throws Exception {
+        mockMvc.perform(get("/api/products/scroll").param("size", "5"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content", notNullValue()))
+                .andExpect(jsonPath("$.slice", notNullValue()))
+                .andExpect(jsonPath("$.slice.hasNext", notNullValue()));
+    }
 }

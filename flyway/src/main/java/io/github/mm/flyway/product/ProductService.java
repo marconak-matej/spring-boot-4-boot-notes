@@ -8,8 +8,10 @@ import io.github.mm.flyway.product.repository.ProductRepository;
 import org.jspecify.annotations.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 @Service
 @Transactional(readOnly = true)
@@ -27,6 +29,22 @@ public class ProductService {
 
     public Page<@NonNull Product> findAll(Pageable pageable) {
         return repository.findAll(pageable);
+    }
+
+    public Slice<@NonNull Product> scroll(String cursor, Pageable pageable) {
+        if (!StringUtils.hasLength(cursor)) {
+            return repository.findAllByOrderByIdAsc(pageable); // separate query, no WHERE clause
+        }
+        var lastId = parseCursor(cursor);
+        return repository.findByIdGreaterThanOrderByIdAsc(lastId, pageable);
+    }
+
+    private long parseCursor(String cursor) {
+        try {
+            return Long.parseLong(cursor);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid cursor format: " + cursor, e);
+        }
     }
 
     public Product findById(Long id) {
