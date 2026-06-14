@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/products")
-@Tag(name = "Products", description = "Product API with version-based routing (Spring Boot 4.0 feature)")
+@Tag(name = "Products", description = "Product API with version-based routing (Spring Boot 4.1 feature)")
 public class ProductApi {
 
     @Operation(

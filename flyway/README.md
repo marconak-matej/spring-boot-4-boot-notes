@@ -1,10 +1,10 @@
 # Flyway Database Migrations Module
 
-This module demonstrates **Flyway database migration management with Spring Boot 4.0**, showcasing versioned migrations, baseline migrations, callbacks, multi-schema support, and comprehensive testing strategies.
+This module demonstrates **Flyway database migration management with Spring Boot 4.1**, showcasing versioned migrations, baseline migrations, callbacks, multi-schema support, and comprehensive testing strategies.
 
 ## Features
 
-- ✅ **Flyway Integration** with Spring Boot 4.0
+- ✅ **Flyway Integration** with Spring Boot 4.1
 - ✅ **Versioned Migrations** with organized version structure (V1, V2, V3, etc.)
 - ✅ **Baseline Migrations** for resetting database state
 - ✅ **Multi-Schema Support** (flyway, dbo schemas)
@@ -17,7 +17,7 @@ This module demonstrates **Flyway database migration management with Spring Boot
 
 ## Technology Stack
 
-- **Spring Boot**: 4.0.0
+- **Spring Boot**: 4.1.0
 - **Flyway**: 10.x (via Spring Boot)
 - **PostgreSQL**: 16+ (via Testcontainers)
 - **Spring Data JDBC**: For repository layer

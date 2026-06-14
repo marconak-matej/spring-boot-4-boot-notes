@@ -1,10 +1,10 @@
 # API Versioning Module
 
-This module demonstrates Spring Boot 4.0's first-class API versioning support using a classic e-commerce Product catalog API.
+This module demonstrates Spring Boot 4.1's first-class API versioning support using a classic e-commerce Product catalog API.
 
 ## Overview
 
-Spring Framework 7 (Spring Boot 4.0) introduces native API versioning support through the `version` attribute in request mapping annotations. This eliminates the need for custom solutions and provides a standardized way to version APIs.
+Spring Framework 7 (Spring Boot 4.1) introduces native API versioning support through the `version` attribute in request mapping annotations. This eliminates the need for custom solutions and provides a standardized way to version APIs.
 
 ## E-Commerce Product API Example
 

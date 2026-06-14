@@ -19,7 +19,7 @@ public class OpenApiConfig {
                         .title("jOOQ Product Management API")
                         .version("1.0.0")
                         .description("""
-                                RESTful API for product catalog management demonstrating Spring Boot 4.0 with jOOQ integration.
+                                RESTful API for product catalog management demonstrating Spring Boot 4.1 with jOOQ integration.
 
                                 ## Features
                                 * Full CRUD operations for products
@@ -29,14 +29,14 @@ public class OpenApiConfig {
                                 * PostgreSQL as the database backend
 
                                 ## Technical Stack
-                                * Spring Boot 4.0
+                                * Spring Boot 4.1
                                 * jOOQ for type-safe SQL
                                 * Flyway for database migrations
                                 * PostgreSQL 16
                                 * Testcontainers for testing
                                 """)
                         .contact(new Contact()
-                                .name("Spring Boot 4.0 Boot Notes")
+                                .name("Spring Boot 4.1 Boot Notes")
                                 .url("https://github.com/mm/spring-boot-4-boot-notes")
                                 .email("contact@example.com"))
                         .license(new License()

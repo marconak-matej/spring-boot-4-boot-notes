@@ -1,4 +1,4 @@
-# JMS Module - Spring Boot 4.0 JmsClient Demonstration
+# JMS Module - Spring Boot 4.1 JmsClient Demonstration
 
 This module showcases the new **JmsClient** feature introduced in **Spring Framework 7.0**, which provides a fluent and modern API for JMS operations.
 
@@ -15,7 +15,7 @@ The `JmsClient` is a new API variant introduced in Spring Framework 7.0, followi
 
 ## Technology Stack
 
-- **Spring Boot**: 4.0.0
+- **Spring Boot**: 4.1.0
 - **Spring Framework**: 7.x
 - **JMS Provider**: Apache ActiveMQ Artemis (embedded)
 - **Java**: 21

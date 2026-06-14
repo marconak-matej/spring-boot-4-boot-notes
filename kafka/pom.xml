@@ -11,7 +11,7 @@
 
     <artifactId>kafka</artifactId>
     <name>kafka</name>
-    <description>Kafka with Spring Boot 4.0 - Demonstrating Spring Kafka features and Testcontainers integration</description>
+    <description>Kafka with Spring Boot 4.1 - Demonstrating Spring Kafka features and Testcontainers integration</description>
 
     <dependencies>
         <dependency>

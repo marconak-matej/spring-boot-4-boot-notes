@@ -16,10 +16,10 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("HTTP Client Demo API")
                         .description(
-                                "Demonstrates different HTTP client approaches in Spring Boot 4.0: RestClient, WebClient, and RestTemplate")
+                                "Demonstrates different HTTP client approaches in Spring Boot 4.1: RestClient, WebClient, and RestTemplate")
                         .version("1.0.0")
                         .contact(new Contact()
-                                .name("Spring Boot 4.0 Demo")
+                                .name("Spring Boot 4.1 Demo")
                                 .url("https://github.com/mm/boot-notes")
                                 .email("contact@example.com"))
                         .license(new License().name("Apache 2.0").url("https://www.apache.org/licenses/LICENSE-2.0")));

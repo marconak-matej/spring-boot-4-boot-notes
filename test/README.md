@@ -1,10 +1,10 @@
-# Testing Module - Spring Boot 4.0 & Spring Framework 7 Testing Enhancements
+# Testing Module - Spring Boot 4.1 & Spring Framework 7 Testing Enhancements
 
-A comprehensive demonstration of **Spring Boot 4.0 and Spring Framework 7's testing improvements**, showcasing modern testing practices with JUnit Jupiter (JUnit 5), RestTestClient with AssertJ, context lifecycle management, bean overriding, and @Nested test support.
+A comprehensive demonstration of **Spring Boot 4.1 and Spring Framework 7's testing improvements**, showcasing modern testing practices with JUnit Jupiter (JUnit 5), RestTestClient with AssertJ, context lifecycle management, bean overriding, and @Nested test support.
 
 ## Overview
 
-This module is dedicated to testing enhancements in Spring Boot 4.0 and Spring Framework 7. It provides practical examples of new testing features and migration patterns from JUnit 4 to JUnit Jupiter.
+This module is dedicated to testing enhancements in Spring Boot 4.1 and Spring Framework 7. It provides practical examples of new testing features and migration patterns from JUnit 4 to JUnit Jupiter.
 
 ## 🎯 Key Focus Areas
 
@@ -14,7 +14,7 @@ This module is dedicated to testing enhancements in Spring Boot 4.0 and Spring F
 - Modern @SpringJUnitConfig annotations
 - **Status**: ✅ Phase 1 Complete
 
-### 2. **RestTestClient with AssertJ** (Spring Boot 4.0)
+### 2. **RestTestClient with AssertJ** (Spring Boot 4.1)
 - Live server testing with @SpringBootTest
 - MockMvc-backed testing
 - AssertJ integration for fluent assertions
@@ -40,7 +40,7 @@ This module is dedicated to testing enhancements in Spring Boot 4.0 and Spring F
 - @RecordApplicationEvents annotation
 - Event verification in tests
 
-### 7. **Testcontainers 2.x Integration** (Spring Boot 4.0)
+### 7. **Testcontainers 2.x Integration** (Spring Boot 4.1)
 - @ServiceConnection for automatic configuration
 - Container lifecycle management
 
@@ -49,7 +49,7 @@ This module is dedicated to testing enhancements in Spring Boot 4.0 and Spring F
 ### Prerequisites
 - Java 21+
 - Maven 3.8+
-- Spring Boot 4.0.0
+- Spring Boot 4.1.0
 
 ### Build the Module
 ```bash

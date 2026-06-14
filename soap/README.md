@@ -1,6 +1,6 @@
 # Spring Boot SOAP Web Service Demo
 
-This module demonstrates how to build a SOAP web service using Spring Boot 4.0 and Spring Web Services (Spring-WS). It showcases a complete CRUD (Create, Read, Update, Delete) service for managing "Demo" entities using SOAP over HTTP.
+This module demonstrates how to build a SOAP web service using Spring Boot 4.1 and Spring Web Services (Spring-WS). It showcases a complete CRUD (Create, Read, Update, Delete) service for managing "Demo" entities using SOAP over HTTP.
 
 ## Overview
 
@@ -16,7 +16,7 @@ This project implements a contract-first SOAP service using Spring-WS and demons
 
 ## Tech Stack
 
-- **Spring Boot** 4.0.2
+- **Spring Boot** 4.1.0
 - **Spring Web Services (Spring-WS)** - Latest
 - **Spring Framework 7** - Latest
 - **Java** 25
@@ -150,7 +150,7 @@ XML Schema Definition:
 
 - Java 25 or later
 - Maven 3.9+
-- Spring Boot 4.0+
+- Spring Boot 4.1+
 
 ### Building the Project
 

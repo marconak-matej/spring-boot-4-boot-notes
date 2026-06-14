@@ -11,7 +11,7 @@
 
     <artifactId>flyway</artifactId>
     <name>flyway</name>
-    <description>Flyway Database Migrations with Spring Boot 4.0</description>
+    <description>Flyway Database Migrations with Spring Boot 4.1</description>
 
     <dependencies>
         <dependency>

@@ -11,7 +11,7 @@
 
     <artifactId>test</artifactId>
     <name>test</name>
-    <description>Testing with Spring Boot 4.0 - JUnit Jupiter, RestTestClient, AssertJ, and modern testing patterns</description>
+    <description>Testing with Spring Boot 4.1 - JUnit Jupiter, RestTestClient, AssertJ, and modern testing patterns</description>
 
     <dependencies>
         <!-- Spring Boot Starter Web -->

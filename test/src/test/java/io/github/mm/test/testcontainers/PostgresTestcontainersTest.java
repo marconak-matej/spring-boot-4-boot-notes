@@ -20,11 +20,11 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
             "spring.datasource.driver-class-name=org.postgresql.Driver"
         })
 @Testcontainers
-@DisplayName("Testcontainers with @ServiceConnection (Spring Boot 4.0)")
+@DisplayName("Testcontainers with @ServiceConnection (Spring Boot 4.1)")
 class PostgresTestcontainersTest {
 
     @Container
-    @ServiceConnection //  Spring Boot 4.0: Auto-configures DataSource!
+    @ServiceConnection //  Spring Boot 4.1: Auto-configures DataSource!
     static PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:16-alpine")
             .withDatabaseName("testdb")
             .withUsername("test")

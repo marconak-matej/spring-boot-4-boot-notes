@@ -1,6 +1,6 @@
 # jOOQ Module
 
-The jOOQ module demonstrates Spring Boot 4.0 integration with jOOQ (Java Object Oriented Querying) for type-safe SQL database operations, combined with Flyway migrations and PostgreSQL.
+The jOOQ module demonstrates Spring Boot 4.1 integration with jOOQ (Java Object Oriented Querying) for type-safe SQL database operations, combined with Flyway migrations and PostgreSQL.
 
 ## Overview
 
@@ -240,7 +240,7 @@ target/generated-sources/jooq/
 
 ## Technology Stack
 
-- **Spring Boot**: 4.0.0
+- **Spring Boot**: 4.1.0
 - **Spring Framework**: 7.x
 - **jOOQ**: 3.18.3
 - **Flyway**: 9.16.3

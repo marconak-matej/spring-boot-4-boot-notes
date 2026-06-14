@@ -1,16 +1,16 @@
-# Spring Boot 4.0 Notes
+# Spring Boot 4.1 Notes
 
-A comprehensive exploration of Spring Boot 4.0 features and improvements through practical examples and demonstrations.
+A comprehensive exploration of Spring Boot 4.1 features and improvements through practical examples and demonstrations.
 
 ## Overview
 
-This project serves as a practical guide to Spring Boot 4.0, containing multiple modules that each focus on different aspects of the framework.
+This project serves as a practical guide to Spring Boot 4.1, containing multiple modules that each focus on different aspects of the framework.
 
 ## Prerequisites
 
 - Java 21 or higher
 - Maven 3.8+
-- Spring Boot 4.0.0
+- Spring Boot 4.1.0
 
 ## Project Structure
 
@@ -26,7 +26,7 @@ boot-notes/
 ├── graphql/              # GraphQL API with CRUD operations and pagination
 ├── jms/                  # JMS messaging with JmsClient and embedded Artemis
 ├── kafka/                # Kafka integration with Share Groups and Testcontainers
-├── test/                 # Spring Boot 4.0 & Spring Framework 7 testing enhancements
+├── test/                 # Spring Boot 4.1 & Spring Framework 7 testing enhancements
 ├── soap/                 # SOAP Web Service with Spring-WS and contract-first development
 └── [future-modules]     # Placeholder for upcoming modules
 ```
@@ -47,7 +47,7 @@ boot-notes/
 
 ### 1. Flyway Module
 
-The flyway module demonstrates Flyway database migration management with Spring Boot 4.0, showcasing versioned migrations, callbacks, and comprehensive testing.
+The flyway module demonstrates Flyway database migration management with Spring Boot 4.1, showcasing versioned migrations, callbacks, and comprehensive testing.
 
 #### Features
 - **Flyway Integration**
@@ -86,7 +86,7 @@ The flyway module demonstrates Flyway database migration management with Spring 
 
 ### 2. jOOQ Module
 
-The jooq module demonstrates Spring Boot 4.0 integration with jOOQ (Java Object Oriented Querying) for type-safe SQL database operations, combined with Flyway migrations and PostgreSQL.
+The jooq module demonstrates Spring Boot 4.1 integration with jOOQ (Java Object Oriented Querying) for type-safe SQL database operations, combined with Flyway migrations and PostgreSQL.
 
 #### Features
 - **jOOQ Type-Safe SQL**
@@ -165,7 +165,7 @@ curl -X DELETE http://localhost:8087/api/products/101
 
 ### 3. Resilience Module
 
-The resilience module demonstrates Spring Boot 4.0's enhanced resilience patterns and retry mechanisms.
+The resilience module demonstrates Spring Boot 4.1's enhanced resilience patterns and retry mechanisms.
 
 #### Features
 - **Annotation-based Retry**
@@ -229,7 +229,7 @@ curl -H "API-Version: 2.0" http://localhost:8080/api/products/456
 
 ### 4. HTTP Exchange Module
 
-The http-exchange module demonstrates Spring Boot 4.0's declarative HTTP client capabilities using `@HttpExchange` and `@ImportHttpServices`.
+The http-exchange module demonstrates Spring Boot 4.1's declarative HTTP client capabilities using `@HttpExchange` and `@ImportHttpServices`.
 
 #### Features
 - Declarative HTTP client interfaces
@@ -310,7 +310,7 @@ curl -X DELETE http://localhost:8083/api/demos/1
 
 ### 6. gRPC Module
 
-The gRPC module showcases how to create and consume gRPC services in Spring Boot 4.0 using Protocol Buffers.
+The gRPC module showcases how to create and consume gRPC services in Spring Boot 4.1 using Protocol Buffers.
 
 #### Features
 - **Protocol Buffers Integration**
@@ -335,7 +335,7 @@ The gRPC module showcases how to create and consume gRPC services in Spring Boot
 
 ### 7. GraphQL Module
 
-The graphql module demonstrates building a GraphQL API with Spring Boot 4.0, featuring full CRUD operations, pagination support, and in-memory storage.
+The graphql module demonstrates building a GraphQL API with Spring Boot 4.1, featuring full CRUD operations, pagination support, and in-memory storage.
 
 #### Features
 - **GraphQL API with Spring for GraphQL**
@@ -402,10 +402,10 @@ curl -X POST http://localhost:8080/api/messages \
 
 ### 9. Kafka Module
 
-The kafka module demonstrates Apache Kafka integration with Spring Boot 4.0, showcasing **Kafka Share Groups** (new feature), modern messaging patterns, and Testcontainers for local development.
+The kafka module demonstrates Apache Kafka integration with Spring Boot 4.1, showcasing **Kafka Share Groups** (new feature), modern messaging patterns, and Testcontainers for local development.
 
 #### Features
-- **Kafka Share Groups - New in Spring Boot 4.0**
+- **Kafka Share Groups - New in Spring Boot 4.1**
   ```java
   @KafkaListener(
       topics = "${demo.kafka.topic}",
@@ -458,11 +458,11 @@ curl -X POST http://localhost:8080/api/demos \
 - **Share Groups**: Messages distributed across all instances automatically
 - **Traditional**: Each consumer group gets all messages (fan-out)
 - **Use Case**: Share Groups ideal for work queue patterns with load balancing
-- **Spring Boot 4.0**: First-class support for Kafka Share Groups (KIP-932)
+- **Spring Boot 4.1**: First-class support for Kafka Share Groups (KIP-932)
 
 ### 10. Testing Module
 
-The testing module demonstrates Spring Boot 4.0 and Spring Framework 7's testing improvements, showcasing modern testing practices with JUnit Jupiter (JUnit 5), RestTestClient with AssertJ, context lifecycle management, bean overriding, and @Nested test support.
+The testing module demonstrates Spring Boot 4.1 and Spring Framework 7's testing improvements, showcasing modern testing practices with JUnit Jupiter (JUnit 5), RestTestClient with AssertJ, context lifecycle management, bean overriding, and @Nested test support.
 
 #### Features
 - **JUnit 4 → JUnit 5 Migration**
@@ -471,7 +471,7 @@ The testing module demonstrates Spring Boot 4.0 and Spring Framework 7's testing
   - Modern `@SpringJUnitConfig` annotations
   - Spring 7 deprecates JUnit 4 support
 
-- **RestTestClient with AssertJ** (Spring Boot 4.0)
+- **RestTestClient with AssertJ** (Spring Boot 4.1)
   - Live server testing with `@SpringBootTest`
   - MockMvc-backed testing
   - Fluent AssertJ integration for readable assertions
@@ -496,7 +496,7 @@ The testing module demonstrates Spring Boot 4.0 and Spring Framework 7's testing
   - Event verification in tests
   - Simplified application event testing
 
-- **Testcontainers 2.x Integration** (Spring Boot 4.0)
+- **Testcontainers 2.x Integration** (Spring Boot 4.1)
   - `@ServiceConnection` for automatic configuration
   - Container lifecycle management
   - Zero-configuration integration tests
@@ -520,7 +520,7 @@ The testing module demonstrates Spring Boot 4.0 and Spring Framework 7's testing
 
 ### 11. SOAP Module
 
-The soap module demonstrates how to build a SOAP web service using Spring Boot 4.0 and Spring Web Services (Spring-WS). It showcases a complete contract-first CRUD service implementation for managing Demo entities using SOAP over HTTP.
+The soap module demonstrates how to build a SOAP web service using Spring Boot 4.1 and Spring Web Services (Spring-WS). It showcases a complete contract-first CRUD service implementation for managing Demo entities using SOAP over HTTP.
 
 #### Features
 - **Contract-First Development**
@@ -603,7 +603,7 @@ curl -X POST \
 
 ### 12. [Future Modules]
 
-_More modules will be added to demonstrate other Spring Boot 4.0 features._
+_More modules will be added to demonstrate other Spring Boot 4.1 features._
 
 ## Build and Development
 
@@ -619,7 +619,7 @@ _More modules will be added to demonstrate other Spring Boot 4.0 features._
 
 ## Version Information
 
-- Spring Boot: 4.0.0
+- Spring Boot: 4.1.0
 - Java: 21
 
 ## API Documentation

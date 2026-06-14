@@ -12,7 +12,7 @@
 
     <artifactId>versioning</artifactId>
     <name>boot-notes-versioning</name>
-    <description>Spring Boot 4.0 API Versioning</description>
+    <description>Spring Boot 4.1 API Versioning</description>
 
     <dependencies>
         <dependency>

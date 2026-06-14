@@ -12,7 +12,7 @@
 
     <artifactId>resilience</artifactId>
     <name>boot-notes-resilience</name>
-    <description>Spring Boot 4.0 Resilience</description>
+    <description>Spring Boot 4.1 Resilience</description>
 
     <dependencies>
         <dependency>

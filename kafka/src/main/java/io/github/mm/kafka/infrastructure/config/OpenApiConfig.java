@@ -16,10 +16,10 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("Kafka Demo API")
                         .description(
-                                "Demonstrates Spring Boot 4.0 Kafka integration with REST endpoints for message publishing")
+                                "Demonstrates Spring Boot 4.1 Kafka integration with REST endpoints for message publishing")
                         .version("1.0.0")
                         .contact(new Contact()
-                                .name("Spring Boot 4.0 Demo")
+                                .name("Spring Boot 4.1 Demo")
                                 .url("https://github.com/mm/boot-notes")
                                 .email("contact@example.com"))
                         .license(new License().name("Apache 2.0").url("https://www.apache.org/licenses/LICENSE-2.0")));

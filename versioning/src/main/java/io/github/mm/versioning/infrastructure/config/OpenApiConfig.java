@@ -16,10 +16,10 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("API Versioning Demo")
                         .description(
-                                "Demonstrates Spring Boot 4.0's native API versioning feature using the version attribute in request mappings")
+                                "Demonstrates Spring Boot 4.1's native API versioning feature using the version attribute in request mappings")
                         .version("2.0.0")
                         .contact(new Contact()
-                                .name("Spring Boot 4.0 Demo")
+                                .name("Spring Boot 4.1 Demo")
                                 .url("https://github.com/mm/boot-notes")
                                 .email("contact@example.com"))
                         .license(new License().name("Apache 2.0").url("https://www.apache.org/licenses/LICENSE-2.0")));

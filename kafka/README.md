@@ -1,11 +1,11 @@
 # Kafka Module
 
-This module demonstrates **Apache Kafka integration with Spring Boot 4.0**, showcasing modern messaging patterns, Spring Kafka features, **Kafka Share Groups** (new in Spring Boot 4.0), and **Testcontainers** for local development.
+This module demonstrates **Apache Kafka integration with Spring Boot 4.1**, showcasing modern messaging patterns, Spring Kafka features, **Kafka Share Groups** (new in Spring Boot 4.1), and **Testcontainers** for local development.
 
 ## Features
 
-- ✅ **Spring Kafka** integration with Spring Boot 4.0
-- ✅ **Kafka Share Groups** - Spring Boot 4.0's new load balancing feature
+- ✅ **Spring Kafka** integration with Spring Boot 4.1
+- ✅ **Kafka Share Groups** - Spring Boot 4.1's new load balancing feature
 - ✅ **Producer & Consumer** implementations using `KafkaTemplate` and `@KafkaListener`
 - ✅ **JSON serialization/deserialization** for messages
 - ✅ **Testcontainers** for local development
@@ -15,7 +15,7 @@ This module demonstrates **Apache Kafka integration with Spring Boot 4.0**, show
 
 ## Technology Stack
 
-- **Spring Boot**: 4.0.0
+- **Spring Boot**: 4.1.0
 - **Spring Kafka**: 3.3+ (with Share Group support)
 - **Apache Kafka**: 8.1.0+ (via Testcontainers)
 - **Testcontainers**: For local Kafka instance
@@ -220,9 +220,9 @@ curl -X POST http://localhost:8080/api/demos \
 
 The message will be consumed by the `DemoConsumer` using Kafka Share Groups, which provides automatic load balancing across multiple consumer instances.
 
-## Spring Boot 4.0 Features Demonstrated
+## Spring Boot 4.1 Features Demonstrated
 
-### 1. **Kafka Share Groups** (New in Spring Boot 4.0)
+### 1. **Kafka Share Groups** (New in Spring Boot 4.1)
 - **`ShareKafkaListenerContainerFactory`** for share group support
 - **`ShareConsumerFactory`** configuration
 - Automatic load balancing across consumer instances
@@ -284,9 +284,9 @@ This automatically starts a Confluent Kafka container (8.1.0) with Share Groups 
 
 ## Key Learnings
 
-1. **Kafka Share Groups**: Spring Boot 4.0 introduces native support for Kafka Share Groups, eliminating the need for manual consumer group coordination
+1. **Kafka Share Groups**: Spring Boot 4.1 introduces native support for Kafka Share Groups, eliminating the need for manual consumer group coordination
 2. **Share Group Configuration**: Must remove `isolation.level` and `auto.offset.reset` properties when using share groups
-3. **Testcontainers Integration**: Spring Boot 4.0's `@ServiceConnection` makes it trivial to use Testcontainers
+3. **Testcontainers Integration**: Spring Boot 4.1's `@ServiceConnection` makes it trivial to use Testcontainers
 4. **JSON Serialization**: Spring Kafka's JSON support works seamlessly with records
 5. **Topic Auto-creation**: Spring Boot automatically creates topics defined as beans
 6. **Confluent Kafka**: Using Confluent's Kafka image (8.1.0+) for Share Groups support

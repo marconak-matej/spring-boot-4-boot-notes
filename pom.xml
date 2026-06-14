@@ -14,7 +14,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>boot-notes</name>
-    <description>Boot Notes — My Road to Spring Boot 4.0</description>
+    <description>Boot Notes — My Road to Spring Boot 4.1</description>
 
     <modules>
         <module>resilience</module>

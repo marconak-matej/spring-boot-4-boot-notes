@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.client.RestTestClient;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureRestTestClient
-@DisplayName("RestTestClient - Live Server Testing (Spring Boot 4.0)")
+@DisplayName("RestTestClient - Live Server Testing (Spring Boot 4.1)")
 class ProductApiLiveServerTest {
 
     @Autowired

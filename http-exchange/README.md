@@ -1,6 +1,6 @@
 # HTTP Exchange Module
 
-This module demonstrates Spring Boot 4.0's declarative HTTP client capabilities using `@HttpExchange` annotations and the new `@ImportHttpServices` configuration approach.
+This module demonstrates Spring Boot 4.1's declarative HTTP client capabilities using `@HttpExchange` annotations and the new `@ImportHttpServices` configuration approach.
 
 ## Overview
 
@@ -106,7 +106,7 @@ spring.http.services.product.base-url=https://api.restful-api.dev
 ### Prerequisites
 - Java 21
 - Maven 3.6+
-- Spring Boot 4.0.0
+- Spring Boot 4.1.0
 
 ### Start the Application
 

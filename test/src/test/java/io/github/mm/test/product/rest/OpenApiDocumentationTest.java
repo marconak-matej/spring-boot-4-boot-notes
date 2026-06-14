@@ -26,7 +26,7 @@ class OpenApiDocumentationTest {
 
         String body = response.getResponseBody();
         assertThat(body).isNotNull();
-        assertThat(body).contains("\"title\":\"Spring Boot 4.0 Test Module API\"");
+        assertThat(body).contains("\"title\":\"Spring Boot 4.1 Test Module API\"");
         assertThat(body).contains("\"version\":\"1.0.0\"");
         assertThat(body).contains("/api/products");
     }
@@ -82,7 +82,7 @@ class OpenApiDocumentationTest {
         assertThat(apiDocs).isNotNull();
 
         // Verify global metadata
-        assertThat(apiDocs).contains("Spring Boot 4.0 Test Module API");
+        assertThat(apiDocs).contains("Spring Boot 4.1 Test Module API");
         assertThat(apiDocs).contains("Apache 2.0");
         assertThat(apiDocs).contains("demo@example.com");
         assertThat(apiDocs).contains("Local Development Server");

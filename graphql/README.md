@@ -4,7 +4,7 @@ A Spring Boot GraphQL server implementation with full CRUD operations and pagina
 
 ## Features
 
-- ✅ GraphQL API with Spring Boot 4.0
+- ✅ GraphQL API with Spring Boot 4.1
 - ✅ Full CRUD operations for Product entities
 - ✅ Pagination support for list queries
 - ✅ In-memory ConcurrentHashMap storage (no database required)
@@ -254,7 +254,7 @@ The project includes:
 
 ## Technologies Used
 
-- Spring Boot 4.0.0
+- Spring Boot 4.1.0
 - Spring for GraphQL
 - ConcurrentHashMap for in-memory storage
 - Java 21

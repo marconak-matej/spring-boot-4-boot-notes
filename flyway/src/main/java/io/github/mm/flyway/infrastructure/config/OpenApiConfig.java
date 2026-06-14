@@ -20,7 +20,7 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("Flyway Database Migrations API")
                         .description("""
-                                Spring Boot 4.0 demonstration of Flyway database migrations with PostgreSQL.
+                                Spring Boot 4.1 demonstration of Flyway database migrations with PostgreSQL.
 
                                 ### Pagination
                                 This API supports pagination for list endpoints using the following query parameters:
@@ -31,7 +31,7 @@ public class OpenApiConfig {
                                 Example: `/api/products?page=0&size=20&sort=name,asc`
                                 """)
                         .version("1.0.0")
-                        .contact(new Contact().name("Spring Boot 4.0 Notes").url("https://github.com/mm/boot-notes"))
+                        .contact(new Contact().name("Spring Boot 4.1 Notes").url("https://github.com/mm/boot-notes"))
                         .license(new License().name("Apache 2.0").url("https://www.apache.org/licenses/LICENSE-2.0")))
                 .components(new Components().addSchemas("PageMetadata", createPageMetadataSchema()));
     }

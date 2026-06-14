@@ -1,6 +1,6 @@
 # Spring Boot gRPC Demo Service
 
-This module demonstrates how to build a gRPC service using Spring Boot 4.0 and the official Spring gRPC dependency.
+This module demonstrates how to build a gRPC service using Spring Boot 4.1 and the official Spring gRPC dependency.
 
 ## Overview
 
@@ -13,7 +13,7 @@ This project implements a complete CRUD (Create, Read, Update, Delete) service f
 
 ## Tech Stack
 
-- **Spring Boot 4.0.0**
+- **Spring Boot 4.1.0**
 - **Spring gRPC 0.11.0**
 - **Protocol Buffers (proto3)**
 - **Maven** with `protobuf-maven-plugin` by io.github.ascopes

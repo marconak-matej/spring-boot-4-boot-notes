@@ -16,10 +16,10 @@ public class OpenApiConfig {
     public OpenAPI testModuleOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Spring Boot 4.0 Test Module API")
+                        .title("Spring Boot 4.1 Test Module API")
                         .version("1.0.0")
                         .description("""
-                                Comprehensive REST API demonstrating Spring Boot 4.0 testing capabilities including:
+                                Comprehensive REST API demonstrating Spring Boot 4.1 testing capabilities including:
                                 - JUnit Jupiter 6 integration
                                 - RestTestClient for modern API testing
                                 - AssertJ for fluent assertions
@@ -28,7 +28,7 @@ public class OpenApiConfig {
                                 This API provides product management endpoints for educational purposes.
                                 """)
                         .contact(new Contact()
-                                .name("Spring Boot 4.0 Demo")
+                                .name("Spring Boot 4.1 Demo")
                                 .url("https://github.com/mm/boot-notes")
                                 .email("demo@example.com"))
                         .license(new License().name("Apache 2.0").url("https://www.apache.org/licenses/LICENSE-2.0")))

@@ -11,7 +11,7 @@
 
     <artifactId>jms</artifactId>
     <name>jms</name>
-    <description>JMS with Spring Boot 4.0 - JmsClient demonstration using embedded Artemis</description>
+    <description>JMS with Spring Boot 4.1 - JmsClient demonstration using embedded Artemis</description>
 
     <dependencies>
         <dependency>
