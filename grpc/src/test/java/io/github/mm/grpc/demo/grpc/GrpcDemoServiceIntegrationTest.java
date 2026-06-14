@@ -14,11 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.grpc.client.ImportGrpcClients;
 
-@SpringBootTest(
-        properties = {
-            "spring.grpc.server.port=0",
-            "spring.grpc.client.channels.demo.address=static://localhost:${local.grpc.port}"
-        })
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ImportGrpcClients(types = DemoServiceGrpc.DemoServiceBlockingStub.class)
 @DisplayName("gRPC Demo Service Integration Tests")
 class GrpcDemoServiceIntegrationTest {

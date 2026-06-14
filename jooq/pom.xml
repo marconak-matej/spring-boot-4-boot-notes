@@ -139,6 +139,7 @@
                             <database>
                                 <type>POSTGRES</type>
                                 <containerImage>postgres:16-alpine</containerImage>
+                                <databaseName>jooqdb</databaseName>
                             </database>
                             <flyway>
                                 <locations>
@@ -150,7 +151,6 @@
                             </flyway>
                             <jooq>
                                 <generator>
-
                                     <database>
                                         <includes>.*</includes>
                                         <excludes>flyway_schema_history</excludes>
