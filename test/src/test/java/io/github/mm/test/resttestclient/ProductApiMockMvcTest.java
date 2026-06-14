@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.client.RestTestClient;
 
 @WebMvcTest(ProductApi.class)
 @AutoConfigureRestTestClient
-@DisplayName("RestTestClient - MockMvc Backend Testing (Spring Boot 4.0 RC2)")
+@DisplayName("RestTestClient - MockMvc Backend Testing (Spring Boot 4.0)")
 class ProductApiMockMvcTest {
 
     @MockitoBean

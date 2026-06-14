@@ -14,7 +14,7 @@ This module is dedicated to testing enhancements in Spring Boot 4.0 and Spring F
 - Modern @SpringJUnitConfig annotations
 - **Status**: ✅ Phase 1 Complete
 
-### 2. **RestTestClient with AssertJ** (Spring Boot 4.0 RC2)
+### 2. **RestTestClient with AssertJ** (Spring Boot 4.0)
 - Live server testing with @SpringBootTest
 - MockMvc-backed testing
 - AssertJ integration for fluent assertions
@@ -49,7 +49,7 @@ This module is dedicated to testing enhancements in Spring Boot 4.0 and Spring F
 ### Prerequisites
 - Java 21+
 - Maven 3.8+
-- Spring Boot 4.0.0-RC2
+- Spring Boot 4.0.0
 
 ### Build the Module
 ```bash

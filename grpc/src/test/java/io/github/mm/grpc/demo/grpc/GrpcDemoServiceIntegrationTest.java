@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.grpc.client.ImportGrpcClients;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest
 @ImportGrpcClients(types = DemoServiceGrpc.DemoServiceBlockingStub.class)
 @DisplayName("gRPC Demo Service Integration Tests")
 class GrpcDemoServiceIntegrationTest {

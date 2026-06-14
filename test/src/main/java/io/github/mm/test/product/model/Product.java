@@ -10,10 +10,14 @@ public record Product(
                 accessMode = Schema.AccessMode.READ_ONLY)
         Long id,
 
-        @Schema(description = "Product name", example = "Laptop", required = true)
+        @Schema(description = "Product name", example = "Laptop", requiredMode = Schema.RequiredMode.REQUIRED)
         String name,
 
-        @Schema(description = "Product price in USD", example = "999.99", required = true, minimum = "0")
+        @Schema(
+                description = "Product price in USD",
+                example = "999.99",
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                minimum = "0")
         Double price) {
 
     public Product {

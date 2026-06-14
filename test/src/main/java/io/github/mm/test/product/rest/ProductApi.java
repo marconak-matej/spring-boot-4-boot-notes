@@ -172,15 +172,23 @@ public class ProductApi {
 
     @Schema(description = "Request payload for creating a new product")
     public record CreateProductRequest(
-            @Schema(description = "Product name", example = "Laptop", required = true)
+            @Schema(description = "Product name", example = "Laptop", requiredMode = Schema.RequiredMode.REQUIRED)
             String name,
 
-            @Schema(description = "Product price in USD", example = "999.99", required = true, minimum = "0")
+            @Schema(
+                    description = "Product price in USD",
+                    example = "999.99",
+                    requiredMode = Schema.RequiredMode.REQUIRED,
+                    minimum = "0")
             Double price) {}
 
     @Schema(description = "Request payload for updating product price")
     public record UpdatePriceRequest(
-            @Schema(description = "New price in USD", example = "899.99", required = true, minimum = "0")
+            @Schema(
+                    description = "New price in USD",
+                    example = "899.99",
+                    requiredMode = Schema.RequiredMode.REQUIRED,
+                    minimum = "0")
             Double price) {}
 
     @Schema(description = "Error response with a descriptive message")

@@ -471,7 +471,7 @@ The testing module demonstrates Spring Boot 4.0 and Spring Framework 7's testing
   - Modern `@SpringJUnitConfig` annotations
   - Spring 7 deprecates JUnit 4 support
 
-- **RestTestClient with AssertJ** (Spring Boot 4.0 RC2)
+- **RestTestClient with AssertJ** (Spring Boot 4.0)
   - Live server testing with `@SpringBootTest`
   - MockMvc-backed testing
   - Fluent AssertJ integration for readable assertions
