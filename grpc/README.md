@@ -6,18 +6,22 @@ This module demonstrates how to build a gRPC service using Spring Boot 4.1 and t
 
 This project implements a complete CRUD (Create, Read, Update, Delete) service for managing "Demo" entities using gRPC. It showcases:
 
-- **Spring Boot gRPC integration** using the official `spring-grpc-dependencies`
-- **Protocol Buffers** for service definition and message serialization
-- **Best practices** for gRPC naming conventions and error handling
-- **Comprehensive testing** with unit and integration tests
+- **Spring Boot gRPC Server** using native Spring Boot starter (not external library dependency)
+- **Protocol Buffers (proto3)** for service and message definitions
+- **Spring gRPC Exception Handling** - declarative error handling with `GrpcExceptionHandler` beans
+- **In-memory storage** with ConcurrentHashMap for simple data persistence
+- **Comprehensive integration tests** using Spring Boot Test with gRPC stubs
+- **Best practices** for gRPC service design and error handling
 
 ## Tech Stack
 
 - **Spring Boot 4.1.0**
-- **Spring gRPC 0.11.0**
+- **Spring Boot gRPC Starters** (spring-boot-starter-grpc-server, spring-boot-starter-grpc-client)
+- **Spring Boot Starter gRPC Test** (for integration testing)
 - **Protocol Buffers (proto3)**
-- **Maven** with `protobuf-maven-plugin` by io.github.ascopes
+- **Maven** with `io.github.ascopes:protobuf-maven-plugin` for code generation
 - **Java 21**
+- **gRPC 1.53+** (via Spring Boot dependency management)
 
 ## gRPC Service Definition
 
@@ -54,7 +58,7 @@ The `DemoService` provides the following RPCs:
 ./mvnw spring-boot:run
 ```
 
-The gRPC server will start on port `9090` (configured in `application.properties`).
+The gRPC server will start on port `9090` (configured in `application.yml`).
 
 ### Testing with grpcurl
 
@@ -102,55 +106,80 @@ grpcurl -plaintext -d '{"id":"your-demo-id"}' \
 
 ## Configuration
 
-Key configuration properties in `application.properties`:
+Key configuration properties in `application.yml`:
 
-```properties
-# gRPC Server Configuration
-spring.grpc.server.port=9090
-
-# Application Configuration
-spring.application.name=grpc-demo-service
+```yaml
+spring:
+  application:
+    name: grpc-demo-service
+  grpc:
+    server:
+      port: 9090
 ```
+
+**Configuration Details:**
+- `spring.application.name`: Application name (used for service identification)
+- `spring.grpc.server.port`: Port where gRPC server listens (default: 9090)
 
 ## Error Handling
 
-The service uses Spring gRPC's autoconfigured exception handlers for consistent error handling across all gRPC endpoints. Instead of manual try-catch blocks, we implement `GrpcExceptionHandler` beans that automatically handle exceptions:
+Spring Boot gRPC provides automatic exception handling through `GrpcExceptionHandler` beans. Instead of manual try-catch blocks or status checking, handlers are registered in the Spring context and automatically invoked for matching exceptions.
 
-### Exception Handlers
+### Exception Handlers in This Module
 
-1. **DemoNotFoundExceptionHandler** - Handles `DemoNotFoundException`
-   - Returns gRPC status: `NOT_FOUND`
+1. **NotFoundExceptionHandler** - Handles `NotFoundException`
+   - Returns gRPC status: `NOT_FOUND` (Code: 5)
    - Used when a requested demo doesn't exist
+   - Order: `Integer.MAX_VALUE - 2` (high priority)
 
 2. **ValidationExceptionHandler** - Handles `IllegalArgumentException`
-   - Returns gRPC status: `INVALID_ARGUMENT`
-   - Used for validation errors (blank name, name too long, missing ID)
+   - Returns gRPC status: `INVALID_ARGUMENT` (Code: 3)
+   - Used for validation errors:
+     - Blank or null name
+     - Name exceeding 50 characters
+     - Blank or null ID
 
 3. **GlobalExceptionHandler** - Handles all other exceptions
-   - Returns gRPC status: `INTERNAL`
+   - Returns gRPC status: `INTERNAL` (Code: 13)
    - Fallback handler for unexpected server errors
+   - Order: `Integer.MAX_VALUE` (lowest priority)
+
+### Handler Implementation Pattern
+
+Each handler implements `GrpcExceptionHandler` and is annotated with `@Component`:
+
+```java
+@Component
+@Order(value = Integer.MAX_VALUE - 2)
+public class NotFoundExceptionHandler implements GrpcExceptionHandler {
+    @Override
+    public StatusException handleException(Throwable exception) {
+        if (exception instanceof NotFoundException) {
+            return Status.NOT_FOUND
+                    .withDescription(exception.getMessage())
+                    .withCause(exception)
+                    .asException();
+        }
+        return null; // Return null for unhandled exceptions
+    }
+}
+```
 
 ### How It Works
 
-All you need to do is add `@Bean` or `@Component` annotated classes of type `GrpcExceptionHandler` to your application context, and they will be automatically used by Spring gRPC to handle exceptions thrown by your services. 
+- Spring gRPC automatically discovers and registers all `GrpcExceptionHandler` beans
+- When an exception is thrown in a gRPC service method, handlers are invoked in order
+- Each handler inspects the exception and returns a `StatusException` if it handles it
+- Handlers return `null` if they don't handle the exception (allows chain of responsibility)
+- The `@Order` annotation controls handler precedence (lower value = higher priority)
 
-A `GrpcExceptionHandler` can:
-- Handle exceptions of a specific type (returning `null` for unsupported types)
-- Handle all exceptions (as a global fallback)
+### Advantages Over Manual Error Handling
 
-This approach provides:
-- **Cleaner service code** - No try-catch blocks needed
-- **Consistent error handling** - All services use the same error mapping
-- **Better separation of concerns** - Error handling logic is centralized
-- **Easy to extend** - Just add new handler beans for new exception types
-
-### Error Status Codes
-
-| Exception Type | gRPC Status | Description |
-|----------------|-------------|-------------|
-| `IllegalArgumentException` | `INVALID_ARGUMENT` | Validation errors |
-| `DemoNotFoundException` | `NOT_FOUND` | Resource not found |
-| All others | `INTERNAL` | Unexpected errors |
+- **Cleaner Service Code** - No try-catch blocks needed in service methods
+- **Consistent Error Mapping** - All services use the same error translation
+- **Better Separation of Concerns** - Error handling logic is centralized and reusable
+- **Easy to Extend** - Add new handlers without modifying service code
+- **Framework Integration** - Works seamlessly with Spring Boot's component scanning
 
 ## Best Practices Implemented
 
@@ -174,71 +203,101 @@ This approach provides:
 
 ## Dependencies
 
-Key dependencies in `pom.xml`:
+Key dependencies from `pom.xml` (inherited via Spring Boot parent):
 
 ```xml
-<dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.grpc</groupId>
-            <artifactId>spring-grpc-dependencies</artifactId>
-            <version>${spring-grpc.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-    </dependencies>
-</dependencyManagement>
-
 <dependencies>
+    <!-- Core Spring Boot -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter</artifactId>
     </dependency>
+
+    <!-- gRPC Server (Spring Boot Starter) -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-grpc-server</artifactId>
+    </dependency>
+
+    <!-- gRPC Services (reflection, health checks, etc.) -->
     <dependency>
         <groupId>io.grpc</groupId>
         <artifactId>grpc-services</artifactId>
     </dependency>
-    <dependency>
-        <groupId>org.springframework.grpc</groupId>
-        <artifactId>spring-grpc-spring-boot-starter</artifactId>
-    </dependency>
+
+    <!-- Testing -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-test</artifactId>
         <scope>test</scope>
     </dependency>
+
+    <!-- gRPC Client for Testing -->
     <dependency>
-        <groupId>org.springframework.grpc</groupId>
-        <artifactId>spring-grpc-test</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-grpc-client</artifactId>
         <scope>test</scope>
     </dependency>
+
+    <!-- Spring Boot gRPC Server Test Utilities -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-grpc-server-test</artifactId>
+        <scope>test</scope>
+    </dependency>
+
+    <!-- Spring Boot gRPC Client Test Utilities -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-grpc-client-test</artifactId>
+        <scope>test</scope>
+    </dependency>
+
+    <!-- gRPC Testing Utilities -->
     <dependency>
         <groupId>io.grpc</groupId>
         <artifactId>grpc-testing</artifactId>
         <scope>test</scope>
+        <exclusions>
+            <exclusion>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+            </exclusion>
+        </exclusions>
     </dependency>
 </dependencies>
 ```
 
-## Protocol Buffers Plugin
+**Key Spring Boot Starters:**
+- `spring-boot-starter-grpc-server` - Enables gRPC server auto-configuration
+- `spring-boot-starter-grpc-client` - Enables gRPC client auto-configuration (test scope)
+- `spring-boot-starter-grpc-server-test` - Server testing utilities
+- `spring-boot-starter-grpc-client-test` - Client testing utilities
 
-Using the `io.github.ascopes` protobuf-maven-plugin for generating Java code from `.proto` files:
+These starters are automatically managed by the Spring Boot parent POM.
+
+## Protocol Buffers Configuration
+
+The project uses the `io.github.ascopes:protobuf-maven-plugin` for generating Java code from `.proto` files.
+
+### Build Configuration
 
 ```xml
 <plugin>
     <groupId>io.github.ascopes</groupId>
     <artifactId>protobuf-maven-plugin</artifactId>
-    <version>${protobuf-maven-plugin.version}</version>
     <configuration>
-        <protocVersion>${protobuf-java.version}</protocVersion>
-        <binaryMavenPlugins>
-            <binaryMavenPlugin>
+        <!-- Use protoc version from parent POM -->
+        <protoc>${protobuf-java.version}</protoc>
+        
+        <!-- Configure gRPC code generator -->
+        <plugins>
+            <plugin kind="binary-maven">
                 <groupId>io.grpc</groupId>
                 <artifactId>protoc-gen-grpc-java</artifactId>
-                <version>${grpc.version}</version>
                 <options>@generated=omit</options>
-            </binaryMavenPlugin>
-        </binaryMavenPlugins>
+            </plugin>
+        </plugins>
     </configuration>
     <executions>
         <execution>
