@@ -28,6 +28,7 @@ boot-notes/
 ├── kafka/                # Kafka integration with Share Groups and Testcontainers
 ├── test/                 # Spring Boot 4.1 & Spring Framework 7 testing enhancements
 ├── soap/                 # SOAP Web Service with Spring-WS and contract-first development
+├── start-up/             # Application startup lifecycle hooks and callbacks
 └── [future-modules]     # Placeholder for upcoming modules
 ```
 
@@ -188,7 +189,7 @@ The resilience module demonstrates Spring Boot 4.1's enhanced resilience pattern
 ./mvnw spring-boot:run -pl resilience
 ```
 
-### 3. Versioning Module
+### 4. Versioning Module
 
 The versioning module showcases Spring Framework 7's first-class API versioning support through a real-world e-commerce Product catalog API.
 
@@ -227,7 +228,7 @@ curl -H "API-Version: 1.0" http://localhost:8080/api/products/456
 curl -H "API-Version: 2.0" http://localhost:8080/api/products/456
 ```
 
-### 4. HTTP Exchange Module
+### 5. HTTP Exchange Module
 
 The http-exchange module demonstrates Spring Boot 4.1's declarative HTTP client capabilities using `@HttpExchange` and `@ImportHttpServices`.
 
@@ -258,7 +259,7 @@ Add to `http-exchange/src/main/resources/application.properties`:
 spring.http.services.product.base-url=https://api.restful-api.dev
 ```
 
-### 5. HTTP Client Module
+### 6. HTTP Client Module
 
 The http-client module demonstrates different ways to make HTTP requests in Spring Boot without using `@HttpExchange`. It includes a DemoApi REST endpoint and comprehensive integration tests showing various HTTP client approaches.
 
@@ -308,7 +309,7 @@ curl -X DELETE http://localhost:8083/api/demos/1
 ./mvnw test -pl http-client -Dtest=RestClientIntegrationTest
 ```
 
-### 6. gRPC Module
+### 7. gRPC Module
 
 The gRPC module showcases how to create and consume gRPC services in Spring Boot 4.1 using Protocol Buffers.
 
@@ -333,7 +334,7 @@ The gRPC module showcases how to create and consume gRPC services in Spring Boot
 ./mvnw spring-boot:run -pl grpc
 ```
 
-### 7. GraphQL Module
+### 8. GraphQL Module
 
 The graphql module demonstrates building a GraphQL API with Spring Boot 4.1, featuring full CRUD operations, pagination support, and in-memory storage.
 
@@ -358,7 +359,7 @@ The graphql module demonstrates building a GraphQL API with Spring Boot 4.1, fea
 ./mvnw spring-boot:run -pl graphql
 ```
 
-### 8. JMS Module
+### 9. JMS Module
 
 The jms module demonstrates Spring Framework 7.0's new **JmsClient** API for simplified JMS messaging operations with embedded Apache ActiveMQ Artemis.
 
@@ -400,7 +401,7 @@ curl -X POST http://localhost:8080/api/messages \
 - **Simplified Operations**: Common operations are more straightforward
 - **MessagingException**: Better exception handling alignment
 
-### 9. Kafka Module
+### 10. Kafka Module
 
 The kafka module demonstrates Apache Kafka integration with Spring Boot 4.1, showcasing **Kafka Share Groups** (new feature), modern messaging patterns, and Testcontainers for local development.
 
@@ -460,7 +461,7 @@ curl -X POST http://localhost:8080/api/demos \
 - **Use Case**: Share Groups ideal for work queue patterns with load balancing
 - **Spring Boot 4.1**: First-class support for Kafka Share Groups (KIP-932)
 
-### 10. Testing Module
+### 11. Testing Module
 
 The testing module demonstrates Spring Boot 4.1 and Spring Framework 7's testing improvements, showcasing modern testing practices with JUnit Jupiter (JUnit 5), RestTestClient with AssertJ, context lifecycle management, bean overriding, and @Nested test support.
 
@@ -518,7 +519,7 @@ The testing module demonstrates Spring Boot 4.1 and Spring Framework 7's testing
 ./mvnw test -pl test -Dtest=JUnit5ComposedAnnotationsTest#shouldCreateProduct
 ```
 
-### 11. SOAP Module
+### 12. SOAP Module
 
 The soap module demonstrates how to build a SOAP web service using Spring Boot 4.1 and Spring Web Services (Spring-WS). It showcases a complete contract-first CRUD service implementation for managing Demo entities using SOAP over HTTP.
 
@@ -601,7 +602,38 @@ curl -X POST \
 - **Spring Boot Integration** - Zero-configuration SOAP servlet setup
 - **Exception Mapping** - Automatic SOAP fault generation from exceptions
 
-### 12. [Future Modules]
+### 13. Startup Module
+
+The startup module demonstrates the **Spring Boot 4.1 application startup lifecycle**, showcasing the precise order in which initialization hooks, callbacks, event listeners, and runners are invoked during application bootstrap.
+
+#### Features
+- **Lifecycle Hook Execution Order**
+  - `ApplicationContextInitializer` -- Before context refresh, no beans available
+  - `@Bean` factory method -- Bean definition executes
+  - Constructor -- Bean instantiation
+  - `@PostConstruct` -- JSR-250 lifecycle callback
+  - `InitializingBean.afterPropertiesSet()` -- Spring initialization callback
+  - `@Bean(initMethod="start")` -- Custom init method
+  - `SmartInitializingSingleton` -- All eager singletons ready
+  - `ContextRefreshedEvent` -- Context fully refreshed
+  - `ApplicationStartedEvent` -- After refresh, before runners
+  - `ApplicationRunner` -- Context ready with parsed args
+  - `CommandLineRunner` -- Context ready with raw args
+  - `ApplicationReadyEvent` -- Application fully up and serving (last event)
+
+- **Universal Event Listener**
+  - `ApplicationListener<ApplicationEvent>` captures every event during startup
+  - Full visibility into the entire boot sequence
+  - All event types logged by class name
+
+#### Running the Startup Module
+```bash
+./mvnw spring-boot:run -pl start-up
+```
+
+The application runs on port **8088**.
+
+### 14. [Future Modules]
 
 _More modules will be added to demonstrate other Spring Boot 4.1 features._
 
@@ -645,6 +677,7 @@ After starting any module, you can access:
 - **kafka**: `8085`
 - **test**: `8086`
 - **soap**: `8088`
+- **start-up**: `8088`
 
 ### Features
 
