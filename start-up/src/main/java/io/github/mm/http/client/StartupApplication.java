@@ -19,33 +19,53 @@ import org.springframework.context.event.EventListener;
 class LifecycleBean implements InitializingBean, SmartInitializingSingleton, ApplicationRunner, CommandLineRunner {
     private static final Logger log = LoggerFactory.getLogger(LifecycleBean.class);
 
-    public LifecycleBean() { log.info("03 Constructor"); }
+    public LifecycleBean() {
+        log.info("03 Constructor");
+    }
 
     @PostConstruct
-    void postConstruct() { log.info("04 @PostConstruct"); }
+    void postConstruct() {
+        log.info("04 @PostConstruct");
+    }
 
     @Override
-    public void afterPropertiesSet() { log.info("05 InitializingBean.afterPropertiesSet()"); }
+    public void afterPropertiesSet() {
+        log.info("05 InitializingBean.afterPropertiesSet()");
+    }
 
-    public void start() { log.info("06 @Bean(initMethod)"); }
+    public void start() {
+        log.info("06 @Bean(initMethod)");
+    }
 
     @Override
-    public void afterSingletonsInstantiated() { log.info("6.5 SmartInitializingSingleton"); }
+    public void afterSingletonsInstantiated() {
+        log.info("6.5 SmartInitializingSingleton");
+    }
 
     @EventListener(ContextRefreshedEvent.class)
-    void onContextRefreshed() { log.info("07 ContextRefreshedEvent"); }
+    void onContextRefreshed() {
+        log.info("07 ContextRefreshedEvent");
+    }
 
     @EventListener(ApplicationStartedEvent.class)
-    void onStarted() { log.info("07b ApplicationStartedEvent"); }
+    void onStarted() {
+        log.info("07b ApplicationStartedEvent");
+    }
 
     @Override
-    public void run(ApplicationArguments args) { log.info("08 ApplicationRunner"); }
+    public void run(ApplicationArguments args) {
+        log.info("08 ApplicationRunner");
+    }
 
     @Override
-    public void run(String... args) { log.info("09 CommandLineRunner"); }
+    public void run(String... args) {
+        log.info("09 CommandLineRunner");
+    }
 
     @EventListener(ApplicationReadyEvent.class)
-    void onReady() { log.info("10 ApplicationReadyEvent"); }
+    void onReady() {
+        log.info("10 ApplicationReadyEvent");
+    }
 }
 
 @SpringBootApplication
