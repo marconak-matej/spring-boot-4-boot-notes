@@ -29,6 +29,7 @@ boot-notes/
 ├── test/                 # Spring Boot 4.1 & Spring Framework 7 testing enhancements
 ├── soap/                 # SOAP Web Service with Spring-WS and contract-first development
 ├── start-up/             # Application startup lifecycle hooks and callbacks
+├── shut-down/            # Application shutdown lifecycle hooks and callbacks
 └── [future-modules]     # Placeholder for upcoming modules
 ```
 
@@ -633,7 +634,26 @@ The startup module demonstrates the **Spring Boot 4.1 application startup lifecy
 
 The application runs on port **8088**.
 
-### 14. [Future Modules]
+### 14. Shutdown Module
+
+The shutdown module demonstrates the **Spring Boot 4.1 application shutdown lifecycle**, showcasing the precise order in which destruction hooks, callbacks, event listeners, and lifecycle methods are invoked during application teardown.
+
+#### Features
+- **@PreDestroy** -- Jakarta annotation for local bean cleanup
+- **DisposableBean.destroy()** -- Spring-specific callback for programmatic teardown
+- **Custom destroyMethod** -- Defined via `@Bean(destroyMethod="cleanup")` for 3rd-party code
+- **JVM shutdown hook** -- `Runtime.getRuntime().addShutdownHook(...)` for lowest-level cleanup
+- **ContextClosedEvent** -- Fires when the context begins closing
+- **SmartLifecycle.stop()** -- Pre-destruction phase callback for graceful shutdown
+
+#### Running the Shutdown Module
+```bash
+./mvnw spring-boot:run -pl shut-down
+```
+
+The application runs on port **8089**. Press `Ctrl+C` to trigger the shutdown sequence.
+
+### 15. [Future Modules]
 
 _More modules will be added to demonstrate other Spring Boot 4.1 features._
 
@@ -678,6 +698,7 @@ After starting any module, you can access:
 - **test**: `8086`
 - **soap**: `8088`
 - **start-up**: `8088`
+- **shut-down**: `8089`
 
 ### Features
 

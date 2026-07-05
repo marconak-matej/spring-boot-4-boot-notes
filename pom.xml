@@ -29,6 +29,7 @@
         <module>test</module>
         <module>flyway</module>
         <module>start-up</module>
+        <module>shut-down</module>
 <!--        <module>jooq</module>-->
     </modules>
 
