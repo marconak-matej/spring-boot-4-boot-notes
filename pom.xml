@@ -30,6 +30,7 @@
         <module>flyway</module>
         <module>start-up</module>
         <module>shut-down</module>
+        <module>beans</module>
 <!--        <module>jooq</module>-->
     </modules>
 

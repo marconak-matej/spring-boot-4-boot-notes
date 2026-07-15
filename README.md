@@ -8,7 +8,7 @@ This project serves as a practical guide to Spring Boot 4.1, containing multiple
 
 ## Prerequisites
 
-- Java 21 or higher
+- Java 25 or higher
 - Maven 3.8+
 - Spring Boot 4.1.0
 
@@ -30,6 +30,7 @@ boot-notes/
 ├── soap/                 # SOAP Web Service with Spring-WS and contract-first development
 ├── start-up/             # Application startup lifecycle hooks and callbacks
 ├── shut-down/            # Application shutdown lifecycle hooks and callbacks
+├── beans/                # Bean creation mechanisms and registration patterns
 └── [future-modules]     # Placeholder for upcoming modules
 ```
 
@@ -653,7 +654,40 @@ The shutdown module demonstrates the **Spring Boot 4.1 application shutdown life
 
 The application runs on port **8089**. Press `Ctrl+C` to trigger the shutdown sequence.
 
-### 15. [Future Modules]
+### 15. Beans Module
+
+The beans module demonstrates the **different ways beans can be created and registered** in a Spring Boot 4.1 application—covering annotation scanning, `@Import`-based registration, and programmatic/manual approaches, all exercised in a single reusable `ApplicationContext`.
+
+#### Features
+- **Annotation-Based Registration**
+  - `@Component`, `@Service`, `@Repository` discovered via component scan
+  - `@Scope("prototype")` for non-singleton instances
+
+- **@Configuration + @Bean Variants**
+  - Basic `@Bean` factory methods
+  - `@Primary` and `@Qualifier` for candidate selection
+  - `@ConditionalOnProperty` for environment-driven registration
+  - `@Lazy` for deferred instantiation
+  - `FactoryBean` for indirect bean manufacturing
+  - `BeanDefinitionRegistryPostProcessor` for bean definition registration during bootstrap
+
+- **@Import-Based Registration**
+  - Import a `@Configuration` class directly
+  - `ImportSelector` for programmatically choosing which configs to load
+  - `ImportBeanDefinitionRegistrar` for metadata-driven `BeanDefinition` registration
+
+- **Manual / Programmatic Registration**
+  - `ApplicationContextInitializer` for registration during startup
+  - `registerBean(...)` with `Supplier` after context refresh
+  - `BeanDefinitionBuilder` + `BeanDefinitionRegistry` after startup
+  - `registerSingleton(...)` for pre-built objects
+
+#### Running the Beans Module
+```bash
+./mvnw spring-boot:run -pl beans
+```
+
+### 16. [Future Modules]
 
 _More modules will be added to demonstrate other Spring Boot 4.1 features._
 
@@ -672,7 +706,7 @@ _More modules will be added to demonstrate other Spring Boot 4.1 features._
 ## Version Information
 
 - Spring Boot: 4.1.0
-- Java: 21
+- Java: 25
 
 ## API Documentation
 
