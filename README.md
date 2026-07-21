@@ -31,6 +31,7 @@ boot-notes/
 ├── start-up/             # Application startup lifecycle hooks and callbacks
 ├── shut-down/            # Application shutdown lifecycle hooks and callbacks
 ├── beans/                # Bean creation mechanisms and registration patterns
+├── http-get/             # HTTP GET — 4 ways: Annotation, Functional, Servlet, Cloud Function
 └── [future-modules]     # Placeholder for upcoming modules
 ```
 
@@ -687,7 +688,24 @@ The beans module demonstrates the **different ways beans can be created and regi
 ./mvnw spring-boot:run -pl beans
 ```
 
-### 16. [Future Modules]
+### 16. HTTP GET Module
+
+The http-get module demonstrates **4 different ways to handle HTTP GET requests** in Spring Boot 4.1 — from standard annotation-driven controllers to programmatic functional endpoints, raw servlet registration, and Spring Cloud Function.
+
+#### Features
+- **Annotation-Based Controller** — `@RestController` with `@GetMapping` / `@RequestMapping`
+- **Functional Endpoints** — `RouterFunction<ServerResponse>` beans with a dedicated `Handler` class (servlet-stack, no WebFlux needed)
+- **Raw Servlet Registration** — `ServletRegistrationBean<HttpServlet>` bypasses Spring MVC entirely
+- **Spring Cloud Function** — `Supplier<String>` bean auto-exposed as a GET endpoint by `spring-cloud-function-web`
+
+#### Running the HTTP GET Module
+```bash
+./mvnw spring-boot:run -pl http-get
+```
+
+The application runs on port **8085**.
+
+### 17. [Future Modules]
 
 _More modules will be added to demonstrate other Spring Boot 4.1 features._
 
@@ -733,6 +751,7 @@ After starting any module, you can access:
 - **soap**: `8088`
 - **start-up**: `8088`
 - **shut-down**: `8089`
+- **http-get**: `8085`
 
 ### Features
 

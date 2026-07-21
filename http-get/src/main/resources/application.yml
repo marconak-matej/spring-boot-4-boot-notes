@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: http-get
+  cloud:
+    function:
+      web:
+        path: /cloud
+
+server:
+  port: 8085
