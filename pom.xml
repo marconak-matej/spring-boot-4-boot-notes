@@ -47,7 +47,7 @@
         <!-- plugins -->
         <spotless-maven-plugin.version>3.9.0</spotless-maven-plugin.version>
         <palantir.version>2.80.0</palantir.version>
-        <graphqlcodegen-maven-plugin.version>3.8.0</graphqlcodegen-maven-plugin.version>
+        <graphqlcodegen-maven-plugin.version>3.9.0</graphqlcodegen-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
