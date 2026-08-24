@@ -14,7 +14,7 @@
     <description>HTTP GET — Ways: Annotation, Functional Endpoints, Raw Servlet, Cloud Function</description>
 
     <properties>
-        <spring-cloud.version>2025.1.2</spring-cloud.version>
+        <spring-cloud.version>2025.1.3</spring-cloud.version>
     </properties>
 
     <dependencies>
