@@ -45,7 +45,7 @@
         <springdoc-openapi.version>3.1.1</springdoc-openapi.version>
 
         <!-- plugins -->
-        <spotless-maven-plugin.version>3.10.3</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>3.10.4</spotless-maven-plugin.version>
         <palantir.version>2.80.0</palantir.version>
         <graphqlcodegen-maven-plugin.version>3.10.1</graphqlcodegen-maven-plugin.version>
     </properties>
