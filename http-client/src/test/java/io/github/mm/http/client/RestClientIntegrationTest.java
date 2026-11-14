@@ -147,9 +147,10 @@ class RestClientIntegrationTest extends AbstractIntegrationTest {
                 .get()
                 .uri(baseUrl() + "/999999")
                 .retrieve()
-                .onStatus(HttpStatusCode::is4xxClientError, (_, response) -> assertThat(
-                                response.getStatusCode().value())
-                        .isEqualTo(404))
+                .onStatus(
+                        HttpStatusCode::is4xxClientError,
+                        (_, response) ->
+                                assertThat(response.getStatusCode().value()).isEqualTo(404))
                 .toBodilessEntity();
     }
 

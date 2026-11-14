@@ -181,15 +181,18 @@ class ProductApiTest {
                 .isEqualTo(true);
 
         // Verify it's deleted - should return an error
-        graphQlTester.document("""
+        graphQlTester
+                .document("""
                 query {
                     product(id: "%s") {
                         id
                     }
                 }
-                """.formatted(productId)).execute().errors().expect(error -> Objects.requireNonNull(
-                        error.getMessage())
-                .contains("Product not found with id: " + productId));
+                """.formatted(productId))
+                .execute()
+                .errors()
+                .expect(error ->
+                        Objects.requireNonNull(error.getMessage()).contains("Product not found with id: " + productId));
     }
 
     @Test
